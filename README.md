@@ -1,2 +1,2 @@
-# DonationStation
+# CauseConnect
 Senior Design Project
