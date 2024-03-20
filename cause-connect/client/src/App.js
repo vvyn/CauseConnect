@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 export default function App() {
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    fetch("http://localhost:3001/api")
-      .then((response) => response.json())
-      .then((data) => setMessage(data.message))
-      .catch((error) => console.error("Error fetching message:", error));
-  }, []);
-
-  return (
-    <div>
-      <p>{message}</p>
-    </div>
-  );
+  return <h1>Connect</h1>;
 }
