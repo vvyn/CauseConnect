@@ -3,7 +3,7 @@ import React from "react";
 export default function Profile() {
   return (
     <div>
-      <p>Hi</p>
+      <p>Hi33</p>
     </div>
   );
 }
