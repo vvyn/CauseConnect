@@ -1,31 +1,32 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import "../styles/Login.css";
 import { auth } from "../../Firebase";
 
 export default function App() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-
+  const [email, setLoginEmail] = useState("");
+  const [password, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   });
 
   const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        setUser(userCredential.user);
+        alert(user.email + " Successfully logged In");
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert(errorMessage);
+      });
   };
 
   return (
@@ -33,12 +34,14 @@ export default function App() {
       <div>
         <h3> Login </h3>
         <input
+          type="email"
           placeholder="Email..."
           onChange={(event) => {
             setLoginEmail(event.target.value);
           }}
         />
         <input
+          type="password"
           placeholder="Password..."
           onChange={(event) => {
             setLoginPassword(event.target.value);
@@ -47,9 +50,6 @@ export default function App() {
 
         <button onClick={login}> Login</button>
       </div>
-
-      <h4> User Logged In: </h4>
-      {user?.email}
     </div>
   );
 }
