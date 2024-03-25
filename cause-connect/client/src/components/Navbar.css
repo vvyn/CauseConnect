@@ -1,5 +1,4 @@
 .navbar {
-<<<<<<< HEAD
   width: 100%;
   height: 50px;
   display: flex;
@@ -17,22 +16,3 @@
   color: white;
   background-color: #ffb86a;
 }
-=======
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    background-color: #FFE9BF;
-  }
-
-  .btn {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 6px 8px;
-    font-size: 12px;
-    margin-left: 20px;
-    color: white;
-    background-color: #FFB86A;
-  }
->>>>>>> 0667c21f8e6ab04babd66be9e95f731a2f56a4a0

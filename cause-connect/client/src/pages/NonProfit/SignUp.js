@@ -22,7 +22,6 @@ export default function Signup_NP() {
   };
   return (
     <div>
-<<<<<<< HEAD
       <h1> Nonprofit Signup </h1>
       <label> Email: </label>
       <input
@@ -42,11 +41,7 @@ export default function Signup_NP() {
           setRegisterPassword(event.target.value);
         }}
       />
-
       <button onClick={signup}> Create User</button>
-=======
-      <p>Hi44</p>
->>>>>>> 0667c21f8e6ab04babd66be9e95f731a2f56a4a0
     </div>
   );
 }
