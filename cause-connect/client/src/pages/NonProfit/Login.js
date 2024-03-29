@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "../styles/Login.css";
 import { auth } from "../../Firebase";
 
 export default function App() {
