@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import "./App.css";
 
 export default function App() {
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    fetch("http://localhost:3001/api")
-      .then((response) => response.json())
-      .then((data) => setMessage(data.message))
-      .catch((error) => console.error("Error fetching message:", error));
-  }, []);
-
   return (
-    <div>
+    <div className="App">
       <NavBar />
       <Outlet />
+      <Sidebar />
+      <Footer />
     </div>
   );
