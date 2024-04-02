@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/Login.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
+import Button from '@mui/material/Button';
 //import { register } from "module";
 
 export default function Signup_NP() {
@@ -22,7 +23,7 @@ export default function Signup_NP() {
   };
   return (
     <div>
-      <h1> Nonprofit Signup </h1>
+      <h1> <center> Signup </center> </h1>
       <label> Email: </label>
       <input
         type="email"
@@ -41,6 +42,7 @@ export default function Signup_NP() {
           setRegisterPassword(event.target.value);
         }}
       />
+      <button className="bg-orange-400 p-2 rounded-md text-white"> Sign Up </button>
       <button onClick={signup}> Create User</button>
     </div>
   );
