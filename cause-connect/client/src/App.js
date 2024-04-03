@@ -10,7 +10,8 @@ export default function App() {
     <div className="App">
       <NavBar />
       <Outlet />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Footer />
     </div>
   );
+}
