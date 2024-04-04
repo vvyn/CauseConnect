@@ -4,9 +4,6 @@ import Sidebar from "../../components/Sidebar";
 export default function Donor() {
   return (
     <div>
-      <div className="flex">
-        <Sidebar />
-      </div>
       <h1>Donor</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
