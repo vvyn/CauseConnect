@@ -17,7 +17,7 @@ import NPProfile from "./pages/NonProfit/Profile";
 import NPVolunteer from "./pages/NonProfit/Volunteer";
 import NPDonor from "./pages/NonProfit/Donor";
 import Error from "./pages/Error";
-import Dashbaord from "./pages/dashboard/index";
+import Dashbaord from "./pages/dashboard/Dashboard";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";

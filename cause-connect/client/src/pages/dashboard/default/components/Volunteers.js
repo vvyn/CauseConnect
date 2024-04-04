@@ -14,7 +14,7 @@ import {
 // Assets
 import { RiArrowUpSFill } from "react-icons/ri";
 
-export default function DailyTraffic(props) {
+export default function Volunteers(props) {
   const { ...rest } = props;
 
   // Chakra Color Mode
@@ -30,7 +30,7 @@ export default function DailyTraffic(props) {
               fontSize="sm"
               fontWeight="500"
             >
-              Daily Traffic
+              Volunteers Signups
             </Text>
           </Flex>
           <Flex align="end">
@@ -40,7 +40,7 @@ export default function DailyTraffic(props) {
               fontWeight="700"
               lineHeight="100%"
             >
-              2.579
+              57
             </Text>
             <Text
               ms="6px"
@@ -48,7 +48,7 @@ export default function DailyTraffic(props) {
               fontSize="sm"
               fontWeight="500"
             >
-              Visitors
+              Volunteers
             </Text>
           </Flex>
         </Flex>

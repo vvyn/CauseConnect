@@ -17,7 +17,7 @@ import {
 } from "../../variables/charts";
 import { MdBarChart } from "react-icons/md";
 
-export default function WeeklyRevenue(props) {
+export default function WeeklyDonations(props) {
   const { ...rest } = props;
 
   // Chakra Color Mode
@@ -42,7 +42,7 @@ export default function WeeklyRevenue(props) {
           fontWeight="700"
           lineHeight="100%"
         >
-          Weekly Revenue
+          Weekly Donations
         </Text>
         <Button
           align="center"

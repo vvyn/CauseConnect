@@ -18,9 +18,9 @@ import { RiArrowUpSFill } from "react-icons/ri";
 import {
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
-} from "../../../dashboard/variables/charts";
+} from "../../variables/charts";
 
-export default function TotalSpent(props) {
+export default function TotalRaised(props) {
   const { ...rest } = props;
 
   // Chakra Color Mode
@@ -100,7 +100,7 @@ export default function TotalSpent(props) {
               mt="4px"
               me="12px"
             >
-              Total Spent
+              Total Donations Collected
             </Text>
             <Flex align="center">
               <Icon as={RiArrowUpSFill} color="green.500" me="2px" mt="2px" />
