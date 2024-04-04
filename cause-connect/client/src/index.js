@@ -40,9 +40,9 @@ root.render(
           <Route path="np/login" element={<NPLogin />} />
           <Route path="np/welcome" element={<NPWelcome />} />
           <Route path="np/profile" element={<NPProfile />} />
-          <Route path="np/donor" element={<NPDonor />} />
+          <Route path="np/donor" element={<Dashbaord />} />
           <Route path="np/volunteer" element={<NPVolunteer />} />
-          <Route path="admin/dashboard" element={<Dashbaord />} />
+          <Route path="np/dashboard" element={<Dashbaord />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
