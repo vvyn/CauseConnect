@@ -1,20 +1,34 @@
+import "../styles/Footer.css";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
+
 export default function Footer() {
   return (
-    <div className="bg-orange-300 flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between">
-      <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
-        <li>
-            About Us
-        </li>
-        <li>
-            License
-        </li>
-        <li>
-            Contribute
-        </li>
-        <li>
-            Contact Us
-        </li>
-      </ul>
+    <div className="Footer flex justify-center items-center">
+      <div>
+        <img
+          className="h-10 absolute left-10"
+          src="../CauseConnect-logo.png"
+          alt="logo"
+        />
+      </div>
+      <div className="flex flex-col">
+        <ul className="flex items-center justify-center p-5">
+          <li className="p-5">About Us</li>
+          <li className="p-5">License</li>
+          <li className="p-5">Contribute</li>
+          <li className="p-5">Contact Us</li>
+        </ul>
+        <span className="text-center">© 2024 CauseConnect</span>
+      </div>
+      <div className="flex absolute right-20">
+        <FacebookIcon className="mr-5" />
+        <LinkedInIcon className="mr-5" />
+        <TwitterIcon className="mr-5" />
+        <InstagramIcon className="mr-5" />
+      </div>
     </div>
   );
 }
