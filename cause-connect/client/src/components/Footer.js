@@ -17,7 +17,6 @@ export default function Footer() {
       <div className="flex flex-col">
         <ul className="flex items-center justify-center p-5">
           <li className="p-5">About Us</li>
-          <li className="p-5">License</li>
           <li className="p-5">Contribute</li>
           <li className="p-5">Contact Us</li>
         </ul>
