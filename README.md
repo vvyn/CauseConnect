@@ -1,11 +1,11 @@
 # CauseConnect
 Senior Design Project
 
-- # IF ERRORS
+# errors
 - npm i --force
 
-- # IF pull doesnt work to reflect changes on main
-- git fetch origin main (on ur personal branch)
+# pull doesnt work to reflect changes on main
+- git fetch (or pull?) origin main (on ur personal branch)
 
 # load app
 - cd cause-connect

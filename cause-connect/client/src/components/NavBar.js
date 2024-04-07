@@ -1,51 +1,50 @@
 import React from "react";
-import "./Navbar.css";
 
 function NavBar() {
   return (
-    <div className="navbar">
-      <div className="">
+    <div className="bg-orange-200 flex align-center">
+      <div className="p-6">
         <a href="/">
-          <button className="btn">Home</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Home</button>
         </a>
         <a href="/vd/donor">
-          <button className="btn"> VD Donor</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donor</button>
         </a>
         <a href="/vd/login">
-          <button className="btn">VD Login</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Login</button>
         </a>
         <a href="/vd/profile">
-          <button className="btn">VD Profile</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Profile</button>
         </a>
         <a href="/vd/signup">
-          <button className="btn">VD Signup</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Signup</button>
         </a>
         <a href="/vd/volunteer">
-          <button className="btn">VD Volunteer</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Volunteer</button>
         </a>
         <a href="/vd/welcome">
-          <button className="btn">VD Welcome</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Welcome</button>
         </a>
         <a href="/np/donor">
-          <button className="btn"> NP Donor</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> NP Donor</button>
         </a>
         <a href="/np/login">
-          <button className="btn">NP Login</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Login</button>
         </a>
         <a href="/np/profile">
-          <button className="btn">NP Profile</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Profile</button>
         </a>
         <a href="/np/signup">
-          <button className="btn">NP Signup</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Signup</button>
         </a>
         <a href="/np/volunteer">
-          <button className="btn">NP Volunteer</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Volunteer</button>
         </a>
         <a href="/np/welcome">
-          <button className="btn">NP Welcome</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Welcome</button>
         </a>
         <a href="/*">
-          <button className="btn">Error</button>
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Error</button>
         </a>
       </div>
     </div>
