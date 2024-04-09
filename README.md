@@ -4,8 +4,13 @@ Senior Design Project
 # errors
 - npm i --force
 
+# mui errors
+- npm install @mui/material @emotion/react @emotion/styled 
+- npm install @fontsource/roboto
+- npm install @mui/icons-material
+
 # pull doesnt work to reflect changes on main
-- git fetch (or pull?) origin main (on ur personal branch)
+- git pull origin main (on ur personal branch)
 
 # load app
 - cd cause-connect
