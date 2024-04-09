@@ -9,7 +9,7 @@ import VDSignUp from "./pages/Volunteer-Donor/SignUp";
 import VDWelcome from "./pages/Volunteer-Donor/Welcome";
 import VDProfile from "./pages/Volunteer-Donor/Profile";
 import VDVolunteer from "./pages/Volunteer-Donor/Volunteer";
-import VDDonor from "./pages/Volunteer-Donor/Donor";
+import VDDonor from "./pages/Volunteer-Donor/Donations";
 import NPLogin from "./pages/NonProfit/Login";
 import NPSignUp from "./pages/NonProfit/SignUp";
 import NPWelcome from "./pages/NonProfit/Welcome";
