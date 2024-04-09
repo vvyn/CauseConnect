@@ -2,14 +2,16 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import "./App.css";
 
 export default function App() {
-
   return (
-    <div>
-      <NavBar/>
-      <Outlet/>
-      <Footer/>
+    <div className="App">
+      <NavBar />
+      <Outlet />
+      {/* <Sidebar /> */}
+      <Footer />
     </div>
   );
 }

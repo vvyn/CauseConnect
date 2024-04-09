@@ -1,0 +1,31 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.text-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ffe9bf;
+  background-color: #ffe9bf;
+  border-radius: 5px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #f36e21;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+}

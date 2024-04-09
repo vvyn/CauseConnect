@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/Login.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
 import Button from '@mui/material/Button';
