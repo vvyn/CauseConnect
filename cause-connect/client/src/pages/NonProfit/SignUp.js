@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
 //import { register } from "module";
 
 export default function Signup_NP() {
@@ -31,99 +32,127 @@ export default function Signup_NP() {
     }
   };
   return (
-    <div class="relative" fullWidth>
-      <h1 class="absolute top-0 "> Signup </h1>
-      
-      <label class="absolute"> Organization Name * </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="text"
-        name="organization"
-        placeholder="i.e. Cause Connect"
-        onChange={(event) => {
-          setRegisterOrganizationName(event.target.value);
-        }}
-      />
-      <label> Email * </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="text"
-        name="email"
-        placeholder="Email"
-        onChange={(event) => {
-          setRegisterEmail(event.target.value);
-        }}
-      />
-      <label> Phone Number * </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="text"
-        name="phone"
-        placeholder="Phone Number"
-        onChange={(event) => {
-          setRegisterPhoneNumber(event.target.value);
-        }}
-      />
-      <label> Password: </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={(event) => {
-          setRegisterPassword(event.target.value);
-        }}
-      />
-      <label> Website </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="url"
-        name="website"
-        placeholder="Website"
-        onChange={(event) => {
-          setRegisterWebsite(event.target.value);
-        }}
-      />
-      <label> Non Profit Status </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="file"
-        name="status"
-        placeholder="Upload Document"
-        onChange={(event) => {
-          setRegisterNonProfitStatus(event.target.value);
-        }}
-      />
-      {/* <label> Cause Category </label>
-      <input
-        className="bg-orange-100 p-2 rounded-md text-white"
-        type="text"
-        name="status"
-        placeholder="Upload Document"
-        onChange={(event) => {
-          setRegisterNonProfitStatus(event.target.value);
-        }}
-      /> */}
-        <label> Cause Category * </label>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={registerCause}
-            label=""
-            onChange={(event) => {
-              setRegisterCause(event.target.value);
-            }}
-          >
-            <MenuItem value={"Women's Issues"}>Women's Issues</MenuItem>
-            <MenuItem value={"Homeless"}>Homeless</MenuItem>
-            <MenuItem value={"Animals"}>Animals</MenuItem>
-            <MenuItem value={"Humanitarian Aid"}>Humanitarian Aid</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <button className="bg-orange-400 p-2 rounded-md text-white" onClick={signup}> Sign Up </button>
+    <div className="pt-20">
+      <Stack className="relative" direction="column" alignItems="center" spacing={2}>
+      <div className="w-1/3">
+        <h1 className="text-3xl justify-left">Non-Profit Sign Up</h1>
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Organization Name *</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="text"
+          name="organization"
+          placeholder="i.e. Cause Connect"
+          onChange={(event) => {
+            setRegisterOrganizationName(event.target.value);
+          }}
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Email *</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="text"
+          name="email"
+          placeholder="Email"
+          onChange={(event) => {
+            setRegisterEmail(event.target.value);
+          }}
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Phone Number *</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="text"
+          name="phone"
+          placeholder="Phone Number"
+          onChange={(event) => {
+            setRegisterPhoneNumber(event.target.value);
+          }}
+       />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Password *</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={(event) => {
+            setRegisterPassword(event.target.value);
+          }}
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Website</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="url"
+          name="website"
+          placeholder="Website"
+          onChange={(event) => {
+            setRegisterWebsite(event.target.value);
+          }}
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">Non Profit Status *</label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="file"
+          name="status"
+          placeholder="Upload Document"
+          onChange={(event) => {
+            setRegisterNonProfitStatus(event.target.value);
+          }}
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left"> Cause Category * </label>
+      </div>
+      <div className="w-1/3">
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={registerCause}
+              label=""
+              onChange={(event) => {
+                setRegisterCause(event.target.value);
+              }}
+            >
+              <MenuItem value={"Women's Issues"}>Women's Issues</MenuItem>
+              <MenuItem value={"Homeless"}>Homeless</MenuItem>
+              <MenuItem value={"Animals"}>Animals</MenuItem>
+              <MenuItem value={"Humanitarian Aid"}>Humanitarian Aid</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </div>
+
+      <button className="bg-orange-400 p-2 rounded-3xl text-white w-1/3" onClick={signup}> Sign Up </button>
+      <p>
+        Already have an account?{" "}
+        <a href="/np/login" className="text-blue-500 underline">
+          Log in
+        </a>
+      </p>
+      </Stack>
     </div>
   );
 }
