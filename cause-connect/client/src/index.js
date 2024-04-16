@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+<<<<<<< Updated upstream
 import Home from './pages/Home';
 import VDLogin from './pages/Volunteer-Donor/Login';
 import VDSignUp from './pages/Volunteer-Donor/SignUp';
@@ -21,6 +22,28 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+=======
+import Home from "./pages/Home";
+import VDLogin from "./pages/Volunteer-Donor/Login";
+import VDSignUp from "./pages/Volunteer-Donor/SignUp";
+import VDWelcome from "./pages/Volunteer-Donor/Welcome";
+import VDProfile from "./pages/Volunteer-Donor/Profile";
+import VDVolunteer from "./pages/Volunteer-Donor/Volunteer";
+import VDDonor from "./pages/Volunteer-Donor/Donor";
+import VDDonations from "./pages/Volunteer-Donor/Donations";
+import VDDonationSummary from "./pages/Volunteer-Donor/DonationSummary";
+import NPLogin from "./pages/NonProfit/Login";
+import NPSignUp from "./pages/NonProfit/SignUp";
+import NPWelcome from "./pages/NonProfit/Welcome";
+import NPProfile from "./pages/NonProfit/Profile";
+import NPVolunteer from "./pages/NonProfit/Volunteer";
+import Error from "./pages/Error";
+import Dashboard from "./pages/dashboard/Dashboard";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+>>>>>>> Stashed changes
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -34,13 +57,21 @@ root.render(
           <Route path="vd/welcome" element={<VDWelcome />} />
           <Route path="vd/profile" element={<VDProfile />} />
           <Route path="vd/donor" element={<VDDonor />} />
+          <Route path="vd/donations" element={<VDDonations />} />
+          <Route path="vd/donationSummary" element={<VDDonationSummary />} />
           <Route path="vd/volunteer" element={<VDVolunteer />} />
           <Route path="np/signup" element={<NPSignUp />} />
           <Route path="np/login" element={<NPLogin />} />
           <Route path="np/welcome" element={<NPWelcome />} />
           <Route path="np/profile" element={<NPProfile />} />
+<<<<<<< Updated upstream
           <Route path="np/donor" element={<NPDonor />} />
           <Route path="np/volunteer" element={<NPVolunteer />} />
+=======
+          <Route path="np/donor" element={<Dashboard />} />
+          <Route path="np/volunteer" element={<NPVolunteer />} />
+          <Route path="np/dashboard" element={<Dashboard />} />
+>>>>>>> Stashed changes
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

@@ -8,8 +8,21 @@ function NavBar() {
         <a href="/">
           <button className="btn">Home</button>
         </a>
+        <a href="/vd/welcome">
+        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Welcome</button>
+        </a>
         <a href="/vd/donor">
+<<<<<<< Updated upstream
           <button className="btn"> VD Donor</button>
+=======
+        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donor</button>
+        </a>
+        <a href="/vd/donations">
+        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donations</button>
+        </a>
+        <a href="/vd/donationSummary">
+        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Summary</button>
+>>>>>>> Stashed changes
         </a>
         <a href="/vd/login">
           <button className="btn">VD Login</button>
@@ -23,11 +36,16 @@ function NavBar() {
         <a href="/vd/volunteer">
           <button className="btn">VD Volunteer</button>
         </a>
+<<<<<<< Updated upstream
         <a href="/vd/welcome">
           <button className="btn">VD Welcome</button>
         </a>
         <a href="/np/donor">
           <button className="btn"> NP Donor</button>
+=======
+        <a href="/np/donor">
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Donor</button>
+>>>>>>> Stashed changes
         </a>
         <a href="/np/login">
           <button className="btn">NP Login</button>
