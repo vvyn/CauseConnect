@@ -146,7 +146,7 @@ export default function Signup_NP() {
       </div>
 
       <button className="bg-orange-400 p-2 rounded-3xl text-white w-1/3" onClick={signup}> Sign Up </button>
-      <p>
+      <p className="pb-20">
         Already have an account?{" "}
         <a href="/np/login" className="text-blue-500 underline">
           Log in
