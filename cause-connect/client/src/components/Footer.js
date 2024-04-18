@@ -6,7 +6,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 
 export default function Footer() {
   return (
-    <div className="Footer flex justify-center items-center">
+    <footer className="Footer flex justify-center items-center">
       <div>
         <img
           className="h-10 absolute left-10"
@@ -28,6 +28,6 @@ export default function Footer() {
         <TwitterIcon className="mr-5" />
         <InstagramIcon className="mr-5" />
       </div>
-    </div>
+    </footer>
   );
 }
