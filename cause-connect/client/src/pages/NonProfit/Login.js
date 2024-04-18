@@ -23,7 +23,7 @@ export default function NPLogin() {
         setUser(userCredential.user);
         alert(user.email + " Successfully logged In");
         console.log(user);
-        // ...
+        window.location = '/np/welcome';
       })
       .catch((error) => {
         const errorCode = error.code;

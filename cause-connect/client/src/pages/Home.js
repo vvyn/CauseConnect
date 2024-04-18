@@ -9,8 +9,12 @@ export default function Home() {
       </div>
       <div className="pb-6 flex items-center justify-center text-6xl text-orange-400">CauseConnect</div>
       <div className="flex items-center justify-center">
-        <button className="bg-orange-400 p-2  px-6 rounded-3xl text-white text-sm">Volunteer / Donor Portal</button>
+        <a href="/vd/login">
+          <button className="bg-orange-400 p-2  px-6 rounded-3xl text-white text-sm">Volunteer / Donor Portal</button>
+        </a>
+        <a href="/np/login">
         <button className="ml-4 bg-orange-400 p-2 px-6 rounded-3xl text-white text-sm">Organization Portal</button>
+        </a>
       </div>
       
       <div className="flex">
