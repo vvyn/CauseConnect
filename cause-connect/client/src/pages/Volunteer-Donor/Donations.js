@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Donor() {
+export default function Donations() {
   return (
     <div className="p-10">
       <div className="py-2 text-4xl text-orange-400">Profile</div>
