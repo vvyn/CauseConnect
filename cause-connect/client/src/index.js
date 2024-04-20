@@ -22,12 +22,13 @@ import NPDonor from "./pages/NonProfit/Donor";
 import NPVolunteer from "./pages/NonProfit/Volunteer";
 import Error from "./pages/Error";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Dontopen from "./pages/Dontopen";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -42,7 +43,10 @@ root.render(
           <Route path="vd/donations" element={<VDDonations />} />
           <Route path="vd/donationSummary" element={<VDDonationSummary />} />
           <Route path="vd/volunteer" element={<VDVolunteer />} />
-          <Route path="vd/volunteer/opportunitySignUp/:id" element={<VDOpportunitySignUp />} />
+          <Route
+            path="vd/volunteer/opportunitySignUp/:id"
+            element={<VDOpportunitySignUp />}
+          />
           <Route path="np/signup" element={<NPSignUp />} />
           <Route path="np/login" element={<NPLogin />} />
           <Route path="np/welcome" element={<NPWelcome />} />
@@ -51,6 +55,7 @@ root.render(
           <Route path="np/volunteer" element={<NPVolunteer />} />
           <Route path="np/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
+          <Route path="dontopen" element={<Dontopen />} />
         </Route>
       </Routes>
     </BrowserRouter>
