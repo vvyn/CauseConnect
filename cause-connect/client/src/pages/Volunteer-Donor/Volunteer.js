@@ -1,163 +1,168 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import '../../assets/css/VolunteerOpp.css';
+import { db } from "../../Firebase";
+import { addDoc, collection, query, where } from "firebase/firestore";
 
-const volunteerOpportunities = [
-  {
-    id: 1,
-    cause_type: 'library',
-    title: 'Shelving Books',
-    date: 'February 15, 2024', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Richardson',
-    state: 'TX',
-    zip: '75080',
-    total_spots: '6',
-    open_spots: '6',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 2,
-    cause_type: 'food',
-    title: 'Food Distribution',
-    date: 'February 22, 2024', // should it be in this format: February 15, 2024
-    start_time: '3pm',
-    end_time: '6pm',
-    location: 'UTD Comet Cupboard',
-    city: 'Richardson',
-    state: 'TX',
-    zip: '75080',
-    total_spots: '5',
-    open_spots: '2',
-    description: 'Volunteers needed to package meals and distribute them **Must be able to lift 10 lbs.'
-  },
-  {
-    id: 3,
-    cause_type: 'environment',
-    title: 'Dallas Clean-Up',
-    date: '3/15/24', // should it be in this format: February 15, 2024
-    start_time: '1pm',
-    end_time: '5pm',
-    location: 'Dallas Park',
-    city: 'Dallas',
-    state: 'TX',
-    zip: '75045',
-    total_spots: '40',
-    open_spots: '15',
-    description: 'Help clean up the Dallas Park community with family and friends! Volunteers needed for litter pick-up.'
-  },
-  {
-    id: 4,
-    cause_type: 'library',
-    title: 'lib',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Richardson',
-    state: 'TX',
-    zip: '75056',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 5,
-    cause_type: 'library',
-    title: 'lib',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Dallas',
-    state: 'TX',
-    zip: '75078',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 6,
-    cause_type: 'education',
-    title: 'edu',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Frisco',
-    state: 'TX',
-    zip: '75025',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 7,
-    cause_type: 'other',
-    title: 'other',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Allen',
-    state: 'TX',
-    zip: '75080',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 8,
-    cause_type: 'library',
-    title: 'lib plano',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Plano',
-    state: 'TX',
-    zip: '75088',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 9,
-    cause_type: 'healthcare',
-    title: 'health',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Dallas',
-    state: 'TX',
-    zip: '75080',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  {
-    id: 10,
-    cause_type: 'shelters',
-    title: 'bob',
-    date: '2/15/24', // should it be in this format: February 15, 2024
-    start_time: '2pm',
-    end_time: '4pm',
-    location: 'Richardson Library',
-    city: 'Richardson',
-    state: 'TX',
-    zip: '75088',
-    total_spots: '6',
-    open_spots: '4',
-    description: 'Volunteers will assist in shelving books along with our librarians.'
-  },
-  // add other opportunities
-];
+// const volunteerOpportunities = [
+//   {
+//     id: 1,
+//     cause_type: 'library',
+//     title: 'Shelving Books',
+//     date: 'February 15, 2024', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Richardson',
+//     state: 'TX',
+//     zip: '75080',
+//     total_spots: '6',
+//     open_spots: '6',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 2,
+//     cause_type: 'food',
+//     title: 'Food Distribution',
+//     date: 'February 22, 2024', // should it be in this format: February 15, 2024
+//     start_time: '3pm',
+//     end_time: '6pm',
+//     location: 'UTD Comet Cupboard',
+//     city: 'Richardson',
+//     state: 'TX',
+//     zip: '75080',
+//     total_spots: '5',
+//     open_spots: '2',
+//     description: 'Volunteers needed to package meals and distribute them **Must be able to lift 10 lbs.'
+//   },
+//   {
+//     id: 3,
+//     cause_type: 'environment',
+//     title: 'Dallas Clean-Up',
+//     date: '3/15/24', // should it be in this format: February 15, 2024
+//     start_time: '1pm',
+//     end_time: '5pm',
+//     location: 'Dallas Park',
+//     city: 'Dallas',
+//     state: 'TX',
+//     zip: '75045',
+//     total_spots: '40',
+//     open_spots: '15',
+//     description: 'Help clean up the Dallas Park community with family and friends! Volunteers needed for litter pick-up.'
+//   },
+//   {
+//     id: 4,
+//     cause_type: 'library',
+//     title: 'lib',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Richardson',
+//     state: 'TX',
+//     zip: '75056',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 5,
+//     cause_type: 'library',
+//     title: 'lib',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Dallas',
+//     state: 'TX',
+//     zip: '75078',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 6,
+//     cause_type: 'education',
+//     title: 'edu',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Frisco',
+//     state: 'TX',
+//     zip: '75025',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 7,
+//     cause_type: 'other',
+//     title: 'other',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Allen',
+//     state: 'TX',
+//     zip: '75080',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 8,
+//     cause_type: 'library',
+//     title: 'lib plano',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Plano',
+//     state: 'TX',
+//     zip: '75088',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 9,
+//     cause_type: 'healthcare',
+//     title: 'health',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Dallas',
+//     state: 'TX',
+//     zip: '75080',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   {
+//     id: 10,
+//     cause_type: 'shelters',
+//     title: 'bob',
+//     date: '2/15/24', // should it be in this format: February 15, 2024
+//     start_time: '2pm',
+//     end_time: '4pm',
+//     location: 'Richardson Library',
+//     city: 'Richardson',
+//     state: 'TX',
+//     zip: '75088',
+//     total_spots: '6',
+//     open_spots: '4',
+//     description: 'Volunteers will assist in shelving books along with our librarians.'
+//   },
+//   // add other opportunities
+// ];
+
+
+const volunteerOpportunities = collection(db, "volunteerPosting");
 
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
-  // State for filter criteria
+  // States for filter criteria
   const [causes, setCauses] = useState([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
@@ -291,7 +296,7 @@ const Volunteer = () => {
                 
                 <div className="wrapper">
                   <p className="location" >{opportunity.location}</p>
-                  <p className="city-state">{opportunity.city_state}</p>
+                  <p className="city-state">{opportunity.city}, {opportunity.state}</p>
                 </div>
                 
                 <p className="date"><b>Date: </b>{opportunity.date}</p>
