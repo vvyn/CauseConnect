@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
+import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 //import { register } from "module";
 
 export default function Signup_NP() {
@@ -17,6 +18,9 @@ export default function Signup_NP() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerWebsite, setRegisterWebsite] = useState("");
   const [registerNonProfitStatus, setRegisterNonProfitStatus] = useState("");
+  const [registerState, setRegisterState] = useState("");
+  const [registerCity, setRegisterCity] = useState("");
+  const [registerZip, setRegisterZip] = useState("");
   const [registerCause, setRegisterCause] = useState("");
 
   const signup = async () => {
@@ -32,13 +36,13 @@ export default function Signup_NP() {
     }
   };
   return (
-    <div className="pt-20">
+    <form className="pt-20">
       <Stack className="relative" direction="column" alignItems="center" spacing={2}>
       <div className="w-1/3">
         <h1 className="text-3xl justify-left">Non-Profit Sign Up</h1>
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left">Organization Name *</label>
+        <label className="text-sm justify-left">Organization Name{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
         <input
@@ -49,10 +53,11 @@ export default function Signup_NP() {
           onChange={(event) => {
             setRegisterOrganizationName(event.target.value);
           }}
+          required
         />
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left">Email *</label>
+        <label className="text-sm justify-left">Email{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
         <input
@@ -63,10 +68,11 @@ export default function Signup_NP() {
           onChange={(event) => {
             setRegisterEmail(event.target.value);
           }}
+          required
         />
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left">Phone Number *</label>
+        <label className="text-sm justify-left">Phone Number{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
         <input
@@ -77,10 +83,11 @@ export default function Signup_NP() {
           onChange={(event) => {
             setRegisterPhoneNumber(event.target.value);
           }}
+          required
        />
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left">Password *</label>
+        <label className="text-sm justify-left">Password{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
         <input
@@ -91,6 +98,7 @@ export default function Signup_NP() {
           onChange={(event) => {
             setRegisterPassword(event.target.value);
           }}
+          required
         />
       </div>
       <div className="w-1/3">
@@ -108,33 +116,133 @@ export default function Signup_NP() {
         />
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left">Non Profit Status *</label>
+        <label className="text-sm justify-left">Non Profit Status{" "}<font color="red">*</font></label>
+      </div>
+      <div className="relative w-1/3">
+        <input
+          className="absolute bg-orange-100 p-2 rounded-md text-white w-full"
+          placeholder="Upload Document"
+          value={registerNonProfitStatus}
+        />
+        <p className="absolute bg-orange-200 w-1/3 text-center text-gray-500 rounded-md h-10 right-0">Browse Files</p>
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full opacity-0 z-2 cursor-pointer h-10"
+          type="file"
+          onChange={(event) => {
+            setRegisterNonProfitStatus(event.target.value);
+          }}
+          required
+        />
+
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">State{" "}<font color="red">*</font></label>
+      </div>
+      <div className="w-1/3">
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth required>
+            <Select
+              value={registerState}
+              onChange={(event) => {
+                setRegisterState(event.target.value);
+              }}
+              IconComponent={ExpandMoreSharpIcon}
+            >
+              <MenuItem value="AL">Alabama</MenuItem>
+	<MenuItem value="AK">Alaska</MenuItem>
+	<MenuItem value="AZ">Arizona</MenuItem>
+	<MenuItem value="AR">Arkansas</MenuItem>
+	<MenuItem value="CA">California</MenuItem>
+	<MenuItem value="CO">Colorado</MenuItem>
+	<MenuItem value="CT">Connecticut</MenuItem>
+	<MenuItem value="DE">Delaware</MenuItem>
+	<MenuItem value="DC">District Of Columbia</MenuItem>
+	<MenuItem value="FL">Florida</MenuItem>
+	<MenuItem value="GA">Georgia</MenuItem>
+	<MenuItem value="HI">Hawaii</MenuItem>
+	<MenuItem value="ID">Idaho</MenuItem>
+	<MenuItem value="IL">Illinois</MenuItem>
+	<MenuItem value="IN">Indiana</MenuItem>
+	<MenuItem value="IA">Iowa</MenuItem>
+	<MenuItem value="KS">Kansas</MenuItem>
+	<MenuItem value="KY">Kentucky</MenuItem>
+	<MenuItem value="LA">Louisiana</MenuItem>
+	<MenuItem value="ME">Maine</MenuItem>
+	<MenuItem value="MD">Maryland</MenuItem>
+	<MenuItem value="MA">Massachusetts</MenuItem>
+	<MenuItem value="MI">Michigan</MenuItem>
+	<MenuItem value="MN">Minnesota</MenuItem>
+	<MenuItem value="MS">Mississippi</MenuItem>
+	<MenuItem value="MO">Missouri</MenuItem>
+	<MenuItem value="MT">Montana</MenuItem>
+	<MenuItem value="NE">Nebraska</MenuItem>
+	<MenuItem value="NV">Nevada</MenuItem>
+	<MenuItem value="NH">New Hampshire</MenuItem>
+	<MenuItem value="NJ">New Jersey</MenuItem>
+	<MenuItem value="NM">New Mexico</MenuItem>
+	<MenuItem value="NY">New York</MenuItem>
+	<MenuItem value="NC">North Carolina</MenuItem>
+	<MenuItem value="ND">North Dakota</MenuItem>
+	<MenuItem value="OH">Ohio</MenuItem>
+	<MenuItem value="OK">Oklahoma</MenuItem>
+	<MenuItem value="OR">Oregon</MenuItem>
+	<MenuItem value="PA">Pennsylvania</MenuItem>
+	<MenuItem value="RI">Rhode Island</MenuItem>
+	<MenuItem value="SC">South Carolina</MenuItem>
+	<MenuItem value="SD">South Dakota</MenuItem>
+	<MenuItem value="TN">Tennessee</MenuItem>
+	<MenuItem value="TX">Texas</MenuItem>
+	<MenuItem value="UT">Utah</MenuItem>
+	<MenuItem value="VT">Vermont</MenuItem>
+	<MenuItem value="VA">Virginia</MenuItem>
+	<MenuItem value="WA">Washington</MenuItem>
+	<MenuItem value="WV">West Virginia</MenuItem>
+	<MenuItem value="WI">Wisconsin</MenuItem>
+	<MenuItem value="WY">Wyoming</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left">City{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
         <input
           className="bg-orange-100 p-2 rounded-md text-white w-full"
-          type="file"
-          name="status"
-          placeholder="Upload Document"
+          type="text"
+          placeholder="e.g. Richardson"
           onChange={(event) => {
-            setRegisterNonProfitStatus(event.target.value);
+            setRegisterCity(event.target.value);
           }}
+          required
         />
       </div>
       <div className="w-1/3">
-        <label className="text-sm justify-left"> Cause Category * </label>
+        <label className="text-sm justify-left">Zip Code{" "}<font color="red">*</font></label>
+      </div>
+      <div className="w-1/3">
+        <input
+          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          type="text"
+          placeholder=""
+          onChange={(event) => {
+            setRegisterZip(event.target.value);
+          }}
+          required
+        />
+      </div>
+      <div className="w-1/3">
+        <label className="text-sm justify-left"> Cause Category{" "}<font color="red">*</font></label>
       </div>
       <div className="w-1/3">
           <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
+            <FormControl fullWidth required>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={registerCause}
-              label=""
               onChange={(event) => {
                 setRegisterCause(event.target.value);
               }}
+              IconComponent={ExpandMoreSharpIcon}
             >
               <MenuItem value={"Women's Issues"}>Women's Issues</MenuItem>
               <MenuItem value={"Homeless"}>Homeless</MenuItem>
@@ -153,6 +261,6 @@ export default function Signup_NP() {
         </a>
       </p>
       </Stack>
-    </div>
+    </form>
   );
 }
