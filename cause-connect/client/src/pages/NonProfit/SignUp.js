@@ -9,7 +9,8 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
-//import { register } from "module";
+import { db } from "../../Firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function Signup_NP() {
   const [registerOrganizationName, setRegisterOrganizationName] = useState("");
@@ -25,12 +26,20 @@ export default function Signup_NP() {
 
   const signup = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      console.log(user);
+      const user = {
+        name: registerOrganizationName,
+        email: registerEmail,
+        phone: registerPhoneNumber,
+        password: registerPassword,
+        website: registerWebsite,
+        status: registerNonProfitStatus,
+        state: registerState,
+        city: registerCity,
+        zipcode: registerZip,
+        category: registerCause
+      }
+      const docRef = await addDoc(collection(db, "nonprofits"), user);
+      console.log("Document Written with ID: ", docRef.id);
     } catch (error) {
       console.log(error.message);
     }
@@ -46,7 +55,7 @@ export default function Signup_NP() {
     }
   }
   return (
-    <form className="pt-20">
+    <div className="pt-20">
       <Stack className="relative" direction="column" alignItems="center" spacing={2}>
       <div className="w-1/3">
         <h1 className="text-3xl justify-left">Non-Profit Sign Up</h1>
@@ -286,6 +295,6 @@ export default function Signup_NP() {
         </a>
       </p>
       </Stack>
-    </form>
+    </div>
   );
 }
