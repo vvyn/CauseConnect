@@ -2,59 +2,58 @@ import React from "react";
 
 function NavBar() {
   return (
-    <div className="bg-orange-200 flex align-center">
+    <div className="bg-orange-200 flex-col align-center">
       <div className="p-6">
         <a href="/">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Home</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Home</div>
         </a>
         <a href="/vd/welcome">
-        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Welcome</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Welcome</div>
         </a>
         <a href="/vd/donor">
-        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donor</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donor</div>
         </a>
         <a href="/vd/donations">
-        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donations</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Donations</div>
         </a>
         <a href="/vd/donationSummary">
-        <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Summary</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2"> VD Summary</div>
         </a>
         <a href="/vd/login">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Login</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Login</div>
         </a>
         <a href="/vd/profile">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Profile</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Profile</div>
         </a>
         <a href="/vd/signup">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Signup</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Signup</div>
         </a>
         <a href="/vd/volunteer">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Volunteer</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Volunteer</div>
         </a>
         <a href="/vd/donationSummary">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Donation Summary</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Donation Summary</div>
         </a>
         <a href="/vd/opportunitySignUp">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD opp sign up</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD opp sign up</div>
         </a>
         <a href="/np/login">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Login</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Login</div>
         </a>
         <a href="/np/profile">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Profile</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Profile</div>
         </a>
         <a href="/np/signup">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Signup</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Signup</div>
         </a>
         <a href="/np/volunteer">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Volunteer</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Volunteer</div>
         </a>
         <a href="/np/welcome">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Welcome</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Welcome</div>
         </a>
-        
         <a href="/*">
-          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Error</button>
+          <div className="my-2 mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Error</div>
         </a>
       </div>
     </div>
