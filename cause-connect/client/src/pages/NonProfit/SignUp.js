@@ -35,6 +35,12 @@ export default function Signup_NP() {
       console.log(error.message);
     }
   };
+  function fileName() {
+    const fileData=document.getElementById('file-upload');
+    if(fileData != null) {
+      return fileData.files.item(0).name;
+    }
+  }
   return (
     <form className="pt-20">
       <Stack className="relative" direction="column" alignItems="center" spacing={2}>
@@ -46,7 +52,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           name="organization"
           placeholder="i.e. Cause Connect"
@@ -61,7 +67,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           name="email"
           placeholder="Email"
@@ -76,7 +82,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           name="phone"
           placeholder="Phone Number"
@@ -91,7 +97,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="password"
           name="password"
           placeholder="Password"
@@ -106,7 +112,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="url"
           name="website"
           placeholder="Website"
@@ -119,15 +125,18 @@ export default function Signup_NP() {
         <label className="text-sm justify-left">Non Profit Status{" "}<font color="red">*</font></label>
       </div>
       <div className="relative w-1/3">
+        <label for="file-upload" className="z-10 pt-2 absolute bg-orange-100 text-left text-gray-400 rounded-md h-10 w-full opacity-0">Upload Document</label>
         <input
-          className="absolute bg-orange-100 p-2 rounded-md text-white w-full"
+          className="absolute bg-orange-100 p-2 rounded-md text-black w-full"
           placeholder="Upload Document"
-          value={registerNonProfitStatus}
+          value={fileName()}
         />
-        <p className="absolute bg-orange-200 w-1/3 text-center text-gray-500 rounded-md h-10 right-0">Browse Files</p>
+        <label for="file-upload" className="z-20 pt-2 absolute bg-orange-200 w-1/3 text-center text-gray-500 rounded-md h-10 right-0 hover:bg-orange-300">Browse Files</label>
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full opacity-0 z-2 cursor-pointer h-10"
+          id="file-upload"
           type="file"
+          className="opacity-0"
+          placeholder="Upload Document"
           onChange={(event) => {
             setRegisterNonProfitStatus(event.target.value);
           }}
@@ -208,7 +217,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           placeholder="e.g. Richardson"
           onChange={(event) => {
@@ -222,7 +231,7 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
-          className="bg-orange-100 p-2 rounded-md text-white w-full"
+          className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           placeholder=""
           onChange={(event) => {
@@ -253,7 +262,7 @@ export default function Signup_NP() {
         </Box>
       </div>
 
-      <button className="bg-orange-400 p-2 rounded-3xl text-white w-1/3" onClick={signup}> Sign Up </button>
+      <button className="bg-orange-400 p-2 rounded-3xl text-white w-1/3 hover:bg-orange-500" onClick={signup}> Sign Up </button>
       <p className="pb-20">
         Already have an account?{" "}
         <a href="/np/login" className="text-blue-500 underline">
