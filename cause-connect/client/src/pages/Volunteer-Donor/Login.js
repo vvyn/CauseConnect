@@ -32,8 +32,8 @@ export default function VDLogin() {
         setUser({user: userCredential.user, role: userData.role});
         alert(user.email + " Successfully logged In");
         console.log(user);
-        window.location = '/vd/welcome';
-      }
+        window.location = "/vd/welcome";
+      })
     } catch(error) {
         const errorCode = error.code;
         const errorMessage = error.message;

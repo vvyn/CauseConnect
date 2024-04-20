@@ -1,101 +1,113 @@
-import React, { useState } from 'react';
-import Stack from '@mui/material/Stack';
+import React, { useState } from "react";
+import Stack from "@mui/material/Stack";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const Donations = () => {
-  const [donationAmount, setDonationAmount] = useState('');
-  const [country, setCountry] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [cardholderName, setCardholderName] = useState('');
-  const [creditCardNumber, setCreditCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCVV] = useState('');
+  const [donationAmount, setDonationAmount] = useState("");
+  const [country, setCountry] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [cardholderName, setCardholderName] = useState("");
+  const [creditCardNumber, setCreditCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCVV] = useState("");
 
   const handleCountryChange = (event) => {
     setCountry(event.target.value);
   };
 
-
   const handleCVVChange = (event) => {
     let inputCVV = event.target.value;
     // Remove non-numeric characters
-    inputCVV = inputCVV.replace(/\D/g, '');
+    inputCVV = inputCVV.replace(/\D/g, "");
     setCVV(inputCVV);
   };
-
 
   const handleExpiryDateChange = (event) => {
     let inputExpiryDate = event.target.value;
     // Remove non-numeric characters
-    inputExpiryDate = inputExpiryDate.replace(/\D/g, '');
+    inputExpiryDate = inputExpiryDate.replace(/\D/g, "");
     // Ensure MM is between 1 and 12
     let month = inputExpiryDate.slice(0, 2);
     if (parseInt(month, 10) > 12) {
-      month = '12';
+      month = "12";
     }
     // Ensure YY is 23 or greater
     let year = inputExpiryDate.slice(2);
     if (year) {
       // If YY is less than 23, set it to 23
-      year = parseInt(year, 10) < 23 ? '23' : year;
+      year = parseInt(year, 10) < 23 ? "23" : year;
     }
     // Concatenate MM and YY with "/"
-    let formattedExpiryDate = '';
+    let formattedExpiryDate = "";
     if (month) {
       formattedExpiryDate += month;
       if (year) {
-        formattedExpiryDate += '/' + year;
+        formattedExpiryDate += "/" + year;
       }
     }
     setExpiryDate(formattedExpiryDate);
   };
 
-  
   const handleZipCodeChange = (event) => {
     let inputZipCode = event.target.value;
     // Remove non-numeric characters
-    inputZipCode = inputZipCode.replace(/\D/g, '');
+    inputZipCode = inputZipCode.replace(/\D/g, "");
     // Limit the zip code to a maximum of 5 numerical characters
     inputZipCode = inputZipCode.slice(0, 5);
     setZipCode(inputZipCode);
   };
 
-
   const handleCreditCardNumberChange = (event) => {
     let inputCreditCardNumber = event.target.value;
     // Remove non-numeric characters
-    inputCreditCardNumber = inputCreditCardNumber.replace(/\D/g, '');
+    inputCreditCardNumber = inputCreditCardNumber.replace(/\D/g, "");
     // Format credit card number
-    let formattedCreditCardNumber = '';
+    let formattedCreditCardNumber = "";
     for (let i = 0; i < inputCreditCardNumber.length; i++) {
-      if ((i + 1) % 5 === 0 && i !== 0 && i !== inputCreditCardNumber.length - 1) {
+      if (
+        (i + 1) % 5 === 0 &&
+        i !== 0 &&
+        i !== inputCreditCardNumber.length - 1
+      ) {
         // Insert space after every 4 digits except for the first and last one
-        formattedCreditCardNumber += ' ' + inputCreditCardNumber[i];
+        formattedCreditCardNumber += " " + inputCreditCardNumber[i];
       } else if (i === inputCreditCardNumber.length - 1) {
         // Show the last digit as is
         formattedCreditCardNumber += inputCreditCardNumber[i];
       } else {
         // Replace other digits with dots
-        formattedCreditCardNumber += '●';
+        formattedCreditCardNumber += "●";
       }
     }
     setCreditCardNumber(formattedCreditCardNumber);
   };
 
-
   const handleDonationSubmit = () => {
     // Handle donation submission logic here
   };
 
+  const initialOptions = {
+    clientId: "test",
+    currency: "USD",
+    intent: "capture",
+  };
 
   return (
     <div className="pt-20">
-      <Stack className="relative" direction="column" alignItems="center" spacing={2}>
+      <Stack
+        className="relative"
+        direction="column"
+        alignItems="center"
+        spacing={2}
+      >
         <div className="w-1/3">
           <h1 className="text-3xl justify-left">Donations</h1>
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Enter donation amount *</label>
+          <label className="text-sm justify-left">
+            Enter donation amount *
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -104,10 +116,9 @@ const Donations = () => {
             value={donationAmount}
             onChange={(e) => setDonationAmount(e.target.value)}
             placeholder="Enter donation amount"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
-
 
         <div className="w-1/3">
           <label className="text-sm justify-left">Country / Region *</label>
@@ -136,7 +147,7 @@ const Donations = () => {
             onChange={handleZipCodeChange}
             maxLength={5} // Set maximum length to 5 characters
             placeholder="Enter Zip Code"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
 
@@ -150,12 +161,14 @@ const Donations = () => {
             value={cardholderName}
             onChange={(e) => setCardholderName(e.target.value)}
             placeholder="Enter cardholder name"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Enter Credit Card number *</label>
+          <label className="text-sm justify-left">
+            Enter Credit Card number *
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -165,7 +178,7 @@ const Donations = () => {
             onChange={handleCreditCardNumberChange}
             maxLength={19} // Set maximum length to 19 characters (including spaces)
             placeholder="xxxx xxxx xxxx xxxx"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
 
@@ -181,7 +194,7 @@ const Donations = () => {
             maxLength={5} // Set maximum length to 5 characters (MM/YY format)
             pattern="(0[1-9]|1[0-2])\/(2[2-9]|[3-9][0-9])" // Pattern for MM/YY format validation
             placeholder="MM/YY"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
 
@@ -197,16 +210,23 @@ const Donations = () => {
             maxLength={3}
             pattern="[0-9]*" // Only allow numerical characters
             placeholder="Enter CVV/CVC"
-            style={{ color: 'black' }}
+            style={{ color: "black" }}
           />
         </div>
 
-        <button className="bg-orange-400 p-2 rounded-3xl text-white w-1/3" 
+        <button
+          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3"
           onClick={handleDonationSubmit}
-          style={{ marginBottom: '100px' }}>
+          style={{ marginBottom: "100px" }}
+        >
           Make Payment
         </button>
       </Stack>
+      <div className="flex justify-center items-center">
+        <PayPalScriptProvider options={initialOptions}>
+          <PayPalButtons style={{ layout: "vertical" }} />
+        </PayPalScriptProvider>
+      </div>
     </div>
   );
 };
