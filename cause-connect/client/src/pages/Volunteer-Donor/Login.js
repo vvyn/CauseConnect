@@ -21,24 +21,28 @@ export default function VDLogin() {
 
   const login = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
-      const userRef = collection(db, "users", user.uid)
+      const userRef = collection(db, "users", user.uid);
       const userDoc = await getDoc(userRef);
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        setUser({user: userCredential.user, role: userData.role});
+        setUser({ user: userCredential.user, role: userData.role });
         alert(user.email + " Successfully logged In");
         console.log(user);
         window.location = "/vd/welcome";
-      })
-    } catch(error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + ": " + errorMessage);
-        alert(errorCode + ": " + errorMessage);
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode + ": " + errorMessage);
+      alert(errorCode + ": " + errorMessage);
     }
   };
 
