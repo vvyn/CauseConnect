@@ -11,7 +11,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Richardson',
+    state: 'TX',
+    zip: '75080',
     total_spots: '6',
     open_spots: '6',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -24,7 +26,9 @@ const volunteerOpportunities = [
     start_time: '3pm',
     end_time: '6pm',
     location: 'UTD Comet Cupboard',
-    city_state: 'Richardson, TX',
+    city: 'Richardson',
+    state: 'TX',
+    zip: '75080',
     total_spots: '5',
     open_spots: '2',
     description: 'Volunteers needed to package meals and distribute them **Must be able to lift 10 lbs.'
@@ -37,7 +41,9 @@ const volunteerOpportunities = [
     start_time: '1pm',
     end_time: '5pm',
     location: 'Dallas Park',
-    city_state: 'Dallas, TX',
+    city: 'Dallas',
+    state: 'TX',
+    zip: '75045',
     total_spots: '40',
     open_spots: '15',
     description: 'Help clean up the Dallas Park community with family and friends! Volunteers needed for litter pick-up.'
@@ -50,7 +56,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Richardson',
+    state: 'TX',
+    zip: '75056',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -63,7 +71,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Dallas',
+    state: 'TX',
+    zip: '75078',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -76,7 +86,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Frisco',
+    state: 'TX',
+    zip: '75025',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -89,7 +101,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Allen',
+    state: 'TX',
+    zip: '75080',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -97,12 +111,14 @@ const volunteerOpportunities = [
   {
     id: 8,
     cause_type: 'library',
-    title: 'lib',
+    title: 'lib plano',
     date: '2/15/24', // should it be in this format: February 15, 2024
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Plano',
+    state: 'TX',
+    zip: '75088',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -115,7 +131,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Dallas',
+    state: 'TX',
+    zip: '75080',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -128,7 +146,9 @@ const volunteerOpportunities = [
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
-    city_state: 'Richardson, TX',
+    city: 'Richardson',
+    state: 'TX',
+    zip: '75088',
     total_spots: '6',
     open_spots: '4',
     description: 'Volunteers will assist in shelving books along with our librarians.'
@@ -141,9 +161,8 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   const [causes, setCauses] = useState([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
-  // NEED TO FIGURE OUT LOCATION FILTER
-  const [location, setLocation] = useState('');
-  const [distance, setDistance] = useState('');
+  const [city, setCity] = useState('');
+  const [zipcode, setZipcode] = useState('');
 
  
    // Handle cause checkbox change
@@ -158,15 +177,15 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 
   // Call onApplyFilter with the current state when the Filter button is clicked
   const handleFilterClick = () => {
-    onApplyFilter({ causes, fromDate, toDate, location, distance });
+    onApplyFilter({ causes, fromDate, toDate, city, zipcode });
   };
 
   const handleClearClick = () => {
     setCauses([]);
     setFromDate('');
     setToDate('');
-    setLocation('');
-    setDistance('');
+    setCity('');
+    setZipcode('');
     onResetFilters();
   };
 
@@ -215,16 +234,21 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         {/* Location filter */}
         <label><b>Location:</b><br></br></label>
           <label>
-          Please enter your zipcode: <input name="myInput" />
+            Please enter a city: 
+              <input
+                type="text"
+                value={city}
+                onChange={e => setCity(e.target.value)}/>
+          </label><br></br>
+          <label>
+            Please enter a zipcode: 
+              <input
+                type="text"
+                value={zipcode}
+                onChange={e => setZipcode(e.target.value)}/>
           </label><br></br><br></br>
-        <label htmlFor="distance">Distance from your location:</label><br></br>
-          <select id="distance" value={distance} onChange={e => setDistance(e.target.value)}>
-            <option value="5">5 miles</option>
-            <option value="10">10 miles</option>
-            <option value="15">15 miles</option>
-            <option value="20">20 miles</option>
-            <option value="50">50 miles</option>
-          </select>
+          
+         
       </div><br></br>
       <button className="filter-button" onClick={handleFilterClick}>Filter</button>
       <button className="clear-button" onClick={handleClearClick}>Clear</button>
@@ -240,9 +264,10 @@ const Volunteer = () => {
       const causeMatch = !filters.causes.length || filters.causes.includes(opportunity.cause_type);
       const fromDateMatch = !filters.fromDate || new Date(opportunity.date) >= new Date(filters.fromDate);
       const toDateMatch = !filters.toDate || new Date(opportunity.date) <= new Date(filters.toDate);
-      const locationMatch = !filters.location || opportunity.city_state.includes(filters.location);
+      const cityMatch = !filters.city || opportunity.city.toLowerCase().includes(filters.city.toLowerCase());
+      const zipcodeMatch = !filters.zipcode || opportunity.zip.includes(filters.zipcode);
       
-      return causeMatch && fromDateMatch && toDateMatch && locationMatch;
+      return causeMatch && fromDateMatch && toDateMatch && cityMatch && zipcodeMatch;
     });
     setFilteredOpportunities(filtered);
   };
@@ -261,7 +286,6 @@ const Volunteer = () => {
             <div className="card" key={opportunity.id}>
               <div className="card-content">
                 <div className="wrapper-heading">
-                  <div className="circle"></div>
                   <h2>{opportunity.title}</h2>
                 </div>
                 
