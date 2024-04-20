@@ -189,7 +189,7 @@ const Donor = () => {
                 <p>{opportunity.description}</p>
                 
               </div>
-              <button className="signup-button">Donate here</button>
+              <button className="donate-button">Donate here</button>
             </div>
           ))}
         </div>
