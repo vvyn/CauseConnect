@@ -22,6 +22,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import PrivateRoute from './PrivateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,17 +33,17 @@ root.render(
           <Route index element={<Home />} />
           <Route path="vd/signup" element={<VDSignUp />} />
           <Route path="vd/login" element={<VDLogin />} />
-          <Route path="vd/welcome" element={<VDWelcome />} />
-          <Route path="vd/profile" element={<VDProfile />} />
-          <Route path="vd/donor" element={<VDDonor />} />
-          <Route path="vd/volunteer" element={<VDVolunteer />} />
+          <Route path="vd/welcome" element={<PrivateRoute element={VDWelcome} allowedRoles={['vd']} />} />
+          <Route path="vd/profile" element={<PrivateRoute element={VDProfile} allowedRoles={['vd']} />} />
+          <Route path="vd/donor" element={<PrivateRoute element={VDDonor} allowedRoles={['vd']} />} />
+          <Route path="vd/volunteer" element={<PrivateRoute element={VDVolunteer} allowedRoles={['vd']} />} />
           <Route path="np/signup" element={<NPSignUp />} />
           <Route path="np/login" element={<NPLogin />} />
-          <Route path="np/welcome" element={<NPWelcome />} />
-          <Route path="np/profile" element={<NPProfile />} />
-          <Route path="np/donor" element={<Dashbaord />} />
-          <Route path="np/volunteer" element={<NPVolunteer />} />
-          <Route path="np/dashboard" element={<Dashbaord />} />
+          <Route path="np/welcome" element={<PrivateRoute element={NPWelcome} allowedRoles={['org']} />} />
+          <Route path="np/profile" element={<PrivateRoute element={NPProfile} allowedRoles={['org']} />} />
+          <Route path="np/donor" element={<PrivateRoute element={Dashboard} allowedRoles={['org']} />} />
+          <Route path="np/volunteer" element={<PrivateRoute element={NPVolunteer} allowedRoles={['org']} />} />
+          <Route path="np/dashboard" element={<PrivateRoute element={Dashboard} allowedRoles={['org']} />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

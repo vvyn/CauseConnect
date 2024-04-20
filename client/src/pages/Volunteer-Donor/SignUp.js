@@ -13,15 +13,28 @@ export default function Signup_VD() {
 
   const signup = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
+
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        firstName: registerFirstName,
+        lastName: registerLastName,
+        email: registerEmail,
+        phoneNumber: registerPhoneNumber,
+        role: "vd",
+        photoID: registerPhotoID
+      });
+
       console.log(user);
     } catch (error) {
       console.log(error.message);
     }
+    
   };
   return (
     <div className="pt-20">
