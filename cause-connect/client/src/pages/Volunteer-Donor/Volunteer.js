@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import '../../assets/css/VolunteerOpp.css';
 
 const volunteerOpportunities = [
@@ -6,13 +7,13 @@ const volunteerOpportunities = [
     id: 1,
     cause_type: 'library',
     title: 'Shelving Books',
-    date: '2/15/24', // should it be in this format: February 15, 2024
+    date: 'February 15, 2024', // should it be in this format: February 15, 2024
     start_time: '2pm',
     end_time: '4pm',
     location: 'Richardson Library',
     city_state: 'Richardson, TX',
     total_spots: '6',
-    open_spots: '4',
+    open_spots: '6',
     description: 'Volunteers will assist in shelving books along with our librarians.'
   },
   {
@@ -275,7 +276,9 @@ const Volunteer = () => {
                 <p className="spots">{opportunity.open_spots} out of {opportunity.total_spots} spots open</p>
                 
               </div>
-              <button className="signup-button">Sign up</button>
+              <Link to={`opportunitySignUp/${opportunity.id}`} state={{opportunity: opportunity}} >
+                <button className="signup-button">Sign up</button>
+              </Link>
             </div>
           ))}
         </div>
