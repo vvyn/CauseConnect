@@ -34,6 +34,9 @@ function NavBar() {
         <a href="/vd/donationSummary">
           <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD Donation Summary</button>
         </a>
+        <a href="/vd/opportunitySignUp">
+          <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">VD opp sign up</button>
+        </a>
         <a href="/np/login">
           <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Login</button>
         </a>
@@ -49,6 +52,7 @@ function NavBar() {
         <a href="/np/welcome">
           <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">NP Welcome</button>
         </a>
+        
         <a href="/*">
           <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Error</button>
         </a>
