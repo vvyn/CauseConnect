@@ -23,7 +23,7 @@ export default function VDLogin() {
         setUser(userCredential.user);
         alert(user.email + " Successfully logged In");
         console.log(user);
-        window.location = '/vd/welcome';
+        window.location = "/vd/welcome";
       })
       .catch((error) => {
         const errorCode = error.code;
