@@ -1,6 +1,19 @@
 import { useState } from "react";
+import { auth } from "../Firebase";
+import { signOut } from "firebase/auth";
+
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+
+  const signOutUser = () => {
+    signOut(auth)
+      .then(() => {
+        alert("Successfully signed out!");
+      })
+      .catch((error) => {
+        console.log("Sign out error");
+      });
+  };
 
   return (
     <div className="bg-orange-300 pr-5">
@@ -21,12 +34,26 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            <a href="/"><div>Home</div></a>
-            <a href="/vd/welcome"><div>Welcome</div></a>
-            <a href="/vd/donor"><div>Donate</div></a>
-            <a href="/vd/volunteer"><div>Volunteer</div></a>
-            <a href="/vd/profile"><div>Profile</div></a>
-            <a href="/vd/login"><div>Sign Out</div></a>
+            <a href="/">
+              <div>Home</div>
+            </a>
+            <a href="/vd/welcome">
+              <div>Welcome</div>
+            </a>
+            <a href="/vd/donor">
+              <div>Donate</div>
+            </a>
+            <a href="/vd/volunteer">
+              <div>Volunteer</div>
+            </a>
+            <a href="/vd/profile">
+              <div>Profile</div>
+            </a>
+            <button onClick={signOutUser}>
+              <a href="/">
+                <div>Sign Out</div>
+              </a>
+            </button>
           </h1>
         </div>
         <ul className="pt-6">

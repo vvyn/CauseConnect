@@ -41,7 +41,10 @@ root.render(
           <Route path="vd/welcome" element={<VDWelcome />} />
           <Route path="vd/profile" element={<VDProfile />} />
           <Route path="vd/donor" element={<VDDonor />} />
-          <Route path="vd/donor/donationDetails/:id" element={<VDDonationDetails />} />
+          <Route
+            path="vd/donor/donationDetails/:id"
+            element={<VDDonationDetails />}
+          />
           <Route path="vd/donations" element={<VDDonations />} />
           <Route path="vd/donationSummary" element={<VDDonationSummary />} />
           <Route path="vd/volunteer" element={<VDVolunteer />} />
