@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth, db } from "../../Firebase";
 import { collection, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
@@ -46,6 +49,22 @@ export default function VDLogin() {
     }
   };
 
+  const resetPassword = async () => {
+    if (email === "") {
+      alert("Please enter an email address.");
+      return;
+    }
+    await sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Password reset email sent!");
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ..
+      });
+  };
+
   return (
     <div className="App flex">
       <div>
@@ -82,13 +101,13 @@ export default function VDLogin() {
             </a>
           </p>
           <p className="text-center pt-5">
-            <a href="/" className="text-blue-500 underline">
+            <button className="text-blue-500 underline" onClick={resetPassword}>
               Forgot Password?
-            </a>
+            </button>
           </p>
           <p className="text-center pt-5">
-            <a href="/" className="text-blue-500 underline">
-              Log in as a Volunteer/Donor
+            <a href="/np/login" className="text-blue-500 underline">
+              Log in as a NonProfit
             </a>
           </p>
         </div>
