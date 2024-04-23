@@ -40,6 +40,9 @@ const Sidebar = () => {
             <a href="/vd/welcome">
               <div>Welcome</div>
             </a>
+            <a href="/vd/donationSummary">
+              <div>Summary</div>
+            </a>
             <a href="/vd/donor">
               <div>Donate</div>
             </a>
