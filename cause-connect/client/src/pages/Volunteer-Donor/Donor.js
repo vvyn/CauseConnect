@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import '../../assets/css/DonationOpp.css';
 
 const donationOpportunities = [
@@ -189,7 +190,9 @@ const Donor = () => {
                 <p>{opportunity.description}</p>
                 
               </div>
-              <button className="donate-button">Donate here</button>
+              <Link to={`donationDetails/${opportunity.id}`} state={{opportunity: opportunity}} >
+                <button className="donate-button">Donate here</button>
+              </Link>
             </div>
           ))}
         </div>

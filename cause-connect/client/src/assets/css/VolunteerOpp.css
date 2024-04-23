@@ -10,11 +10,11 @@
 .page-title {
     font-size: 3.0rem;
     text-align: center;
-    color:#F49630
+    color:#F49630;
 }
 
 .page-text {
-    font-size: 1.5rem;
+    font-size: 3.0rem;
     text-align: left;
     margin-top: 6px;
     margin-left: 23px;
@@ -72,6 +72,10 @@
   /* .card-content .date {
     margin-bottom: 5px;
   } */
+
+  .card-content .card-title {
+    margin-bottom: 5px;
+  }
 
   .card-content .time {
     margin-bottom: 5px;
