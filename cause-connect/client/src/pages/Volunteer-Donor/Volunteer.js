@@ -1,162 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import '../../assets/css/VolunteerOpp.css';
 import { db } from "../../Firebase";
-import { addDoc, collection, query, where } from "firebase/firestore";
-
-// const volunteerOpportunities = [
-//   {
-//     id: 1,
-//     cause_type: 'library',
-//     title: 'Shelving Books',
-//     date: 'February 15, 2024', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Richardson',
-//     state: 'TX',
-//     zip: '75080',
-//     total_spots: '6',
-//     open_spots: '6',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 2,
-//     cause_type: 'food',
-//     title: 'Food Distribution',
-//     date: 'February 22, 2024', // should it be in this format: February 15, 2024
-//     start_time: '3pm',
-//     end_time: '6pm',
-//     location: 'UTD Comet Cupboard',
-//     city: 'Richardson',
-//     state: 'TX',
-//     zip: '75080',
-//     total_spots: '5',
-//     open_spots: '2',
-//     description: 'Volunteers needed to package meals and distribute them **Must be able to lift 10 lbs.'
-//   },
-//   {
-//     id: 3,
-//     cause_type: 'environment',
-//     title: 'Dallas Clean-Up',
-//     date: '3/15/24', // should it be in this format: February 15, 2024
-//     start_time: '1pm',
-//     end_time: '5pm',
-//     location: 'Dallas Park',
-//     city: 'Dallas',
-//     state: 'TX',
-//     zip: '75045',
-//     total_spots: '40',
-//     open_spots: '15',
-//     description: 'Help clean up the Dallas Park community with family and friends! Volunteers needed for litter pick-up.'
-//   },
-//   {
-//     id: 4,
-//     cause_type: 'library',
-//     title: 'lib',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Richardson',
-//     state: 'TX',
-//     zip: '75056',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 5,
-//     cause_type: 'library',
-//     title: 'lib',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Dallas',
-//     state: 'TX',
-//     zip: '75078',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 6,
-//     cause_type: 'education',
-//     title: 'edu',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Frisco',
-//     state: 'TX',
-//     zip: '75025',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 7,
-//     cause_type: 'other',
-//     title: 'other',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Allen',
-//     state: 'TX',
-//     zip: '75080',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 8,
-//     cause_type: 'library',
-//     title: 'lib plano',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Plano',
-//     state: 'TX',
-//     zip: '75088',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 9,
-//     cause_type: 'healthcare',
-//     title: 'health',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Dallas',
-//     state: 'TX',
-//     zip: '75080',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   {
-//     id: 10,
-//     cause_type: 'shelters',
-//     title: 'bob',
-//     date: '2/15/24', // should it be in this format: February 15, 2024
-//     start_time: '2pm',
-//     end_time: '4pm',
-//     location: 'Richardson Library',
-//     city: 'Richardson',
-//     state: 'TX',
-//     zip: '75088',
-//     total_spots: '6',
-//     open_spots: '4',
-//     description: 'Volunteers will assist in shelving books along with our librarians.'
-//   },
-//   // add other opportunities
-// ];
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 
 const volunteerOpportunities = collection(db, "volunteerPosting");
@@ -239,14 +85,14 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         {/* Location filter */}
         <label><b>Location:</b><br></br></label>
           <label>
-            Please enter a city: 
-              <input
+            Please enter a city: <br></br>
+            <input
                 type="text"
                 value={city}
-                onChange={e => setCity(e.target.value)}/>
+                onChange={e => setCity(e.target.value)}/><br></br>
           </label><br></br>
           <label>
-            Please enter a zipcode: 
+            Please enter a zipcode: <br></br>
               <input
                 type="text"
                 value={zipcode}
@@ -262,23 +108,57 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 };
 
 const Volunteer = () => {
-  const[filteredOpportunities, setFilteredOpportunities] = useState(volunteerOpportunities)
+  const[filteredOpportunities, setFilteredOpportunities] = useState([])
 
-  const filterOpportunities = (filters) => {
-    const filtered = volunteerOpportunities.filter(opportunity => {
-      const causeMatch = !filters.causes.length || filters.causes.includes(opportunity.cause_type);
-      const fromDateMatch = !filters.fromDate || new Date(opportunity.date) >= new Date(filters.fromDate);
-      const toDateMatch = !filters.toDate || new Date(opportunity.date) <= new Date(filters.toDate);
-      const cityMatch = !filters.city || opportunity.city.toLowerCase().includes(filters.city.toLowerCase());
-      const zipcodeMatch = !filters.zipcode || opportunity.zip.includes(filters.zipcode);
-      
-      return causeMatch && fromDateMatch && toDateMatch && cityMatch && zipcodeMatch;
-    });
-    setFilteredOpportunities(filtered);
+  let fetchedData = query(volunteerOpportunities);
+
+  const fetchOpportunities = async (filters = {}) => {
+    try{
+      if(Object.keys(filters).length){
+        if(filters.cause_type){
+          fetchedData = query(fetchedData, where("cause_type", "==", filters.cause_type));
+        }
+
+        if(filters.fromDate){
+          fetchedData = query(fetchedData, where("fromDate", "<=", filters.fromDate));
+        }
+
+        if(filters.toDate){
+          fetchedData = query(fetchedData, where("toDate", ">=", filters.toDate));
+        }
+
+        if(filters.city){
+          fetchedData = query(fetchedData, where("city", "==", filters.city));
+        }
+
+        if(filters.zipcode){
+          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
+        }
+      }
+
+      const queryResult = await getDocs(volunteerOpportunities);
+      const opportunities = queryResult.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setFilteredOpportunities(opportunities);
+    } catch (error) {
+      console.error("Error in retrieving volunteer opportunities: ", error);
+    }
   };
 
+  useEffect(() => {
+    fetchOpportunities();
+  }, []);
+
+  const filterOpportunities = (filters) => {
+    fetchOpportunities(filters);
+  };
+
+
   const resetFilters = () => {
-    setFilteredOpportunities(volunteerOpportunities);
+    fetchOpportunities();
   };
 
 
@@ -291,18 +171,18 @@ const Volunteer = () => {
             <div className="card" key={opportunity.id}>
               <div className="card-content">
                 <div className="wrapper-heading">
-                  <h2>{opportunity.title}</h2>
+                  <h2 className="card-title">{opportunity.title}</h2>
                 </div>
                 
                 <div className="wrapper">
-                  <p className="location" >{opportunity.location}</p>
+                  <p className="location" >{opportunity.locationName}</p>
                   <p className="city-state">{opportunity.city}, {opportunity.state}</p>
                 </div>
                 
                 <p className="date"><b>Date: </b>{opportunity.date}</p>
-                <p className="time"><b>Time: </b>{opportunity.start_time}-{opportunity.end_time}</p>
+                <p className="time"><b>Time: </b>{opportunity.startTime}-{opportunity.endTime}</p>
                 <p>{opportunity.description}</p>
-                <p className="spots">{opportunity.open_spots} out of {opportunity.total_spots} spots open</p>
+                <p className="spots">{opportunity.availableSlots} out of {opportunity.totalSpots} spots open</p>
                 
               </div>
               <Link to={`opportunitySignUp/${opportunity.id}`} state={{opportunity: opportunity}} >
