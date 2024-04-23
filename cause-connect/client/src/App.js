@@ -9,11 +9,11 @@ export default function App() {
   return (
     <div className="App">
       <NavBar />
-      <Sidebar />
       <div className="content">
+        <Sidebar />
         <Outlet />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

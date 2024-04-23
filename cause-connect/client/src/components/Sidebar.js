@@ -24,6 +24,7 @@ const Sidebar = () => {
             <a href="/"><div>Home</div></a>
             <a href="/vd/welcome"><div>Welcome</div></a>
             <a href="/vd/donor"><div>Donate</div></a>
+            <a href="/vd/donationSummary"><div>Summary</div></a>
             <a href="/vd/volunteer"><div>Volunteer</div></a>
             <a href="/vd/profile"><div>Profile</div></a>
             <a href="/vd/login"><div>Sign Out</div></a>
@@ -40,3 +41,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
