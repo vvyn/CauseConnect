@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { auth, db } from "../../Firebase";
+import { collection, getDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+
 import "../../styles/Login.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -17,19 +23,45 @@ export default function VDLogin() {
   //   });
 
   const login = async () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        setUser(userCredential.user);
-        alert(user.email + " Successfully logged In");
-        console.log(user);
-        window.location = '/vd/welcome';
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // const user = userCredential.user;
+      // const userDoc = await getDoc(collection(db, "users", user));
+      // const userData = userDoc.data();
+      //console.log(userData);
+      // const userDoc = await getDoc(userRef);
+
+      // if (userDoc.exists()) {
+      //   const userData = userDoc.data();
+      //   setUser({ user: userCredential.user, role: userData.role });
+      alert(user.email + " Successfully logged In");
+      console.log(user);
+      window.location = "/vd/welcome";
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode + ": " + errorMessage);
+      alert(errorCode + ": " + errorMessage);
+    }
+  };
+
+  const resetPassword = async () => {
+    if (email === "") {
+      alert("Please enter an email address.");
+      return;
+    }
+    await sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Password reset email sent!");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        alert(errorMessage);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ..
       });
   };
 
@@ -69,13 +101,13 @@ export default function VDLogin() {
             </a>
           </p>
           <p className="text-center pt-5">
-            <a href="/" className="text-blue-500 underline">
+            <button className="text-blue-500 underline" onClick={resetPassword}>
               Forgot Password?
-            </a>
+            </button>
           </p>
           <p className="text-center pt-5">
-            <a href="/" className="text-blue-500 underline">
-              Log in as a Volunteer/Donor
+            <a href="/np/login" className="text-blue-500 underline">
+              Log in as a NonProfit
             </a>
           </p>
         </div>

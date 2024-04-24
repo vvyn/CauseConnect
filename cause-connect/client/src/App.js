@@ -9,8 +9,10 @@ export default function App() {
   return (
     <div className="App">
       <NavBar />
-      <Outlet />
-      {/* <Sidebar /> */}
+      <div className="content">
+        <Sidebar />
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

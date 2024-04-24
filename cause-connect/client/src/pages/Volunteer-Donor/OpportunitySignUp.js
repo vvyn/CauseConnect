@@ -1,21 +1,34 @@
 import React, { useState } from 'react';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { db } from "../../Firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import '../../assets/css/VolunteerOpp.css';
 
 const OpportunitySignUp = () => {
-    const { id } = useParams();
+    //const { id } = useParams();
     const location = useLocation();
     const { opportunity } = location.state || {};
 
     const [signUpStatus, setSignUpStatus] = useState('');
-    const [availableSpots, setAvailableSpots] = useState(opportunity.total_spots);
+    const [availableSpots, setAvailableSpots] = useState(opportunity.availableSlots);
 
     const updateSignUpStatus = () => {
         if (availableSpots > 0){
-            setAvailableSpots(availableSpots - 1);
-            setSignUpStatus('Successfully signed up!')
+            const updatedSpots = availableSpots - 1;
+            setAvailableSpots(updatedSpots);
+
+            const opportunityRef = doc(db, "volunteerPosting", opportunity.id);
+
+            try{
+                updateDoc(opportunityRef, {availableSlots: updatedSpots});
+                setSignUpStatus('Successfully signed up!');
+            } catch (error) {
+                console.error("Error updating available slots:", error);
+                setSignUpStatus('Failed to sign up. Please try again.');
+            }
+            
         } else {
-            setSignUpStatus('Sorry, there are no spots available')
+            setSignUpStatus('Sorry, there are no spots available.')
         }
     }
 
@@ -24,17 +37,13 @@ const OpportunitySignUp = () => {
             {opportunity && (
                 <div>
                     <h2 className='opp-title'>{opportunity.title}</h2>
-                    <p className='opp-text'><b>Location:</b><br></br>{opportunity.location}</p>
-                    <p className='opp-text'>ADD ADDRESS FIELD HERE{opportunity.address}</p>
-                    
-                    <p className='opp-text'>{opportunity.city_state}</p>
-
-
-                    <p className='opp-text'><b>Date:</b><br></br>{opportunity.date}</p>
-                    <p className='opp-text'><b>Time:</b><br></br>{opportunity.start_time} - {opportunity.end_time}</p>
-                    <p className='opp-text'><b>Description:</b><br></br>{opportunity.description}</p>
-
-                    <p className='opp-text'><b>Availability: </b>{availableSpots} out of {opportunity.total_spots} open</p>
+                    <p className='opp-text'><b>Location:</b><br></br>
+                        {opportunity.locationName}<br></br>
+                        {opportunity.locationAddr}, {opportunity.city}, {opportunity.state}, {opportunity.zipcode}<br></br><br></br>
+                        <b>Date:</b><br></br>{opportunity.date}<br></br><br></br>
+                        <b>Time:</b><br></br>{opportunity.startTime} - {opportunity.endTime}<br></br><br></br>
+                        <b>Description:</b><br></br>{opportunity.description}<br></br><br></br>
+                        <b>Availability: </b>{opportunity.availableSlots} out of {opportunity.totalSpots} open spots</p>
                     
                     <button className='opp-signup-button' onClick={updateSignUpStatus} >Sign Up</button>
                     {signUpStatus && <p className='opp-signup-status'>{signUpStatus}</p>}

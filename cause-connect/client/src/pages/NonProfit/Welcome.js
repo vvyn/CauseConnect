@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Welcome() {
   return (
-    <div>
+    <div className="ml-40">
       <div className="pt-20 py-4 flex items-center justify-center">
         <div className="py-2 text-5xl text-orange-400">Welcome to Cause Connect!</div>
       </div>
