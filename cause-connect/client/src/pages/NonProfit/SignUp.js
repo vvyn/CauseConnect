@@ -26,7 +26,13 @@ export default function Signup_NP() {
 
   const signup = async () => {
     try {
-      const user = {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+      const userInfo = {
         name: registerOrganizationName,
         email: registerEmail,
         phone: registerPhoneNumber,
@@ -38,7 +44,7 @@ export default function Signup_NP() {
         zipcode: registerZip,
         category: registerCause
       }
-      const docRef = await addDoc(collection(db, "nonprofits"), user);
+      const docRef = await addDoc(collection(db, "nonprofits"), userInfo);
       console.log("Document Written with ID: ", docRef.id);
     } catch (error) {
       console.log(error.message);
@@ -52,6 +58,15 @@ export default function Signup_NP() {
         return "";
       }
     } catch (error) {
+    }
+  }
+  function ValidateEmail(event) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (event.target.value.match(validRegex)) {
+      setRegisterEmail(event.target.value);
+    } else {
+      document.getElementById('email').style.borderColor = "red";
+      return false;
     }
   }
   return (
@@ -82,12 +97,13 @@ export default function Signup_NP() {
       </div>
       <div className="w-1/3">
         <input
+          id="email"
           className="bg-orange-100 p-2 rounded-md text-black w-full"
           type="text"
           name="email"
           placeholder="Email"
           onChange={(event) => {
-            setRegisterEmail(event.target.value);
+            ValidateEmail(event);
           }}
           required
         />
