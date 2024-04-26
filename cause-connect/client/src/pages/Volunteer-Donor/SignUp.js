@@ -39,8 +39,18 @@ export default function Signup_VD() {
       console.log(error.message);
     }
   };
+  function fileName(fileData) {
+    try {
+      if (fileData != null) {
+        return fileData.files.item(0).name;
+      } else {
+        return "";
+      }
+    } catch (error) {
+    }
+  }
   return (
-    <div className="pt-20">
+    <div className="pt-20 w-full">
       <Stack
         className="relative"
         direction="column"
@@ -52,7 +62,9 @@ export default function Signup_VD() {
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">First Name *</label>
+          <label className="text-sm justify-left">
+            First Name <font color="red">*</font>
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -63,11 +75,14 @@ export default function Signup_VD() {
             onChange={(event) => {
               setRegisterFirstName(event.target.value);
             }}
+            required
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Last Name *</label>
+          <label className="text-sm justify-left">
+            Last Name <font color="red">*</font>
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -78,11 +93,14 @@ export default function Signup_VD() {
             onChange={(event) => {
               setRegisterLastName(event.target.value);
             }}
+            required
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Email *</label>
+          <label className="text-sm justify-left">
+            Email <font color="red">*</font>
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -93,11 +111,14 @@ export default function Signup_VD() {
             onChange={(event) => {
               setRegisterEmail(event.target.value);
             }}
+            required
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Phone Number *</label>
+          <label className="text-sm justify-left">
+            Phone Number <font color="red">*</font>
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -108,11 +129,14 @@ export default function Signup_VD() {
             onChange={(event) => {
               setRegisterPhoneNumber(event.target.value);
             }}
+            required
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Password *</label>
+          <label className="text-sm justify-left">
+            Password <font color="red">*</font>
+          </label>
         </div>
         <div className="w-1/3">
           <input
@@ -123,26 +147,47 @@ export default function Signup_VD() {
             onChange={(event) => {
               setRegisterPassword(event.target.value);
             }}
+            required
           />
         </div>
 
         <div className="w-1/3">
-          <label className="text-sm justify-left">Photo ID *</label>
+          <label className="text-sm justify-left">
+            Photo ID <font color="red">*</font>
+          </label>
         </div>
-        <div className="w-1/3">
+        <div className="relative w-1/3">
+          <label
+            for="upload"
+            className="z-10 pt-2 absolute bg-orange-100 text-left text-gray-400 rounded-md h-10 w-full opacity-0"
+          >
+            Upload Document
+          </label>
           <input
-            className="bg-orange-100 p-2 rounded-md text-black w-full"
+            className="absolute bg-orange-100 p-2 rounded-md text-black w-full"
+            placeholder="Upload Document"
+            value={fileName(document.getElementById("upload"))}
+          />
+          <label
+            for="file-upload"
+            className="z-20 pt-2 absolute bg-orange-200 w-1/3 text-center text-gray-500 rounded-md h-10 right-0 hover:bg-orange-300"
+          >
+            Browse Files
+          </label>
+          <input
+            id="upload"
             type="file"
-            name="status"
+            className="opacity-0"
             placeholder="Upload Document"
             onChange={(event) => {
               setRegisterPhotoID(event.target.value);
             }}
+            required
           />
         </div>
 
         <button
-          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3 hover: bg-orange-500"
+          className="bg-orange-400 pt-2 rounded-3xl text-white w-1/3 hover:bg-orange-500"
           onClick={signup}
         >
           {" "}
@@ -150,7 +195,7 @@ export default function Signup_VD() {
         </button>
         <p className="pb-20">
           Already have an account?{" "}
-          <a href="/np/login" className="text-blue-500 underline">
+          <a href="/vd/login" className="text-blue-500 underline">
             Log in
           </a>
         </p>
