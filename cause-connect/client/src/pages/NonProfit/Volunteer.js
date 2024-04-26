@@ -208,14 +208,14 @@ const VolunteerPostings = () => {
         startTime: selectedPosting.time,
         endTime: selectedPosting.endTime,
         totalSpots: selectedPosting.spots, 
-        availableSLots: selectedPosting.spots,
+        availableSlots: selectedPosting.spots,
       });
 
       console.log("Document written with ID: ", docRef.id);
       setEditMode(false);
       setSelectedPosting(null);
     } catch (e) {
-      console.error("Erro adding document: ", e);
+      console.error("Error adding document: ", e);
     }
     
     alert('Successfully created volunteering opportunity!'); // Placeholder

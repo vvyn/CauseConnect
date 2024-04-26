@@ -88,7 +88,7 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
             Please enter a city: <br></br>
             <input
                 type="text"
-                value={city}
+                value={city.toLowerCase()}
                 onChange={e => setCity(e.target.value)}/><br></br>
           </label><br></br>
           <label>
@@ -162,8 +162,8 @@ const Volunteer = () => {
 
   return (
     <div className='vol-page'>
-      <h1 className="vol-page-title">Explore volunteering opportunities!</h1>
-      <div className="vol-page-layout">
+      <div className="vol-page-title">Welcome to CauseConnect!</div>
+      <h1 className="vol-page-text">Explore volunteer opportunities!</h1><div className="vol-page-layout">
         <div className="vol-card-container">
           {filteredOpportunities.map((opportunity) => (
             <div className="vol-card" key={opportunity.id}>
@@ -174,7 +174,7 @@ const Volunteer = () => {
                 
                 <div className="vol-wrapper">
                   <p className="vol-location" >{opportunity.locationName}</p>
-                  <p className="vol-city-state">{opportunity.city}, {opportunity.state}</p>
+                  <p className="vol-city-state">{opportunity.city[0].toUpperCase() + opportunity.city.substring(1)}, {opportunity.state}</p>
                 </div>
                 
                 <p className="vol-date"><b>Date: </b>{opportunity.date}</p>
