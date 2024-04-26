@@ -83,21 +83,14 @@ const donationOpportunities = [
 ];
 
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
-  // State for filter criteria
   const [donations, setDonations] = useState([]);
-<<<<<<< HEAD
-  const [location, setLocation] = useState("");
-  const [distance, setDistance] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [location, setLocation] = useState(""); // Define location state
+  const [distance, setDistance] = useState(""); // Define distance state
 
   // Handle donation checkbox change
   const handleDonationChange = (event) => {
-=======
-  const [city, setCity] = useState('');
-  const [zipcode, setZipcode] = useState('');
- 
-   // Handle donation checkbox change
-   const handleDonationChange = (event) => {
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
     if (event.target.checked) {
       setDonations([...donations, event.target.value]);
     } else {
@@ -114,13 +107,12 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 
   const handleClearClick = () => {
     setDonations([]);
-<<<<<<< HEAD
     setLocation("");
     setDistance("");
     onResetFilters();
   };
 
-  const donaTypes = [
+  const donationTypes = [
     "community",
     "healthcare",
     "mental_health",
@@ -131,15 +123,6 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     "human_rights",
     "other",
   ];
-=======
-    setCity('');
-    setZipcode('');
-    onResetFilters();
-  };
-
-  const donaTypes = ['food', 'healthcare', 'library', 'environment', 'shelters', 'education',
-  'religious', 'other'];
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
 
   return (
     <div className="filter-panel">
@@ -148,8 +131,8 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         {/* Donation filter */}
         <label>
           <b>Donation Type:</b>
-          <br></br>
-          {donaTypes.map((donation) => (
+          <br />
+          {donationTypes.map((donation) => (
             <div key={donation}>
               <input
                 type="checkbox"
@@ -164,66 +147,53 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
               </label>
             </div>
           ))}
-<<<<<<< HEAD
         </label>
-        <br></br>
+        <br />
 
         {/* Location filter */}
         <label>
           <b>Location:</b>
-          <br></br>
-        </label>
-        <label>
-          Please enter your zipcode: <input name="myInput" />
-        </label>
-        <br></br>
-        <br></br>
-        <label htmlFor="distance">Distance from your location:</label>
-        <br></br>
-        <select
-          id="distance"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
-        >
-          <option value="5">5 miles</option>
-          <option value="10">10 miles</option>
-          <option value="15">15 miles</option>
-          <option value="20">20 miles</option>
-          <option value="50">50 miles</option>
-        </select>
-      </div>
-      <br></br>
-      <button className="filter-button" onClick={handleFilterClick}>
-        Filter
-      </button>
-      <button className="clear-button" onClick={handleClearClick}>
-        Clear
-      </button>
-=======
-        </label><br></br>
-
-        {/* Location filter */}
-        <label><b>Location:</b><br></br></label>
+          <br />
           <label>
-            Please enter a city: <br></br>
+            Please enter your city:
             <input
-                type="text"
-                value={city}
-                onChange={e => setCity(e.target.value)}/><br></br>
-          </label><br></br>
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </label>
+          <br />
           <label>
-            Please enter a zipcode: <br></br>
-              <input
-                type="text"
-                value={zipcode}
-                onChange={e => setZipcode(e.target.value)}/>
-          </label><br></br><br></br>
-
-
-      </div><br></br>
-      <button className="filter-button" onClick={handleFilterClick}>Filter</button>
-      <button className="clear-button" onClick={handleClearClick}>Clear</button>
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
+            Please enter your zipcode:
+            <input
+              type="text"
+              value={zipcode}
+              onChange={(e) => setZipcode(e.target.value)}
+            />
+          </label>
+          <br />
+          <label htmlFor="distance">Distance from your location:</label>
+          <br />
+          <select
+            id="distance"
+            value={distance}
+            onChange={(e) => setDistance(e.target.value)}
+          >
+            <option value="5">5 miles</option>
+            <option value="10">10 miles</option>
+            <option value="15">15 miles</option>
+            <option value="20">20 miles</option>
+            <option value="50">50 miles</option>
+          </select>
+        </label>
+        <br />
+        <button className="filter-button" onClick={handleFilterClick}>
+          Filter
+        </button>
+        <button className="clear-button" onClick={handleClearClick}>
+          Clear
+        </button>
+      </div>
     </div>
   );
 };
