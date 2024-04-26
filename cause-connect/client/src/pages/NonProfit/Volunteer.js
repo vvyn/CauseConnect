@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Grid, Card, CardContent, Typography, Button, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { db } from "../../Firebase";
+import { addDoc, collection } from "firebase/firestore";
+
 
 const PageLayout = styled('div')({
   display: 'grid',
@@ -190,11 +193,33 @@ const VolunteerPostings = () => {
     setSelectedPosting({...selectedPosting, [field]: e.target.value});
   };
 
-  const handleSave = () => {
-    // Save logic here, either update the array or handle new addition
-    alert('Save functionality not implemented'); // Placeholder
-    setEditMode(false);
-    setSelectedPosting(null);
+  const handleSave = async () => {
+    try{
+      const dbRef = collection(db, "volunteerPosting");
+
+      const docRef = await addDoc(dbRef, {
+        locationAddr: selectedPosting.address,
+        locationName: selectedPosting.location,
+        city: selectedPosting.city,
+        state: selectedPosting.state,
+        zipcode: selectedPosting.zipCode,
+        date: selectedPosting.date,
+        description: selectedPosting.description,
+        startTime: selectedPosting.time,
+        endTime: selectedPosting.endTime,
+        totalSpots: selectedPosting.spots, 
+        availableSLots: selectedPosting.spots,
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+      setEditMode(false);
+      setSelectedPosting(null);
+    } catch (e) {
+      console.error("Erro adding document: ", e);
+    }
+    
+    alert('Successfully created volunteering opportunity!'); // Placeholder
+    
   };
 
   const handleRemoveUser = (index) => {
