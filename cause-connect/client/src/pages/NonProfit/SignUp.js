@@ -34,7 +34,6 @@ export default function Signup_NP() {
         name: registerOrganizationName,
         email: registerEmail,
         phone: registerPhoneNumber,
-        password: registerPassword,
         website: registerWebsite,
         status: registerNonProfitStatus,
         state: registerState,
