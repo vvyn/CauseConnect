@@ -85,11 +85,11 @@ const donationOpportunities = [
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   // State for filter criteria
   const [donations, setDonations] = useState([]);
-  const [city, setCity] = useState('');
-  const [zipcode, setZipcode] = useState('');
- 
-   // Handle donation checkbox change
-   const handleDonationChange = (event) => {
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+
+  // Handle donation checkbox change
+  const handleDonationChange = (event) => {
     if (event.target.checked) {
       setDonations([...donations, event.target.value]);
     } else {
@@ -150,22 +150,30 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         <br></br>
 
         {/* Location filter */}
-        <label><b>Location:</b><br></br></label>
-          <label>
-            Please enter a city: <br></br>
-            <input
-                type="text"
-                value={city}
-                onChange={e => setCity(e.target.value)}/><br></br>
-          </label><br></br>
-          <label>
-            Please enter a zipcode: <br></br>
-              <input
-                type="text"
-                value={zipcode}
-                onChange={e => setZipcode(e.target.value)}/>
-          </label><br></br><br></br>
-        
+        <label>
+          <b>Location:</b>
+          <br></br>
+        </label>
+        <label>
+          Please enter a city: <br></br>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <br></br>
+        </label>
+        <br></br>
+        <label>
+          Please enter a zipcode: <br></br>
+          <input
+            type="text"
+            value={zipcode}
+            onChange={(e) => setZipcode(e.target.value)}
+          />
+        </label>
+        <br></br>
+        <br></br>
       </div>
       <br></br>
       <button className="filter-button" onClick={handleFilterClick}>
