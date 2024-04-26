@@ -105,13 +105,13 @@ const VolunteerPostingCard = ({ date, time, spots, totalSpots, onViewEdit }) => 
 );
 
 const SignUpTable = ({ users, onRemove }) => (
-  <TableContainer component={Paper}>
+  <TableContainer component={Paper} style={{ width: '80vw' }}>
     <Table aria-label="sign-ups table">
       <TableHead>
         <TableRow>
           <StyledTableCell>User</StyledTableCell>
-          <StyledTableCell>Date/Time</StyledTableCell>
-          <StyledTableCell>Profile</StyledTableCell>
+          <StyledTableCell style={{ width: '30%' }}>Date/Time</StyledTableCell>
+          <StyledTableCell style={{ width: '30%' }}>Profile</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -143,12 +143,12 @@ const VolunteerPostings = () => {
     { name: 'Jane Doe', date: '2024-04-12', time: '14:00' },
   ]);
   const postings = [
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2pm-4pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
   ];
 
   const handleViewEdit = posting => {
@@ -205,33 +205,33 @@ const VolunteerPostings = () => {
     <PageLayout>
     <div>
       {editMode ? (
-        <div>
-          <PageTitle>{selectedPosting && selectedPosting.date ? "Edit Volunteer Activity" : "Add Volunteer Activity"}</PageTitle>
+        <div style ={{ paddingLeft: '23px' }}>
+          <PageTitle style={{ paddingLeft: '0px' }}>{selectedPosting && selectedPosting.date ? "Edit Volunteer Activity" : "Add Volunteer Activity"}</PageTitle>
           <form>
-            <TextField label="Location" value={selectedPosting ? selectedPosting.location : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'location')} />
-            <TextField label="Address" value={selectedPosting ? selectedPosting.address : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'address')} />
-            <TextField label="City" value={selectedPosting ? selectedPosting.city : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'city')} />
-            <TextField label="State" value={selectedPosting ? selectedPosting.state : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'state')} />
-            <TextField label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'zipCode')} />
-            <TextField label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'date')} />
-            <TextField label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'time')} />
-            <TextField label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'endTime')} />
-            <TextField label="Description" value={selectedPosting ? selectedPosting.description : ''} fullWidth margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
-            <TextField label="Number of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.spots : ''} fullWidth margin="normal" onChange={e => handleChange(e, 'spots')} />
-            <Button variant="contained" color="primary" onClick={handleSave}>Save</Button>
-            <Button variant="outlined" color="secondary" onClick={handleCancel}>Cancel</Button>
+            <TextField label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
+            <TextField label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
+            <TextField label="City" value={selectedPosting ? selectedPosting.city : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
+            <TextField label="State" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
+            <TextField label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
+            <TextField label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
+            <TextField label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
+            <TextField label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'endTime')} InputLabelProps={{ shrink: true,}}/>
+            <TextField label="Description" value={selectedPosting ? selectedPosting.description : ''} style={{ width: '500px', display: 'block' }} margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
+            <TextField label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.spots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'spots')} />
+            <Button variant="contained" style={{ marginRight: '20px', marginTop: '10px', marginBottom: '10px' }} color="primary" onClick={handleSave}>Save</Button>
+            <Button variant="outlined" style={{ marginTop: '10px', marginBottom: '10px' }} color="secondary" onClick={handleCancel}>Cancel</Button>
           </form>
         </div>
       ) : selectedPosting ? (
-        <div>
-          <PageTitle>Volunteer Activity Details</PageTitle>
+        <div style ={{ paddingLeft: '23px' }}>
+          <PageTitle style={{ paddingLeft: '0px' }}>Volunteer Activity Details</PageTitle>
           <Typography variant="subtitle1"><strong>Location:</strong> {selectedPosting.location}</Typography>
-          <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address}, ${selectedPosting.city}, ${selectedPosting.state}, ${selectedPosting.zipCode}`}</Typography>
+          <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? selectedPosting.city + ', ' : ''}${selectedPosting.state ? selectedPosting.state + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
           <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
           <Typography variant="body1"><strong>Time:</strong> {selectedPosting.time} - {selectedPosting.endTime}</Typography>
           <Typography variant="body1"><strong>Description:</strong> {selectedPosting.description}</Typography>
           <Typography variant="body1"><strong>Spots Open:</strong> {selectedPosting.spots} of {selectedPosting.totalSpots}</Typography>
-          <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white', marginTop: '20px' }} onClick={handleEdit}>
+          <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white', marginTop: '20px', marginBottom: '20px' }} onClick={handleEdit}>
             Edit Info
           </Button>
           <SignUpTable users={users} onRemove={handleRemoveUser} />
