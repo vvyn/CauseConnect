@@ -112,7 +112,7 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     onResetFilters();
   };
 
-  const donationTypes = [
+  const donaTypes = [
     "community",
     "healthcare",
     "mental_health",
@@ -132,7 +132,7 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         <label>
           <b>Donation Type:</b>
           <br />
-          {donationTypes.map((donation) => (
+          {donaTypes.map((donation) => (
             <div key={donation}>
               <input
                 type="checkbox"
