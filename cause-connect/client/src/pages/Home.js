@@ -26,70 +26,65 @@ export default function Home() {
       <div className="flex">
         <div className="px-10 py-20 w-1/2 bg-white bg-opacity-20 rounded-md">
           <div className="text-xl pb-10">What We Do</div>
-          <p className="font-bold text-3xl">Give back with us</p>
-          <p className="pb-5 font-bold text-3xl">Explore with us</p>
+          <p className="pb-5 font-bold text-3xl">Empowering Change Together</p>
           <p className="pb-5 text-sm">
-            CauseConnect is the ultimate platform connecting volunteers and
-            donors with nonprofit organizations. With features like easy sign-up
-            for volunteer shifts across multiple organizations, tracking
-            volunteer history and donations, and facilitating communication
-            between organizations and individuals, CauseConnect simplifies the
-            process of making a difference. Join us today and be part of the
-            movement for positive change.
+          At CauseConnect, we're dedicated to revolutionizing the way volunteers and
+          donors connect with nonprofit organizations. Seamlessly bridging the gap between
+          individuals and causes, our platform streamlines the process of contributing to
+          positive change. Experience easy sign-ups, efficient tracking of volunteer history
+          and donations, all geared towards empowering you to make an impact.
           </p>
-          <div className="flex">
+
+        </div>
+        <div className="w-1/2 flex justify-center items-center">
+          <img src="home1.png" style={{ maxWidth: "50%", height: "auto" }} />
+        </div>
+      </div>
+
+      <div className="flex">
+        <div className="w-1/2 flex justify-center items-center">
+          <img src="home2.png" style={{ maxWidth: "50%", height: "auto" }} />
+        </div>
+        <div className="px-10 py-20 w-1/2 bg-white bg-opacity-20 rounded-md">
+          <div className="text-xl pb-10">Who We Serve</div>
+          <p className="pb-5 font-bold text-3xl">Uniting Passion and Purpose</p>
+          <p className="pb-5 text-sm">
+          At CauseConnect, our mission is clear: to serve both the passionate volunteers
+          and dedicated nonprofit organizations striving for social good. Whether you're
+          an individual eager to lend a helping hand or an organization seeking invaluable
+          support, our platform caters to your needs. Become part of a collective driving
+          meaningful change worldwide.
+
+          </p>
+        </div>
+      </div>
+
+      <div className="flex">
+        <div className="px-10 py-20 w-1/2 bg-white bg-opacity-20 rounded-md">
+          <div className="text-xl pb-10">Join Us Today</div>
+          <p className="pb-5 font-bold text-3xl">Ignite Your Impact</p>
+          <p className="pb-5 text-sm">
+          Ready to be a catalyst for positive change? Join CauseConnect and embark on a
+          journey where every action counts. By becoming part of our vibrant community, you
+          gain access to a plethora of opportunities to make a difference. From volunteering
+          your time to amplifying the impact of your donations, together we can create a
+          better tomorrow. Join us today and let's build a brighter future, one connection
+          at a time.
+
+            <div className="flex-col justify-end ml-4 py-5">
             <TextField
               id="outlined-basic"
               label="Email address"
               variant="outlined"
             />
-            <button className="bg-orange-400 ml-4 p-2 px-6 rounded-3xl text-white text-sm">
+            <button className="bg-orange-400 ml-4 p-4 px-6 rounded-3xl text-white text-sm">
               Sign Up
             </button>
           </div>
-        </div>
-        <div className="w-1/2">
-          <img src="home1.png" />
-        </div>
-      </div>
-
-      <div className="flex">
-        <div className="w-1/2">
-          <img src="home2.png" />
-        </div>
-        <div className="px-10 py-20 w-1/2 bg-white bg-opacity-20 rounded-md">
-          <div className="text-xl pb-10">Who We Serve</div>
-          <p className="font-bold text-3xl">Give back with us</p>
-          <p className="pb-5 font-bold text-3xl">Explore with us</p>
-          <p className="pb-5 text-sm">
-            CauseConnect is the ultimate platform connecting volunteers and
-            donors with nonprofit organizations. With features like easy sign-up
-            for volunteer shifts across multiple organizations, tracking
-            volunteer history and donations, and facilitating communication
-            between organizations and individuals, CauseConnect simplifies the
-            process of making a difference. Join us today and be part of the
-            movement for positive change.
           </p>
         </div>
-      </div>
-
-      <div className="flex">
-        <div className="px-10 py-20 w-1/2 bg-white bg-opacity-20 rounded-md">
-          <div className="text-xl pb-10">Join Us</div>
-          <p className="font-bold text-3xl">Give back with us</p>
-          <p className="pb-5 font-bold text-3xl">Explore with us</p>
-          <p className="pb-5 text-sm">
-            CauseConnect is the ultimate platform connecting volunteers and
-            donors with nonprofit organizations. With features like easy sign-up
-            for volunteer shifts across multiple organizations, tracking
-            volunteer history and donations, and facilitating communication
-            between organizations and individuals, CauseConnect simplifies the
-            process of making a difference. Join us today and be part of the
-            movement for positive change.
-          </p>
-        </div>
-        <div className="w-1/2">
-          <img src="home3.png" />
+        <div className="w-1/2 flex justify-center items-center">
+          <img src="home3.png" style={{ maxWidth: "50%", height: "auto" }} />
         </div>
       </div>
     </div>
