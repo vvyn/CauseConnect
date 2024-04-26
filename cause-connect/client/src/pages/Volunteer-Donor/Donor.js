@@ -81,8 +81,8 @@ const donationOpportunities = [
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   // State for filter criteria
   const [donations, setDonations] = useState([]);
-  const [location, setLocation] = useState('');
-  const [distance, setDistance] = useState('');
+  const [city, setCity] = useState('');
+  const [zipcode, setZipcode] = useState('');
  
    // Handle donation checkbox change
    const handleDonationChange = (event) => {
@@ -96,18 +96,18 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 
   // Call onApplyFilter with the current state when the Filter button is clicked
   const handleFilterClick = () => {
-    onApplyFilter({ donations, location, distance });
+    onApplyFilter({ donations, city, zipcode });
   };
 
   const handleClearClick = () => {
     setDonations([]);
-    setLocation('');
-    setDistance('');
+    setCity('');
+    setZipcode('');
     onResetFilters();
   };
 
-  const donaTypes = ['community', 'healthcare', 'mental_health', 'environment', 'shelters',
-                      'education', 'disaster_relief', 'human_rights', 'other'];
+  const donaTypes = ['food', 'healthcare', 'library', 'environment', 'shelters', 'education',
+  'religious', 'other'];
 
   return (
     <div className="filter-panel">
@@ -130,20 +130,24 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
           ))}
         </label><br></br>
 
-
         {/* Location filter */}
         <label><b>Location:</b><br></br></label>
           <label>
-          Please enter your zipcode: <input name="myInput" />
+            Please enter a city: <br></br>
+            <input
+                type="text"
+                value={city}
+                onChange={e => setCity(e.target.value)}/><br></br>
+          </label><br></br>
+          <label>
+            Please enter a zipcode: <br></br>
+              <input
+                type="text"
+                value={zipcode}
+                onChange={e => setZipcode(e.target.value)}/>
           </label><br></br><br></br>
-        <label htmlFor="distance">Distance from your location:</label><br></br>
-          <select id="distance" value={distance} onChange={e => setDistance(e.target.value)}>
-            <option value="5">5 miles</option>
-            <option value="10">10 miles</option>
-            <option value="15">15 miles</option>
-            <option value="20">20 miles</option>
-            <option value="50">50 miles</option>
-          </select>
+
+
       </div><br></br>
       <button className="filter-button" onClick={handleFilterClick}>Filter</button>
       <button className="clear-button" onClick={handleClearClick}>Clear</button>
