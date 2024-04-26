@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../Firebase";
 import Stack from "@mui/material/Stack";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection} from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 export default function Signup_VD() {
   const [registerFirstName, setRegisterFirstName] = useState("");
@@ -11,6 +13,8 @@ export default function Signup_VD() {
   const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerPhotoID, setRegisterPhotoID] = useState("");
+  const storage = getStorage();
+
 
   const signup = async () => {
     try {
@@ -28,6 +32,12 @@ export default function Signup_VD() {
         role: "vd",
       };
       const docRef = await addDoc(collection(db, "users"), user);
+      const fileElement = document.getElementById("upload");
+      if (fileElement.files.length > 0) {
+        const file = fileElement.files[0];
+        const storageRef = ref(storage, 'id/' + docRef.id + '/' + file.name);
+        const uploadTask = await uploadBytes(storageRef, file);
+      }
       alert("Successfully signed up!");
       console.log(createUser);
       window.location.href = "/vd/welcome";
