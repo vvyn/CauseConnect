@@ -1,23 +1,70 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import '../../assets/css/DonationOpp.css';
+import React, { useState } from "react";
+import Stack from "@mui/material/Stack";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const DonationDetails = () => {
-  const location = useLocation();
-  const { opportunity } = location.state || {};
+  const [donationAmount, setDonationAmount] = useState("");
+
+  const handleDonationSubmit = () => {
+    // Handle donation submission logic here
+  };
+
+  const initialOptions = {
+    clientId: "test",
+    currency: "USD",
+    intent: "capture",
+  };
 
   return (
-    <div>
-      {opportunity && (
-        <div>
-          <h2 className='donation-title'>{opportunity.title}</h2>
-          <p className='donation-text'><b>Location:</b><br />{opportunity.location}</p>
-          <p className='donation-text'><b>Description:</b><br />{opportunity.description}</p>
-
-          <text>poop</text>
-          {/* Add other fields as needed */}
+    <div className="pt-20 w-full">
+      <Stack
+        className="relative"
+        direction="column"
+        alignItems="center"
+        spacing={2}
+      >
+        <div className="w-1/3">
+          <h1 className="text-3xl justify-left">Make a Donation</h1>
         </div>
-      )}
+
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
+            Enter donation amount *
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="number"
+            value={donationAmount}
+            onChange={(e) => setDonationAmount(e.target.value)}
+            placeholder="Enter donation amount"
+            style={{ color: "black" , marginBottom: "50px" }}
+          />
+          
+        </div>
+      </Stack>
+
+
+      <div className="flex justify-center items-center">
+        <PayPalScriptProvider options={initialOptions}>
+          <PayPalButtons style={{ layout: "vertical" }} />
+        </PayPalScriptProvider>
+      </div>
+
+
+
+      
+      <div className="flex justify-center items-center">
+        <button
+          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3"
+          onClick={handleDonationSubmit}
+          style={{ marginTop: "20px" }} // Adjust margin to position the button
+          > Save
+        </button>
+
+  </div>
+
     </div>
   );
 };
