@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
@@ -82,9 +82,9 @@ const Donations = () => {
     setCreditCardNumber(formattedCreditCardNumber);
   };
 
-  const handleDonationSubmit = () => {
-    // Handle donation submission logic here
-  };
+  // const handleDonationSubmit = () => {
+  //   // Handle donation submission logic here
+  // };
 
   const initialOptions = {
     clientId: "test",
@@ -214,19 +214,14 @@ const Donations = () => {
           />
         </div>
 
-        <button
+        {/* <button
           className="bg-orange-400 p-2 rounded-3xl text-white w-1/3"
-          onClick={handleDonationSubmit}
+          onClick={paypalDonation}
           style={{ marginBottom: "100px" }}
         >
           Make Payment
-        </button>
+        </button> */}
       </Stack>
-      <div className="flex justify-center items-center">
-        <PayPalScriptProvider options={initialOptions}>
-          <PayPalButtons style={{ layout: "vertical" }} />
-        </PayPalScriptProvider>
-      </div>
     </div>
   );
 };
