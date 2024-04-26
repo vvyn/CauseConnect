@@ -51,14 +51,6 @@
     position: relative;
   }
 
-  .circle {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    background-color: orange;
-    border-radius: 50%;
-  }
-
   .card-content h2 {
     font-size: 1.5rem;
     color: orange;
@@ -72,9 +64,6 @@
     margin-bottom: 10px;
   }
 
-  /* .card-content .date {
-    margin-bottom: 5px;
-  } */
 
   .card-content .time {
     margin-bottom: 5px;
