@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Firebase";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import ExpandMoreSharpIcon from "@mui/icons-material/ExpandMoreSharp";
 import { db } from "../../Firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, addDoc, collection, updateDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function Signup_NP() {
   const [registerOrganizationName, setRegisterOrganizationName] = useState("");
@@ -23,7 +22,7 @@ export default function Signup_NP() {
   const [registerCity, setRegisterCity] = useState("");
   const [registerZip, setRegisterZip] = useState("");
   const [registerCause, setRegisterCause] = useState("");
-
+  const storage = getStorage();
   const signup = async () => {
     try {
       const createUser = await createUserWithEmailAndPassword(
@@ -35,7 +34,6 @@ export default function Signup_NP() {
         name: registerOrganizationName,
         email: registerEmail,
         phone: registerPhoneNumber,
-        password: registerPassword,
         website: registerWebsite,
         status: registerNonProfitStatus,
         state: registerState,
@@ -46,6 +44,18 @@ export default function Signup_NP() {
       const docRef = await addDoc(collection(db, "nonprofits"), user);
       alert("Successfully signed up!");
       console.log("Document Written with ID: ", docRef.id);
+      const fileElement = document.getElementById("file-upload");
+      if (fileElement.files.length > 0) {
+        const file = fileElement.files[0];
+        const storageRef = ref(storage, 'status/' + docRef.id + '/' + file.name);
+        const uploadTask = await uploadBytes(storageRef, file);
+
+        const downloadURL = await getDownloadURL(uploadTask.ref);
+        console.log('File available at', downloadURL);
+        await updateDoc(doc(db, "nonprofits", docRef.id), {
+          status: downloadURL
+        });
+      }
       console.log(createUser);
       window.location = "/np/welcome";
     } catch (error) {
@@ -63,10 +73,20 @@ export default function Signup_NP() {
       } else {
         return "";
       }
-    } catch (error) {}
+    } catch (error) {
+    }
+  }
+  function ValidateEmail(event) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (event.target.value.match(validRegex)) {
+      setRegisterEmail(event.target.value);
+    } else {
+      document.getElementById('email').style.borderColor = "red";
+      return false;
+    }
   }
   return (
-    <div className="pt-20">
+    <div className="pt-20 w-full">
       <Stack
         className="relative"
         direction="column"
@@ -322,10 +342,16 @@ export default function Signup_NP() {
                 }}
                 IconComponent={ExpandMoreSharpIcon}
               >
-                <MenuItem value={"Women's Issues"}>Women's Issues</MenuItem>
-                <MenuItem value={"Homeless"}>Homeless</MenuItem>
-                <MenuItem value={"Animals"}>Animals</MenuItem>
+                <MenuItem value={"Women's Issues"}>Food</MenuItem>
+                <MenuItem value={"Healthcare"}>Healthcare</MenuItem>
+                <MenuItem value={"Environment"}>Environment</MenuItem>
                 <MenuItem value={"Humanitarian Aid"}>Humanitarian Aid</MenuItem>
+                <MenuItem value={"Animals"}>Animals</MenuItem>
+                <MenuItem value={"Education"}>Education</MenuItem>
+                <MenuItem value={"Religious"}>Religious</MenuItem>
+                <MenuItem value={"Library"}>Library</MenuItem>
+                <MenuItem value={"Youth"}>Youth</MenuItem>
+                <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
             </FormControl>
           </Box>
