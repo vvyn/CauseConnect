@@ -6,7 +6,7 @@ const DonationDetails = () => {
   const [donationAmount, setDonationAmount] = useState("");
 
   const handleDonationSubmit = () => {
-    // Handle donation submission logic here
+    
   };
 
   const initialOptions = {
