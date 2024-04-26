@@ -1,72 +1,106 @@
-import React, { useState } from "react";
-import Stack from "@mui/material/Stack";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+  FUNDING,
+} from "@paypal/react-paypal-js";
 
-const DonationDetails = () => {
-  const [donationAmount, setDonationAmount] = useState("");
+const style = { layout: "vertical" };
 
+<<<<<<< HEAD
+//   // replace this url with your server
+//   return fetch(
+//     "https://www.sandbox.paypal.com/donate/?hosted_button_id=3FQKL4X289YBW",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       // use the "body" param to optionally pass additional order information
+//       // like product ids and quantities
+//       body: JSON.stringify({
+//         cart: [
+//           {
+//             sku: "etanod01",
+//             quantity: 1,
+//           },
+//         ],
+//       }),
+//     }
+//   )
+//     .then((response) => response.json())
+//     .then((order) => {
+//       // Your code here after create the order
+//       return order.id;
+//     });
+// }
+// function onApprove(data) {
+//   // replace this url with your server
+//   return fetch(
+//     "https://react-paypal-js-storybook.fly.dev/api/paypal/capture-order",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         orderID: data.orderID,
+//       }),
+//     }
+//   )
+//     .then((response) => response.json())
+//     .then((orderData) => {
+//       // Your code here after capture the order
+//     });
+// }
+=======
   const handleDonationSubmit = () => {
     
   };
+>>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
 
-  const initialOptions = {
-    clientId: "test",
-    currency: "USD",
-    intent: "capture",
-  };
-
-  return (
-    <div className="pt-20 w-full">
-      <Stack
-        className="relative"
-        direction="column"
-        alignItems="center"
-        spacing={2}
-      >
-        <div className="w-1/3">
-          <h1 className="text-3xl justify-left">Make a Donation</h1>
-        </div>
-
-        <div className="w-1/3">
-          <label className="text-sm justify-left">
-            Enter donation amount *
-          </label>
-        </div>
-        <div className="w-1/3">
-          <input
-            className="bg-orange-100 p-2 rounded-md text-white w-full"
-            type="number"
-            value={donationAmount}
-            onChange={(e) => setDonationAmount(e.target.value)}
-            placeholder="Enter donation amount"
-            style={{ color: "black" , marginBottom: "50px" }}
-          />
-          
-        </div>
-      </Stack>
-
-
-      <div className="flex justify-center items-center">
-        <PayPalScriptProvider options={initialOptions}>
-          <PayPalButtons style={{ layout: "vertical" }} />
-        </PayPalScriptProvider>
-      </div>
-
-
-
-      
-      <div className="flex justify-center items-center">
-        <button
-          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3"
-          onClick={handleDonationSubmit}
-          style={{ marginTop: "20px" }} // Adjust margin to position the button
-          > Save
-        </button>
-
-  </div>
-
-    </div>
-  );
+// Custom component to wrap the PayPalButtons and show loading spinner
+const ButtonWrapper = ({ showSpinner }) => {
+  const [{ isPending }] = usePayPalScriptReducer();
 };
 
-export default DonationDetails;
+function paypalDonate() {
+  window.location.href =
+    "https://www.sandbox.paypal.com/donate/?hosted_button_id=3FQKL4X289YBW";
+}
+
+export default function DonationDetails() {
+  return (
+    <div className="App flex flex-col justify-center items-center min-h-screen">
+      <PayPalScriptProvider
+        options={{
+          clientId:
+            "Adr_2Smsx_jambx2RBQGnTXuqUmCSQXDgOOIESjkkeeybJ-9dDDlyLJm_JsRIU5MOvdk9OtBfmDohPKE",
+          currency: "USD",
+          intent: "capture",
+        }}
+      >
+        <PayPalButtons
+          fundingSource={FUNDING.PAYPAL}
+          style={{
+            layout: "vertical",
+            label: "donate",
+            shape: "pill",
+            tagline: false,
+          }}
+          onCancel={paypalDonate}
+        />
+
+        <PayPalButtons
+          fundingSource={FUNDING.CARD}
+          style={{
+            layout: "vertical",
+            label: "donate",
+            shape: "pill",
+            tagline: false,
+          }}
+        />
+      </PayPalScriptProvider>
+    </div>
+  );
+}
