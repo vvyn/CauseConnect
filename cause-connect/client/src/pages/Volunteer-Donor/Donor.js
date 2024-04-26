@@ -85,19 +85,11 @@ const donationOpportunities = [
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   // State for filter criteria
   const [donations, setDonations] = useState([]);
-<<<<<<< HEAD
-  const [location, setLocation] = useState("");
-  const [distance, setDistance] = useState("");
-
-  // Handle donation checkbox change
-  const handleDonationChange = (event) => {
-=======
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
  
    // Handle donation checkbox change
    const handleDonationChange = (event) => {
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
     if (event.target.checked) {
       setDonations([...donations, event.target.value]);
     } else {
@@ -114,7 +106,6 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 
   const handleClearClick = () => {
     setDonations([]);
-<<<<<<< HEAD
     setLocation("");
     setDistance("");
     onResetFilters();
@@ -131,15 +122,6 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     "human_rights",
     "other",
   ];
-=======
-    setCity('');
-    setZipcode('');
-    onResetFilters();
-  };
-
-  const donaTypes = ['food', 'healthcare', 'library', 'environment', 'shelters', 'education',
-  'religious', 'other'];
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
 
   return (
     <div className="filter-panel">
@@ -164,7 +146,6 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
               </label>
             </div>
           ))}
-<<<<<<< HEAD
         </label>
         <br></br>
 
@@ -199,31 +180,6 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
       <button className="clear-button" onClick={handleClearClick}>
         Clear
       </button>
-=======
-        </label><br></br>
-
-        {/* Location filter */}
-        <label><b>Location:</b><br></br></label>
-          <label>
-            Please enter a city: <br></br>
-            <input
-                type="text"
-                value={city}
-                onChange={e => setCity(e.target.value)}/><br></br>
-          </label><br></br>
-          <label>
-            Please enter a zipcode: <br></br>
-              <input
-                type="text"
-                value={zipcode}
-                onChange={e => setZipcode(e.target.value)}/>
-          </label><br></br><br></br>
-
-
-      </div><br></br>
-      <button className="filter-button" onClick={handleFilterClick}>Filter</button>
-      <button className="clear-button" onClick={handleClearClick}>Clear</button>
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
     </div>
   );
 };

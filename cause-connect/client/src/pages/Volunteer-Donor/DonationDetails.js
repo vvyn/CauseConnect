@@ -7,7 +7,6 @@ import {
 
 const style = { layout: "vertical" };
 
-<<<<<<< HEAD
 //   // replace this url with your server
 //   return fetch(
 //     "https://www.sandbox.paypal.com/donate/?hosted_button_id=3FQKL4X289YBW",
@@ -53,11 +52,6 @@ const style = { layout: "vertical" };
 //       // Your code here after capture the order
 //     });
 // }
-=======
-  const handleDonationSubmit = () => {
-    
-  };
->>>>>>> c70feb1f94bbc03c4c0ceab5a7924b3e5b515174
 
 // Custom component to wrap the PayPalButtons and show loading spinner
 const ButtonWrapper = ({ showSpinner }) => {
