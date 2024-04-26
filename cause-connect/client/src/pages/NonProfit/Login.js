@@ -94,7 +94,7 @@ export default function NPLogin() {
           </button>
           <p className="text-center pt-5">
             Don't have an account?{" "}
-            <a href="/vd/signup" className="text-blue-500 underline">
+            <a href="/np/signup" className="text-blue-500 underline">
               Sign Up
             </a>
           </p>
