@@ -40,12 +40,12 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     onResetFilters();
   };
 
-  const causeTypes = ['food', 'healthcare', 'library', 'environment', 'shelters', 'education', 'religious', 'other'];
+  const causeTypes = ['food', 'healthcare', 'environment', 'humanitarian aid', 'animals', 'education', 'religious', 'library', 'youth', 'other'];
 
   return (
-    <div className="filter-panel">
+    <div className="vol-filter-panel">
       <div>
-      <h1 className="filter-title">Filter Options</h1>
+      <h1 className="vol-filter-title">Filter Options</h1>
       {/* Cause filter */}
         <label><b>Cause Type:</b><br></br>
         {causeTypes.map(cause => (
@@ -101,8 +101,8 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
           
          
       </div><br></br>
-      <button className="filter-button" onClick={handleFilterClick}>Filter</button>
-      <button className="clear-button" onClick={handleClearClick}>Clear</button>
+      <button className="vol-filter-button" onClick={handleFilterClick}>Filter</button>
+      <button className="vol-clear-button" onClick={handleClearClick}>Clear</button>
     </div>
   );
 };
@@ -110,33 +110,31 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 const Volunteer = () => {
   const[filteredOpportunities, setFilteredOpportunities] = useState([])
 
-  let fetchedData = query(volunteerOpportunities);
-
   const fetchOpportunities = async (filters = {}) => {
     try{
-      if(Object.keys(filters).length){
-        if(filters.cause_type){
-          fetchedData = query(fetchedData, where("cause_type", "==", filters.cause_type));
+      let fetchedData = volunteerOpportunities;
+
+        if(filters.causes && filters.causes.length > 0){
+          fetchedData = query(query(fetchedData, where("causeType", "in", filters.causes)));
         }
 
         if(filters.fromDate){
-          fetchedData = query(fetchedData, where("fromDate", "<=", filters.fromDate));
+          fetchedData = query(query(fetchedData, where("date", "<=", filters.fromDate)));
         }
 
         if(filters.toDate){
-          fetchedData = query(fetchedData, where("toDate", ">=", filters.toDate));
+          fetchedData = query(query(fetchedData, where("date", ">=", filters.toDate)));
         }
 
         if(filters.city){
-          fetchedData = query(fetchedData, where("city", "==", filters.city));
+          fetchedData = query(query(fetchedData, where("city", "==", filters.city)));
         }
 
         if(filters.zipcode){
-          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
+          fetchedData = query(query(fetchedData, where("zipcode", "==", filters.zipcode)));
         }
-      }
 
-      const queryResult = await getDocs(volunteerOpportunities);
+      const queryResult = await getDocs(fetchedData);
       const opportunities = queryResult.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -163,30 +161,30 @@ const Volunteer = () => {
 
 
   return (
-    <div >
-      <h1 className="page-text">Explore volunteering opportunities below!</h1>
-      <div className='page-layout'>
-        <div className="card-container">
+    <div className='vol-page'>
+      <h1 className="vol-page-title">Explore volunteering opportunities!</h1>
+      <div className="vol-page-layout">
+        <div className="vol-card-container">
           {filteredOpportunities.map((opportunity) => (
-            <div className="card" key={opportunity.id}>
-              <div className="card-content">
-                <div className="wrapper-heading">
-                  <h2 className="card-title">{opportunity.title}</h2>
+            <div className="vol-card" key={opportunity.id}>
+              <div className="vol-card-content">
+                <div className="vol-wrapper-heading">
+                  <h2 className="vol-card-title">{opportunity.title}</h2>
                 </div>
                 
-                <div className="wrapper">
-                  <p className="location" >{opportunity.locationName}</p>
-                  <p className="city-state">{opportunity.city}, {opportunity.state}</p>
+                <div className="vol-wrapper">
+                  <p className="vol-location" >{opportunity.locationName}</p>
+                  <p className="vol-city-state">{opportunity.city}, {opportunity.state}</p>
                 </div>
                 
-                <p className="date"><b>Date: </b>{opportunity.date}</p>
-                <p className="time"><b>Time: </b>{opportunity.startTime}-{opportunity.endTime}</p>
+                <p className="vol-date"><b>Date: </b>{opportunity.date}</p>
+                <p className="vol-time"><b>Time: </b>{opportunity.startTime}-{opportunity.endTime}</p>
                 <p>{opportunity.description}</p>
-                <p className="spots">{opportunity.availableSlots} out of {opportunity.totalSpots} spots open</p>
+                <p className="vol-spots">{opportunity.availableSlots} out of {opportunity.totalSpots} spots open</p>
                 
               </div>
               <Link to={`opportunitySignUp/${opportunity.id}`} state={{opportunity: opportunity}} >
-                <button className="signup-button">Sign up</button>
+                <button className="vol-signup-button">Sign up</button>
               </Link>
             </div>
           ))}

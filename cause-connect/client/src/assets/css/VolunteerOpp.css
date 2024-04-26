@@ -1,40 +1,54 @@
-.page-layout{
-  display: grid;
-  grid-template-columns: 1fr min-content;
+.vol-page{
+  width: 100%;
+}
+
+.vol-page-layout{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* .vol-page-layout{
+  display: flex;
   gap: 10px;
   min-height: 100vh;
   padding-right: 20px;
+} */
+
+
+.vol-page-title {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-left: 20px;
+  color: orange;
+  width: 100%;
 }
 
 
-.page-title {
-    font-size: 3.0rem;
-    text-align: center;
-    color:#F49630;
-}
-
-.page-text {
-    font-size: 3.0rem;
-    text-align: left;
-    margin-top: 6px;
-    margin-left: 23px;
-}
-
-
-  .card-container {
+.vol-card-container {
+    flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 20px;
-    padding: 20px;
-    align-content: flex-start;
-    min-height: 0;
-    height: 100%;
-  }
+}
 
-  .card {
+/* .vol-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  align-content: flex-start;
+  min-height: 0;
+  height: 100%;
+} */
+
+  .vol-card {
+    padding: 9px;
     width: 325px;
-    padding: 20px;
     background: #FFF6E9;
     border: 1px solid #C19D75;
     border-radius: 8px;
@@ -46,68 +60,59 @@
     transform: translateY(-5px);
   }
   
-  .card-content {
+  .vol-card-content {
     position: relative;
   }
 
-  /* .circle {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    background-color: orange;
-    border-radius: 50%;
-  } */
-
-  .card-content h2 {
+  .vol-card-content h2 {
     font-size: 1.5rem;
     color: orange;
-    margin-left: 10px;
+    
   }
 
-  .card-content p {
+  .vol-card-content p {
     font-size: 1.0rem;
     color: 'black';
   }
 
-  /* .card-content .date {
-    margin-bottom: 5px;
-  } */
-
-  .card-content .card-title {
+  .vol-date {
     margin-bottom: 5px;
   }
 
-  .card-content .time {
+  .vol-card-title {
     margin-bottom: 5px;
   }
 
-  .card-content .location {
-    margin-left: 45px;
+  .vol-time {
+    margin-bottom: 5px;
+  }
+
+  .vol-location {
     color: #FFB86A;
   }
 
-  .card-content .city-state {
+  .vol-city-state {
     color: #FFB86A;
   }
 
-  .card-content .spots {
+  .vol-spots {
     color: #FFB86A;
     text-align: right;
     margin-bottom: 10px;
   }
-
-  .wrapper-heading {
+/* 
+  .vol-wrapper-heading {
     display: flex;
     align-items: center;
-  }
+  } */
 
-  .wrapper {
+  .vol-wrapper {
     display: flex;
     justify-content: space-between; 
     margin-bottom: 5px;
   }
   
-  .signup-button {
+  .vol-signup-button {
     width: 100%;
     padding: 10px;
     background-color: orange;
@@ -118,22 +123,33 @@
   }
 
   /* Filter Panel CSS */
-  .filter-title{
+  .vol-filter-title{
     font-size: 1.5rem;
     margin-top: -10px;
     margin-bottom: 10px;
     text-align: left;
   }
-  .filter-panel {
-    width: 300px;
+
+  .vol-filter-panel {
+    width: 275px;
     margin-left: auto;
-    padding: 15px;
-    overflow-y: auto;
+    padding: 15px; 
+    overflow-y: auto; 
     background-color: #FFF6E9;
     border: 1px solid #C19D75;
   }
 
-  .filter-button {
+  /* .vol-filter-panel {
+    width: 275px;
+    margin-top: 20px;
+    padding: 15px; 
+    overflow-y: auto; 
+    background-color: #FFF6E9;
+    border: 1px solid #C19D75;
+    align-items: ;
+  } */
+
+  .vol-filter-button {
     width: 50%;
     padding: 7px;
     background-color: orange;
@@ -143,7 +159,7 @@
     cursor: pointer;
   }
 
-  .clear-button {
+  .vol-clear-button {
     width: 50%;
     padding: 7px;
     border-radius: 10px;
@@ -153,7 +169,7 @@
 
 
     /* Volunteer Opportunity Sign up page CSS */
-    .opp-title {
+    .vol-opp-title {
       font-size: 4.0rem;
       color: orange;
       margin-bottom: 30px;
@@ -161,14 +177,14 @@
       text-align: left;
     }
 
-    .opp-text {
+    .vol-opp-text {
       font-size: 1.3rem;
       margin-bottom: 20px;
       margin-left: 20px;
       text-align: left;
     }
 
-    .opp-signup-button {
+    .vol-opp-signup-button {
       width: 20%;
       padding: 9px;
       background-color: orange;
@@ -178,7 +194,7 @@
       margin-left: 20px;
     }
 
-    .opp-signup-status {
+    .vol-opp-signup-status {
       font-size: 2.0rem;
       color: orange;
       margin-bottom: 30px;
