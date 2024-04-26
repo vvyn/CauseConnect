@@ -3,15 +3,20 @@
 }
 
 .vol-page-layout{
-  display: grid;
-  grid-template-columns: min-content 1fr;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* .vol-page-layout{
+  display: flex;
   gap: 10px;
   min-height: 100vh;
-  align-items: start;
   padding-right: 20px;
-  justify-content: right;
-  width: 100%;
-}
+} */
+
 
 .vol-page-title {
   font-size: 2.5rem;
@@ -23,18 +28,26 @@
 
 
 .vol-card-container {
+    flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 20px;
-    padding: 20px;
-    align-content: flex-start;
-    min-height: 0;
-    height: 100%;
 }
 
+/* .vol-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+  align-content: flex-start;
+  min-height: 0;
+  height: 100%;
+} */
+
   .vol-card {
-    padding: 20px;
+    padding: 9px;
     width: 325px;
     background: #FFF6E9;
     border: 1px solid #C19D75;
@@ -87,11 +100,11 @@
     text-align: right;
     margin-bottom: 10px;
   }
-
+/* 
   .vol-wrapper-heading {
     display: flex;
     align-items: center;
-  }
+  } */
 
   .vol-wrapper {
     display: flex;
@@ -119,13 +132,22 @@
 
   .vol-filter-panel {
     width: 275px;
+    margin-left: auto;
+    padding: 15px; 
+    overflow-y: auto; 
+    background-color: #FFF6E9;
+    border: 1px solid #C19D75;
+  }
+
+  /* .vol-filter-panel {
+    width: 275px;
     margin-top: 20px;
     padding: 15px; 
     overflow-y: auto; 
     background-color: #FFF6E9;
     border: 1px solid #C19D75;
-    justify-content: right;
-  }
+    align-items: ;
+  } */
 
   .vol-filter-button {
     width: 50%;
