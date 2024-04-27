@@ -46,9 +46,6 @@ const Sidebar = () => {
             <a href="/vd/donor">
               <div>Donate</div>
             </a>
-            <a href="/vd/donationSummary">
-              <div>Summary</div>
-            </a>
             <a href="/vd/volunteer">
               <div>Volunteer</div>
             </a>
