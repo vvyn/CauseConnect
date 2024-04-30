@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import { Grid, Card, CardContent, Typography, Button, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Grid, Card, CardContent, Typography, Button, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { db } from "../../Firebase";
 import { addDoc, collection } from "firebase/firestore";
 
+const causeTypes = [
+  'Animals',
+  'Education',
+  'Environment',
+  'Food',
+  'Healthcare',
+  'Humanitarian aid',
+  'Library',
+  'Religious',
+  'Youth',
+  'Other',
+];
 
 const PageLayout = styled('div')({
   display: 'grid',
@@ -146,13 +158,24 @@ const VolunteerPostings = () => {
     { name: 'Jane Doe', date: '2024-04-12', time: '14:00' },
   ]);
   const postings = [
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
+    { title: 'sample title', date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
     { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
     { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
     { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
     { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
     { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
   ];
+
+  const isValidForm = () => {
+    return (
+      selectedPosting.title && selectedPosting.causeType &&
+      selectedPosting.location && selectedPosting.address &&
+      selectedPosting.city && selectedPosting.state &&
+      selectedPosting.zipCode && selectedPosting.date &&
+      selectedPosting.time && selectedPosting.endTime &&
+      selectedPosting.description && selectedPosting.spots
+    );
+  };
 
   const handleViewEdit = posting => {
     setSelectedPosting(posting);
@@ -161,6 +184,8 @@ const VolunteerPostings = () => {
 
   const handleAddNew = () => {
     setSelectedPosting({
+      title: '',
+      causeType: '',
       location: '', 
       address: '', 
       city: '', 
@@ -198,6 +223,8 @@ const VolunteerPostings = () => {
       const dbRef = collection(db, "volunteerPosting");
 
       const docRef = await addDoc(dbRef, {
+        title: selectedPosting.title,
+        causeType: selectedPosting.causeType,
         locationAddr: selectedPosting.address,
         locationName: selectedPosting.location,
         city: selectedPosting.city,
@@ -208,7 +235,7 @@ const VolunteerPostings = () => {
         startTime: selectedPosting.time,
         endTime: selectedPosting.endTime,
         totalSpots: selectedPosting.spots, 
-        availableSlots: selectedPosting.spots,
+        availableSLots: selectedPosting.spots,
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -233,23 +260,38 @@ const VolunteerPostings = () => {
         <div style ={{ paddingLeft: '23px' }}>
           <PageTitle style={{ paddingLeft: '0px' }}>{selectedPosting && selectedPosting.date ? "Edit Volunteer Activity" : "Add Volunteer Activity"}</PageTitle>
           <form>
-            <TextField label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
-            <TextField label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
-            <TextField label="City" value={selectedPosting ? selectedPosting.city.toLowerCase() : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
-            <TextField label="State Initials" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
-            <TextField label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
-            <TextField label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
-            <TextField label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
-            <TextField label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'endTime')} InputLabelProps={{ shrink: true,}}/>
-            <TextField label="Description" value={selectedPosting ? selectedPosting.description : ''} style={{ width: '500px', display: 'block' }} margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
-            <TextField label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.spots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'spots')} />
-            <Button variant="contained" style={{ marginRight: '20px', marginTop: '10px', marginBottom: '10px' }} color="primary" onClick={handleSave}>Save</Button>
+            <TextField required label="Title" value={selectedPosting ? selectedPosting.title : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'title')} />
+            <FormControl required style={{ width: '210px'}} margin="normal">
+              <InputLabel id="causeType">Cause Type</InputLabel>
+              <Select
+                labelId="causeType"
+                value={selectedPosting ? selectedPosting.causeType : ''}
+                label="causeType"
+                onChange={e => handleChange(e, 'causeType')}
+              >
+                {causeTypes.map((causeType, index) => (
+                  <MenuItem key={index} value={causeType}>{causeType}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField required label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
+            <TextField required label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
+            <TextField required label="City" value={selectedPosting ? selectedPosting.city : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
+            <TextField required label="State" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
+            <TextField required label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
+            <TextField required label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
+            <TextField required label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
+            <TextField required label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'endTime')} InputLabelProps={{ shrink: true,}}/>
+            <TextField required label="Description" value={selectedPosting ? selectedPosting.description : ''} style={{ width: '500px', display: 'block' }} margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
+            <TextField required label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.spots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'spots')} />
+            <Button variant="contained" style={{ marginRight: '20px', marginTop: '10px', marginBottom: '10px' }} color="primary" onClick={handleSave} disabled={!isValidForm()}>Save</Button>
             <Button variant="outlined" style={{ marginTop: '10px', marginBottom: '10px' }} color="secondary" onClick={handleCancel}>Cancel</Button>
           </form>
         </div>
       ) : selectedPosting ? (
         <div style ={{ paddingLeft: '23px' }}>
           <PageTitle style={{ paddingLeft: '0px' }}>Volunteer Activity Details</PageTitle>
+          <Typography variant="h5"><strong>{selectedPosting.title}</strong></Typography>
           <Typography variant="subtitle1"><strong>Location:</strong> {selectedPosting.location}</Typography>
           <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? selectedPosting.city + ', ' : ''}${selectedPosting.state ? selectedPosting.state + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
           <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
