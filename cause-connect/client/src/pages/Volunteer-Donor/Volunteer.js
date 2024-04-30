@@ -107,6 +107,11 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   );
 };
 
+function capitalizeWords(input) {
+  return input.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
+
+
 const Volunteer = () => {
   const[filteredOpportunities, setFilteredOpportunities] = useState([])
 
@@ -119,11 +124,11 @@ const Volunteer = () => {
         }
 
         if(filters.fromDate){
-          fetchedData = query(query(fetchedData, where("date", "<=", filters.fromDate)));
+          fetchedData = query(query(fetchedData, where("date", ">=", filters.fromDate)));
         }
 
         if(filters.toDate){
-          fetchedData = query(query(fetchedData, where("date", ">=", filters.toDate)));
+          fetchedData = query(query(fetchedData, where("date", "<=", filters.toDate)));
         }
 
         if(filters.city){
@@ -174,7 +179,7 @@ const Volunteer = () => {
                 
                 <div className="vol-wrapper">
                   <p className="vol-location" >{opportunity.locationName}</p>
-                  <p className="vol-city-state">{opportunity.city[0].toUpperCase() + opportunity.city.substring(1)}, {opportunity.state}</p>
+                  <p className="vol-city-state">{capitalizeWords(opportunity.city)}, {opportunity.state}</p>
                 </div>
                 
                 <p className="vol-date"><b>Date: </b>{opportunity.date}</p>
