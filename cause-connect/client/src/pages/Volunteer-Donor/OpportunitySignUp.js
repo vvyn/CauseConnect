@@ -36,8 +36,8 @@ const OpportunitySignUp = () => {
         <div>
             {opportunity && (
                 <div>
-                    <h2 className='opp-title'>{opportunity.title}</h2>
-                    <p className='opp-text'><b>Location:</b><br></br>
+                    <h2 className='vol-opp-title'>{opportunity.title}</h2>
+                    <p className='vol-opp-text'><b>Location:</b><br></br>
                         {opportunity.locationName}<br></br>
                         {opportunity.locationAddr}, {opportunity.city}, {opportunity.state}, {opportunity.zipcode}<br></br><br></br>
                         <b>Date:</b><br></br>{opportunity.date}<br></br><br></br>
@@ -45,8 +45,8 @@ const OpportunitySignUp = () => {
                         <b>Description:</b><br></br>{opportunity.description}<br></br><br></br>
                         <b>Availability: </b>{opportunity.availableSlots} out of {opportunity.totalSpots} open spots</p>
                     
-                    <button className='opp-signup-button' onClick={updateSignUpStatus} >Sign Up</button>
-                    {signUpStatus && <p className='opp-signup-status'>{signUpStatus}</p>}
+                    <button className='vol-opp-signup-button' onClick={updateSignUpStatus} >Sign Up</button>
+                    {signUpStatus && <p className='vol-opp-signup-status'>{signUpStatus}</p>}
                 </div>
             )}
 
