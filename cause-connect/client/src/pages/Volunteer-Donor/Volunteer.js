@@ -120,23 +120,23 @@ const Volunteer = () => {
       let fetchedData = volunteerOpportunities;
 
         if(filters.causes && filters.causes.length > 0){
-          fetchedData = query(query(fetchedData, where("causeType", "in", filters.causes)));
+          fetchedData = query(fetchedData, where("causeType", "in", filters.causes));
         }
 
-        if(filters.fromDate){
-          fetchedData = query(query(fetchedData, where("date", ">=", filters.fromDate)));
-        }
-
-        if(filters.toDate){
-          fetchedData = query(query(fetchedData, where("date", "<=", filters.toDate)));
+        if (filters.toDate && filters.fromDate) {
+          fetchedData = query(fetchedData, where("date", "<=", filters.toDate), where("date", ">=", filters.fromDate));
+        } else if (filters.toDate) {
+            fetchedData = query(fetchedData, where("date", "<=", filters.toDate));
+        } else if (filters.fromDate) {
+            fetchedData = query(fetchedData, where("date", ">=", filters.fromDate));
         }
 
         if(filters.city){
-          fetchedData = query(query(fetchedData, where("city", "==", filters.city)));
+          fetchedData = query(fetchedData, where("city", "==", filters.city));
         }
 
         if(filters.zipcode){
-          fetchedData = query(query(fetchedData, where("zipcode", "==", filters.zipcode)));
+          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
         }
 
       const queryResult = await getDocs(fetchedData);

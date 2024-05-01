@@ -235,7 +235,7 @@ const VolunteerPostings = () => {
         startTime: selectedPosting.time,
         endTime: selectedPosting.endTime,
         totalSpots: selectedPosting.spots, 
-        availableSLots: selectedPosting.spots,
+        availableSlots: selectedPosting.spots,
       });
 
       console.log("Document written with ID: ", docRef.id);
@@ -245,7 +245,7 @@ const VolunteerPostings = () => {
       console.error("Error adding document: ", e);
     }
     
-    alert('Successfully created volunteering opportunity!'); // Placeholder
+    alert('Successfully created volunteering opportunity!');
     
   };
 
@@ -277,7 +277,7 @@ const VolunteerPostings = () => {
             <TextField required label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
             <TextField required label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
             <TextField required label="City" value={selectedPosting ? selectedPosting.city : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
-            <TextField required label="State" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
+            <TextField required label="State (Initials only)" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
             <TextField required label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
             <TextField required label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
