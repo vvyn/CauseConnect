@@ -1,3 +1,7 @@
+.don-page{
+  width: 100%
+}
+
 .page-layout{
   display: grid;
   grid-template-columns: 1fr min-content;
@@ -15,10 +19,10 @@
 }
 
 .page-text {
-    font-size: 1rem;
+    font-size: 1.25rem;
     text-align: left;
     margin-top: 6px;
-    margin-left: 23px;
+    margin-left: 25px;
 }
 
 
@@ -113,7 +117,7 @@
     text-align: left;
   }
   .filter-panel {
-    width: 400px;
+    width: 280px;
     margin-left: auto;
     height: auto;
     padding: 15px;

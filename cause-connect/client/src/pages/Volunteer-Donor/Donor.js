@@ -1,95 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/css/DonationOpp.css";
+import { db } from "../../Firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-const donationOpportunities = [
-  {
-    id: 1,
-    dona_type: "education",
-    title: "Undergraduate Scholarships",
-    location: "North Texas Scholarship Society",
-    city_state: "Richardson, TX",
-    description: "Scholarships for incoming undergraduate students.",
-  },
-  {
-    id: 2,
-    dona_type: "healthcare",
-    title: "Medical Supplies for Hospitals",
-    location: "Baylor White",
-    city_state: "Frisco, TX",
-    description:
-      "All proceeds go towards new medical supplies for the hospital.",
-  },
-  {
-    id: 3,
-    dona_type: "environment",
-    title: "Wildlife Potection",
-    location: "Dallas Park",
-    city_state: "Dallas, TX",
-    description:
-      "All proceeds go towards the wildlife conservation force of Dallas Park.",
-  },
-  {
-    id: 4,
-    dona_type: "library",
-    title: "lib",
-    location: "Richardson Library",
-    city_state: "Richardson, TX",
-    description: "Library funding for new books.",
-  },
-  {
-    id: 5,
-    dona_type: "disaster_relief",
-    title: "Rebuilding Communities Affected by Disasters",
-    location: "Richardson",
-    city_state: "Richardson, TX",
-    description: "Rebuilding communities affected by disasters.",
-  },
-  {
-    id: 6,
-    dona_type: "shelters",
-    title: "Shelter and care for stray animals",
-    location: "Richardson Animal Shelter",
-    city_state: "Richardson, TX",
-    description:
-      "All proceeds go to animal shelter supplies for dogs, cats, bunnies.",
-  },
-  {
-    id: 7,
-    dona_type: "human_rights",
-    title: "blah blah blah",
-    location: "Richardson Center",
-    city_state: "Richardson, TX",
-    description: "Human rights!",
-  },
-  {
-    id: 8,
-    dona_type: "mental_health",
-    title: "Local Counseling Services",
-    location: "Somewhere",
-    city_state: "Richardson, TX",
-    description: "Addition of mental health counseling services.",
-  },
-  {
-    id: 9,
-    dona_type: "community",
-    title: "Community Development",
-    location: "Richardson Community",
-    city_state: "Richardson, TX",
-    description:
-      "Infrastructure project #1: New school building on 15th street.",
-  },
-  // add other opportunities
-];
+const donationOpportunities = collection(db, "donationPosting");
 
 const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   // State for filter criteria
   const [donations, setDonations] = useState([]);
-  const [city, setCity] = useState('');
-  const [zipcode, setZipcode] = useState('');
- 
-   // Handle donation checkbox change
-   const handleDonationChange = (event) => {
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+
+  // Handle donation checkbox change
+  const handleDonationChange = (event) => {
     if (event.target.checked) {
       setDonations([...donations, event.target.value]);
     } else {
@@ -111,17 +35,8 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     onResetFilters();
   };
 
-  const donaTypes = [
-    "community",
-    "healthcare",
-    "mental_health",
-    "environment",
-    "shelters",
-    "education",
-    "disaster_relief",
-    "human_rights",
-    "other",
-  ];
+  const donaTypes = ['food', 'healthcare', 'environment', 'humanitarian aid', 'animals', 'education', 'religious', 'library', 'youth', 'other'];
+
 
   return (
     <div className="filter-panel">
@@ -150,22 +65,30 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
         <br></br>
 
         {/* Location filter */}
-        <label><b>Location:</b><br></br></label>
-          <label>
-            Please enter a city: <br></br>
-            <input
-                type="text"
-                value={city}
-                onChange={e => setCity(e.target.value)}/><br></br>
-          </label><br></br>
-          <label>
-            Please enter a zipcode: <br></br>
-              <input
-                type="text"
-                value={zipcode}
-                onChange={e => setZipcode(e.target.value)}/>
-          </label><br></br><br></br>
-        
+        <label>
+          <b>Location:</b>
+          <br></br>
+        </label>
+        <label>
+          Please enter a city: <br></br>
+          <input
+            type="text"
+            value={city.toLowerCase()}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <br></br>
+        </label>
+        <br></br>
+        <label>
+          Please enter a zipcode: <br></br>
+          <input
+            type="text"
+            value={zipcode}
+            onChange={(e) => setZipcode(e.target.value)}
+          />
+        </label>
+        <br></br>
+        <br></br>
       </div>
       <br></br>
       <button className="filter-button" onClick={handleFilterClick}>
@@ -179,31 +102,54 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 };
 
 const Donor = () => {
-  const [filteredOpportunities, setFilteredOpportunities] = useState(
-    donationOpportunities
-  );
+  const[filteredOpportunities, setFilteredOpportunities] = useState([])
+
+  const fetchOpportunities = async (filters = {}) => {
+    try{
+      let fetchedData = donationOpportunities;
+
+        if(filters.causes && filters.causes.length > 0){
+          fetchedData = query(query(fetchedData, where("causeType", "in", filters.causes)));
+        }
+
+        if(filters.city){
+          fetchedData = query(query(fetchedData, where("city", "==", filters.city)));
+        }
+
+        if(filters.zipcode){
+          fetchedData = query(query(fetchedData, where("zipcode", "==", filters.zipcode)));
+        }
+
+      const queryResult = await getDocs(fetchedData);
+      const opportunities = queryResult.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setFilteredOpportunities(opportunities);
+    } catch (error) {
+      console.error("Error in retrieving donation opportunities: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOpportunities();
+  }, []);
 
   const filterOpportunities = (filters) => {
-    const filtered = donationOpportunities.filter((opportunity) => {
-      const donationMatch =
-        !filters.donations.length ||
-        filters.donations.includes(opportunity.dona_type);
-      const locationMatch =
-        !filters.location || opportunity.city_state.includes(filters.location);
-
-      return donationMatch && locationMatch;
-    });
-    setFilteredOpportunities(filtered);
+    fetchOpportunities(filters);
   };
+
 
   const resetFilters = () => {
-    setFilteredOpportunities(donationOpportunities);
+    fetchOpportunities();
   };
 
+
   return (
-    <div>
+    <div className="don-page">
       <div className="page-title">Welcome to CauseConnect!</div>
-      <h1 className="page-text">Explore donation opportunities below!</h1>
+      <h1 className="page-text">Explore donation opportunities!</h1>
       <div className="page-layout">
         <div className="card-container">
           {filteredOpportunities.map((opportunity) => (
@@ -215,9 +161,9 @@ const Donor = () => {
 
                 <div className="wrapper">
                   <p className="location">{opportunity.location}</p>
-                  <p className="city-state">{opportunity.city_state}</p>
+                  <p className="city-state">{opportunity.city[0].toUpperCase() + opportunity.city.substring(1)}, {opportunity.state}</p>
                 </div>
-
+                
                 <p>{opportunity.description}</p>
               </div>
               <Link

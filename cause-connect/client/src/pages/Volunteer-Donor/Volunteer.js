@@ -88,7 +88,7 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
             Please enter a city: <br></br>
             <input
                 type="text"
-                value={city}
+                value={city.toLowerCase()}
                 onChange={e => setCity(e.target.value)}/><br></br>
           </label><br></br>
           <label>
@@ -107,6 +107,11 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   );
 };
 
+function capitalizeWords(input) {
+  return input.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
+
+
 const Volunteer = () => {
   const[filteredOpportunities, setFilteredOpportunities] = useState([])
 
@@ -115,23 +120,23 @@ const Volunteer = () => {
       let fetchedData = volunteerOpportunities;
 
         if(filters.causes && filters.causes.length > 0){
-          fetchedData = query(query(fetchedData, where("causeType", "in", filters.causes)));
+          fetchedData = query(fetchedData, where("causeType", "in", filters.causes));
         }
 
-        if(filters.fromDate){
-          fetchedData = query(query(fetchedData, where("date", "<=", filters.fromDate)));
-        }
-
-        if(filters.toDate){
-          fetchedData = query(query(fetchedData, where("date", ">=", filters.toDate)));
+        if (filters.toDate && filters.fromDate) {
+          fetchedData = query(fetchedData, where("date", "<=", filters.toDate), where("date", ">=", filters.fromDate));
+        } else if (filters.toDate) {
+            fetchedData = query(fetchedData, where("date", "<=", filters.toDate));
+        } else if (filters.fromDate) {
+            fetchedData = query(fetchedData, where("date", ">=", filters.fromDate));
         }
 
         if(filters.city){
-          fetchedData = query(query(fetchedData, where("city", "==", filters.city)));
+          fetchedData = query(fetchedData, where("city", "==", filters.city));
         }
 
         if(filters.zipcode){
-          fetchedData = query(query(fetchedData, where("zipcode", "==", filters.zipcode)));
+          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
         }
 
       const queryResult = await getDocs(fetchedData);
@@ -162,8 +167,8 @@ const Volunteer = () => {
 
   return (
     <div className='vol-page'>
-      <h1 className="vol-page-title">Explore volunteering opportunities!</h1>
-      <div className="vol-page-layout">
+      <div className="vol-page-title">Welcome to CauseConnect!</div>
+      <h1 className="vol-page-text">Explore volunteer opportunities!</h1><div className="vol-page-layout">
         <div className="vol-card-container">
           {filteredOpportunities.map((opportunity) => (
             <div className="vol-card" key={opportunity.id}>
@@ -174,7 +179,7 @@ const Volunteer = () => {
                 
                 <div className="vol-wrapper">
                   <p className="vol-location" >{opportunity.locationName}</p>
-                  <p className="vol-city-state">{opportunity.city}, {opportunity.state}</p>
+                  <p className="vol-city-state">{capitalizeWords(opportunity.city)}, {opportunity.state}</p>
                 </div>
                 
                 <p className="vol-date"><b>Date: </b>{opportunity.date}</p>
