@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Button, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { db } from "../../Firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { collection, onSnapshot, addDoc, doc, updateDoc, getDoc, arrayRemove } from "firebase/firestore";
 
 const causeTypes = [
   'Animals',
@@ -70,63 +70,59 @@ const CustomButton = styled(Button)({
 });
 
 const StyledTableCell = styled(TableCell)({
-  fontWeight: 'bold', // Make the font bold
-  backgroundColor: '#FEEFC3', // A light orange background color
-  color: 'black', // Text color
+  fontWeight: 'bold',
+  backgroundColor: '#FEEFC3',
+  color: 'black',
 });
 
 const StyledTableRow = styled(TableRow)({
   '&:nth-of-type(odd)': {
-    backgroundColor: '#FFF7E6', // Alternating row colors
+    backgroundColor: '#FFF7E6',
   },
-  // Hover styles can be added here if desired
 });
 
 const ViewButton = styled(Button)({
-  backgroundColor: '#FFA726', // Orange background color for the button
-  color: 'white', // White text color for the button
-  margin: '5px', // Some margin around the button
+  backgroundColor: '#FFA726',
+  color: 'white',
+  margin: '5px',
   '&:hover': {
-    backgroundColor: '#FB8C00', // Darker orange on hover
+    backgroundColor: '#FB8C00',
   },
 });
 
 const RemoveButton = styled(Button)({
-  backgroundColor: '#FF4C4C', // Red background color for the remove button
-  color: 'white', // White text color for the button
-  margin: '5px', // Some margin around the button
-  marginLeft: '50px',
+  backgroundColor: '#FF4C4C',
+  color: 'white',
+  margin: '5px',
+  marginLeft: '25px',
   '&:hover': {
-    backgroundColor: '#E00000', // Darker red on hover
+    backgroundColor: '#E00000',
   },
 });
 
-const VolunteerPostingCard = ({ date, time, spots, totalSpots, onViewEdit }) => (
+const VolunteerPostingCard = ({ title, location, city, state, date, time, endTime, description, spots, totalSpots, onViewEdit }) => (
   <CustomCard>
     <CardContent>
-      <Typography variant="h5" component="div" style={{ color: '#ffa600'}}>Shelving Books</Typography>
-      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>Richardson Library</Typography>
-      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>Richardson, TX</Typography>
-      <Typography variant="body1" style={{ marginTop: '20px', fontWeight: 'bold' }}>Date: {new Date(date).toLocaleDateString()}</Typography>
-      <Typography variant="body2" style={{ marginTop: '20px' }}>
-        Volunteers will assist in shelving books along with our librarians.
-      </Typography>
-      <Typography variant="body1" style={{ marginTop: '20px', color: '#ffa600'}}>
-        {spots} of {totalSpots} spots open
-      </Typography>
+      <Typography variant="h5" component="div" style={{ color: '#ffa600'}}>{title}</Typography>
+      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{location}</Typography>
+      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{city}, {state}</Typography>
+      <Typography variant="body1" style={{ marginTop: '20px' }}><span style={{ fontWeight: 'bold' }}>Date:</span> {date}</Typography>
+      <Typography variant="body1" style={{ marginTop: '20px' }}><span style={{ fontWeight: 'bold' }}>Time:</span> {time} - {endTime}</Typography>
+      <Typography variant="body2" style={{ marginTop: '20px' }}>{description}</Typography>
+      <Typography variant="body1" style={{ marginTop: '20px', color: '#ffa600'}}>{spots} of {totalSpots} spots open</Typography>
       <CustomButton onClick={onViewEdit}>View/Edit</CustomButton>
     </CardContent>
   </CustomCard>
 );
 
-const SignUpTable = ({ users, onRemove }) => (
+const SignUpTable = ({ postingId, users, onRemove }) => (
   <TableContainer component={Paper} style={{ width: '80vw' }}>
     <Table aria-label="sign-ups table">
       <TableHead>
         <TableRow>
           <StyledTableCell>User</StyledTableCell>
-          <StyledTableCell style={{ width: '30%' }}>Date/Time</StyledTableCell>
-          <StyledTableCell style={{ width: '30%' }}>Profile</StyledTableCell>
+          <StyledTableCell style={{ width: '30%' }}>Email</StyledTableCell>
+          <StyledTableCell style={{ width: '30%' }}>Remove Volunteer</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -134,14 +130,12 @@ const SignUpTable = ({ users, onRemove }) => (
           <StyledTableRow key={user.id}>
             <TableCell component="th" scope="row">
               {user.name}
-              <div>ID: {user.id}</div>
             </TableCell>
             <TableCell>
-              {new Date(user.date).toLocaleDateString()} {new Date(user.date).toLocaleTimeString()}
+              {user.email}
             </TableCell>
             <TableCell>
-              <ViewButton>View</ViewButton>
-              <RemoveButton onClick={() => onRemove(index)}>X</RemoveButton>
+              <RemoveButton onClick={() => onRemove(postingId, user.id, index)}>X</RemoveButton>
             </TableCell>
           </StyledTableRow>
         ))}
@@ -151,21 +145,43 @@ const SignUpTable = ({ users, onRemove }) => (
 );
 
 const VolunteerPostings = () => {
+  const [postings, setPostings] = useState([]);
   const [selectedPosting, setSelectedPosting] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [users, setUsers] = useState([
-    { name: 'John Doe', date: '2024-04-12', time: '14:00' },
-    { name: 'Jane Doe', date: '2024-04-12', time: '14:00' },
-  ]);
-  const postings = [
-    { title: 'sample title', date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-    { date: '2/15/24', time: '2 pm', endTime: '4 pm', spots: 4, totalSpots: 6 },
-  ];
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const fetchUserDetails = async (userIds) => {
+    const userPromises = userIds.map(async (userId) => {
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        return { id: userId, name: `${userData.firstName} ${userData.lastName}`, email: userData.email };
+      } else {
+        console.log("No such user!");
+        return null;
+      }
+    });
+    return Promise.all(userPromises);
+  };
+
+  useEffect(() => {
+    const fetchUsersForSelectedPosting = async () => {
+      if (selectedPosting?.signups) {
+        setIsLoading(true);
+        const userDetails = await fetchUserDetails(selectedPosting.signups);
+        setUsers(userDetails.filter(user => user !== null));
+        setIsLoading(false);
+      } else {
+        setUsers([]);
+      }
+    };
+  
+    fetchUsersForSelectedPosting();
+  }, [selectedPosting]);
+  
+  
   const isValidForm = () => {
     return (
       selectedPosting.title && selectedPosting.causeType &&
@@ -173,7 +189,8 @@ const VolunteerPostings = () => {
       selectedPosting.city && selectedPosting.state &&
       selectedPosting.zipCode && selectedPosting.date &&
       selectedPosting.time && selectedPosting.endTime &&
-      selectedPosting.description && selectedPosting.spots
+      selectedPosting.hours && selectedPosting.description 
+      && selectedPosting.totalSpots
     );
   };
 
@@ -193,7 +210,8 @@ const VolunteerPostings = () => {
       zipCode: '', 
       date: '', 
       startTime: '', 
-      endTime: '', 
+      endTime: '',
+      hours: '', 
       description: '', 
       spots: '', 
       totalSpots: '' 
@@ -203,9 +221,9 @@ const VolunteerPostings = () => {
   
   const handleEdit = () => {
     if (!selectedPosting) {
-      handleAddNew(); // Call handleAddNew if there's no selectedPosting, implying adding a new posting
+      handleAddNew();
     } else {
-      setEditMode(true); // Otherwise, go to edit mode directly
+      setEditMode(true);
     }
   };  
 
@@ -218,40 +236,107 @@ const VolunteerPostings = () => {
     setSelectedPosting({...selectedPosting, [field]: e.target.value});
   };
 
+  function formatTime24to12(time24) {
+    const [hour24, minute] = time24.split(':');
+    const hour12 = hour24 % 12 || 12;
+    const ampm = hour24 >= 12 ? 'PM' : 'AM';
+    return `${hour12}:${minute} ${ampm}`;
+  } 
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "volunteerPosting"), (snapshot) => {
+      const postData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        address: doc.data().locationAddr,
+        date: doc.data().date,
+        time: doc.data().startTime,
+        endTime: doc.data().endTime,
+        spots: doc.data().availableSlots,
+        totalSpots: doc.data().totalSpots,
+        location: doc.data().locationName,
+        zipCode: doc.data().zipcode
+      }));
+      setPostings(postData);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleSave = async () => {
     try{
       const dbRef = collection(db, "volunteerPosting");
+      let docRef;
+      const formattedStartTime = formatTime24to12(selectedPosting.time);
+      const formattedEndTime = formatTime24to12(selectedPosting.endTime);
 
-      const docRef = await addDoc(dbRef, {
-        title: selectedPosting.title,
-        causeType: selectedPosting.causeType,
-        locationAddr: selectedPosting.address,
-        locationName: selectedPosting.location,
-        city: selectedPosting.city,
-        state: selectedPosting.state,
-        zipcode: selectedPosting.zipCode,
-        date: selectedPosting.date,
-        description: selectedPosting.description,
-        startTime: selectedPosting.time,
-        endTime: selectedPosting.endTime,
-        totalSpots: selectedPosting.spots, 
-        availableSlots: selectedPosting.spots,
-      });
+      if (selectedPosting && selectedPosting.id) {
+        docRef =doc(db, "volunteerPosting", selectedPosting.id);
+        await updateDoc(docRef, {
+          title: selectedPosting.title,
+          causeType: selectedPosting.causeType,
+          locationAddr: selectedPosting.address,
+          locationName: selectedPosting.location,
+          city: selectedPosting.city,
+          state: selectedPosting.state,
+          zipcode: selectedPosting.zipCode,
+          date: selectedPosting.date,
+          hours: selectedPosting.hours,
+          description: selectedPosting.description,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
+          totalSpots: selectedPosting.totalSpots,
+          availableSlots: selectedPosting.spots,
+        });
+      } else {
+        docRef = await addDoc(dbRef, {
+          title: selectedPosting.title,
+          causeType: selectedPosting.causeType,
+          locationAddr: selectedPosting.address,
+          locationName: selectedPosting.location,
+          city: selectedPosting.city,
+          state: selectedPosting.state,
+          zipcode: selectedPosting.zipCode,
+          date: selectedPosting.date,
+          hours: selectedPosting.hours,
+          description: selectedPosting.description,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
+          totalSpots: selectedPosting.totalSpots, 
+          availableSlots: selectedPosting.spots,
+        });
+      }
 
       console.log("Document written with ID: ", docRef.id);
       setEditMode(false);
       setSelectedPosting(null);
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error adding/updating document: ", e);
     }
-    
-    alert('Successfully created volunteering opportunity!');
+    alert('Volunteering opportunity saved!');
+
     
   };
 
-  const handleRemoveUser = (index) => {
+  const handleRemoveUser = async (postingId, userId, index) => {
+
+    const postingRef = doc(db, "volunteerPosting", postingId);
+
+    await updateDoc(postingRef, {
+      signups: arrayRemove(userId)
+    });
+  
+    const userRef = doc(db, "users", userId);
+  
+    await updateDoc(userRef, {
+      volunteerSummary: arrayRemove(postingId)
+    });
+  
     setUsers(prev => prev.filter((_, i) => i !== index));
+  
+    console.log("User removed from signups and posting removed from volunteerSummary: ", userId);
   };
+  
+  
 
   return (
     <PageLayout>
@@ -277,13 +362,14 @@ const VolunteerPostings = () => {
             <TextField required label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
             <TextField required label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
             <TextField required label="City" value={selectedPosting ? selectedPosting.city : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
-            <TextField required label="State (Initials only)" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
+            <TextField required label="State (Abbreviation only)" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
             <TextField required label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
             <TextField required label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'endTime')} InputLabelProps={{ shrink: true,}}/>
+            <TextField required label="Hours" value={selectedPosting ? selectedPosting.hours : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'hours')} />
             <TextField required label="Description" value={selectedPosting ? selectedPosting.description : ''} style={{ width: '500px', display: 'block' }} margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
-            <TextField required label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.spots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'spots')} />
+            <TextField required label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.totalSpots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'totalSpots')} />
             <Button variant="contained" style={{ marginRight: '20px', marginTop: '10px', marginBottom: '10px' }} color="primary" onClick={handleSave} disabled={!isValidForm()}>Save</Button>
             <Button variant="outlined" style={{ marginTop: '10px', marginBottom: '10px' }} color="secondary" onClick={handleCancel}>Cancel</Button>
           </form>
@@ -296,12 +382,13 @@ const VolunteerPostings = () => {
           <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? selectedPosting.city + ', ' : ''}${selectedPosting.state ? selectedPosting.state + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
           <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
           <Typography variant="body1"><strong>Time:</strong> {selectedPosting.time} - {selectedPosting.endTime}</Typography>
+          <Typography variant="body1"><strong>Hours:</strong> {selectedPosting.hours}</Typography>
           <Typography variant="body1"><strong>Description:</strong> {selectedPosting.description}</Typography>
           <Typography variant="body1"><strong>Spots Open:</strong> {selectedPosting.spots} of {selectedPosting.totalSpots}</Typography>
           <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white', marginTop: '20px', marginBottom: '20px' }} onClick={handleEdit}>
             Edit Info
           </Button>
-          <SignUpTable users={users} onRemove={handleRemoveUser} />
+          <SignUpTable postingId={selectedPosting?.id} users={users} onRemove={handleRemoveUser} />
           <Button variant="outlined" style={{ marginTop: '20px' }} onClick={() => setSelectedPosting(null)}>
             Go Back
           </Button>
