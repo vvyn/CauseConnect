@@ -12,7 +12,7 @@ import VDProfile from "./pages/Volunteer-Donor/Profile";
 import VDVolunteer from "./pages/Volunteer-Donor/Volunteer";
 import VDDonor from "./pages/Volunteer-Donor/Donor";
 import VDDonations from "./pages/Volunteer-Donor/Donations";
-import VDDonationSummary from "./pages/Volunteer-Donor/DonationSummary";
+import VDSummary from "./pages/Volunteer-Donor/Summary";
 import VDOpportunitySignUp from "./pages/Volunteer-Donor/OpportunitySignUp";
 import VDDonationDetails from "./pages/Volunteer-Donor/DonationDetails";
 import NPLogin from "./pages/NonProfit/Login";
@@ -46,7 +46,7 @@ root.render(
             element={<VDDonationDetails />}
           />
           <Route path="vd/donations" element={<VDDonations />} />
-          <Route path="vd/donationSummary" element={<VDDonationSummary />} />
+          <Route path="vd/summary" element={<VDSummary />} />
           <Route path="vd/volunteer" element={<VDVolunteer />} />
           <Route
             path="vd/volunteer/opportunitySignUp/:id"

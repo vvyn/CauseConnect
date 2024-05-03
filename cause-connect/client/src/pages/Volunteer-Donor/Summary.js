@@ -11,6 +11,7 @@ export default function DonationSummary() {
   const [goalProgress, setGoalProgress] = useState(0);
   const [displayMessage, setDisplayMessage] = useState("");
   const [curGoal, setCurGoal] = useState(0);
+  const [curDonations, setCurDonations] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -61,21 +62,41 @@ export default function DonationSummary() {
       if (userData) {
         const goal = userData.volunteerGoal;
         setCurGoal(goal);
-        console.log("goal = " + curGoal);
         let progressPercentage = (totalHours / goal) * 100;
-        console.log("% = " + progressPercentage);
         setGoalProgress(progressPercentage);
 
         if(progressPercentage === 100){
           setDisplayMessage("Congratulations! You've met your goal!");
         } else if (progressPercentage > 0){
-          setDisplayMessage("Hooray, you've made progress towards your goal of " + curGoal + " hours!");
+          setDisplayMessage("Hooray! You've made progress towards your goal of " + curGoal + " hours!");
         }
       }
     }
 
     calculateProgress();
-  }, [userData, curGoal, totalHours]);
+
+
+  }, [userData, curGoal, goalProgress, totalHours]);
+
+  useEffect(() => {
+    async function userDonationSummary() {
+      if (userData) {
+        const donatedHere = userData.donationSummary || [];
+        let orgArray = [];
+        for (const donationId of donatedHere) {
+          const donationRef = doc(db, "donationPosting", donationId);
+          const donationDoc = await getDoc(donationRef);
+          if(donationDoc.exists()){
+            orgArray.push(donationDoc.data().location);
+          }
+        }
+        setCurDonations(orgArray);
+        
+      }
+    }
+
+    userDonationSummary();
+  }, [userData])
 
 
 
@@ -84,24 +105,25 @@ export default function DonationSummary() {
     <div>
       <div className="p-10">
         <div className="py-2 text-5xl text-orange-400">Your Volunteer Summary</div>
-        <div className="py-2"><span>Total Volunteer Hours:</span>
+        <div className="text-2xl py-2"><span>Total Hours Volunteered:</span>
         <div className="mt-0 text-2xl text-orange-300">{totalHours} Hours</div></div>
 
-      <ProgressBar completed = {goalProgress} bgColor="orange" />
-      {displayMessage && <p className="py-2">{displayMessage}</p>}
+        <ProgressBar completed = {goalProgress} bgColor="orange" />
+        {displayMessage && <p className="py-2 text-2xl">{displayMessage}</p>}
+
+
+        <div className="mt-40 py-2 text-5xl text-orange-400">Your Donation Summary</div>
+        <div className="text-2xl py-2"><span>Donated to Nonprofits:</span>
+          <ul className="mt-0 text-2xl text-orange-300">
+            {curDonations.map((name, index) => (
+              <li key={index}>{name}</li>
+            ))}
+          </ul>
+        </div>
+
       </div>
       
     </div>
   );
 }
 
-
-
-// extract donations id from users table, then use id to get amount
-// extract volunteerid from users, get hours from id
-// add donations
-// add volunteer hours
-// show volunteer progress goal
-// update volunteer goal
-// if goal is met, display message
-// 

@@ -21,6 +21,8 @@
     "autoprefixer": "^10.4.19",
     "firebase": "^10.9.0",
     "firebase-functions": "^4.9.0",
+    "fs": "^0.0.1-security",
+    "i": "^0.3.7",
     "lucide-react": "^0.363.0",
     "paypal": "^1.0.1",
     "postcss-cli": "^11.0.0",
