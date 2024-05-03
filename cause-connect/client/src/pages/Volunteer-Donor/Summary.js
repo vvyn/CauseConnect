@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { db, auth } from "../../Firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
-
+import { onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
 export default function Summary() {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/vd/login"; // Redirect to login page if not signed in
+      } else {
+        // User is signed in, continue with page functionality
+        console.log("User is logged in:", user);
+      }
+    });
+  }, []);
+
   const [totalHours, setTotalHours] = useState(0);
   const [userData, setUserData] = useState(null);
   const [goalProgress, setGoalProgress] = useState(0);
@@ -18,7 +35,10 @@ export default function Summary() {
         const userEmail = user.email;
         const getUserData = async () => {
           try {
-            const q = query(collection(db, "users"), where("email", "==", userEmail));
+            const q = query(
+              collection(db, "users"),
+              where("email", "==", userEmail)
+            );
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
               const userDoc = querySnapshot.docs[0];
@@ -36,9 +56,7 @@ export default function Summary() {
         getUserData();
       }
     });
-  }, []); 
-
-
+  }, []);
   useEffect(() => {
     async function getHours() {
       if (userData) {
@@ -47,7 +65,7 @@ export default function Summary() {
         for (const oppId of volunteerOpportunities) {
           const volOppRef = doc(db, "volunteerPosting", oppId);
           const volOppDoc = await getDoc(volOppRef);
-          if(volOppDoc.exists()){
+          if (volOppDoc.exists()) {
             sumHours += volOppDoc.data().hours;
           }
         }
@@ -66,10 +84,14 @@ export default function Summary() {
         console.log("% = " + progressPercentage);
         setGoalProgress(progressPercentage);
 
-        if(progressPercentage === 100){
+        if (progressPercentage === 100) {
           setDisplayMessage("Congratulations! You've met your goal!");
-        } else if (progressPercentage > 0){
-          setDisplayMessage("Hooray, you've made progress towards your goal of " + curGoal + " hours!");
+        } else if (progressPercentage > 0) {
+          setDisplayMessage(
+            "Hooray, you've made progress towards your goal of " +
+              curGoal +
+              " hours!"
+          );
         }
       }
     }
@@ -77,25 +99,25 @@ export default function Summary() {
     calculateProgress();
   }, [userData, curGoal, totalHours]);
 
-
-
-
   return (
     <div>
       <div className="p-10">
-        <div className="py-2 text-5xl text-orange-400">Your Volunteer Summary</div>
-        <div className="py-2"><span>Total Volunteer Hours:</span>
-        <div className="mt-0 text-2xl text-orange-300">{totalHours} Hours</div></div>
+        <div className="py-2 text-5xl text-orange-400">
+          Your Volunteer Summary
+        </div>
+        <div className="py-2">
+          <span>Total Volunteer Hours:</span>
+          <div className="mt-0 text-2xl text-orange-300">
+            {totalHours} Hours
+          </div>
+        </div>
 
-      <ProgressBar completed = {goalProgress} bgColor="orange" />
-      {displayMessage && <p className="py-2">{displayMessage}</p>}
+        <ProgressBar completed={goalProgress} bgColor="orange" />
+        {displayMessage && <p className="py-2">{displayMessage}</p>}
       </div>
-      
     </div>
   );
 }
-
-
 
 // extract donations id from users table, then use id to get amount
 // extract volunteerid from users, get hours from id
@@ -104,4 +126,4 @@ export default function Summary() {
 // show volunteer progress goal
 // update volunteer goal
 // if goal is met, display message
-// 
+//

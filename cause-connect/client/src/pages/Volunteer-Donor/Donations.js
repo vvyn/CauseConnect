@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { auth } from "../../Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Donations = () => {
   const [donationAmount, setDonationAmount] = useState("");
@@ -92,6 +94,16 @@ const Donations = () => {
     intent: "capture",
   };
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/vd/login"; // Redirect to login page if not signed in
+      } else {
+        // User is signed in, continue with page functionality
+        console.log("User is logged in:", user);
+      }
+    });
+  }, []);
   return (
     <div className="pt-20">
       <Stack

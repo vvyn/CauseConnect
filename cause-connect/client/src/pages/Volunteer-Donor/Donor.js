@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/css/DonationOpp.css";
-import { db } from "../../Firebase";
+import { db, auth } from "../../Firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 const donationOpportunities = collection(db, "donationPosting");
 
@@ -18,7 +19,8 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
       setDonations([...donations, event.target.value]);
     } else {
       setDonations(
-        donations.filter((donation) => donation !== event.target.value));
+        donations.filter((donation) => donation !== event.target.value)
+      );
     }
   };
 
@@ -34,8 +36,18 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
     onResetFilters();
   };
 
-  const donaTypes = ['food', 'healthcare', 'environment', 'humanitarian aid', 'animals', 'education', 'religious', 'library', 'youth', 'other'];
-
+  const donaTypes = [
+    "food",
+    "healthcare",
+    "environment",
+    "humanitarian aid",
+    "animals",
+    "education",
+    "religious",
+    "library",
+    "youth",
+    "other",
+  ];
 
   return (
     <div className="filter-panel">
@@ -101,28 +113,34 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
 };
 
 const Donor = () => {
-  const[filteredOpportunities, setFilteredOpportunities] = useState([])
+  const [filteredOpportunities, setFilteredOpportunities] = useState([]);
 
   const fetchOpportunities = async (filters = {}) => {
-    try{
+    try {
       let fetchedData = donationOpportunities;
 
-        if(filters.donations && filters.donations.length > 0){
-          fetchedData = query(fetchedData, where("donaType", "in", filters.donations));
-        }
+      if (filters.donations && filters.donations.length > 0) {
+        fetchedData = query(
+          fetchedData,
+          where("donaType", "in", filters.donations)
+        );
+      }
 
-        if(filters.city){
-          fetchedData = query(fetchedData, where("city", "==", filters.city));
-        }
+      if (filters.city) {
+        fetchedData = query(fetchedData, where("city", "==", filters.city));
+      }
 
-        if(filters.zipcode){
-          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
-        }
+      if (filters.zipcode) {
+        fetchedData = query(
+          fetchedData,
+          where("zipcode", "==", filters.zipcode)
+        );
+      }
 
       const queryResult = await getDocs(fetchedData);
-      const opportunities = queryResult.docs.map(doc => ({
+      const opportunities = queryResult.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
 
       setFilteredOpportunities(opportunities);
@@ -143,7 +161,6 @@ const Donor = () => {
     fetchOpportunities();
   };
 
-
   return (
     <div className="don-page">
       <div className="page-title">Welcome to CauseConnect!</div>
@@ -159,9 +176,13 @@ const Donor = () => {
 
                 <div className="wrapper">
                   <p className="location">{opportunity.location}</p>
-                  <p className="city-state">{opportunity.city[0].toUpperCase() + opportunity.city.substring(1)}, {opportunity.state}</p>
+                  <p className="city-state">
+                    {opportunity.city[0].toUpperCase() +
+                      opportunity.city.substring(1)}
+                    , {opportunity.state}
+                  </p>
                 </div>
-                
+
                 <p>{opportunity.description}</p>
               </div>
               <Link
