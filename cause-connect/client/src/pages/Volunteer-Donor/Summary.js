@@ -11,6 +11,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 
+<<<<<<< HEAD:cause-connect/client/src/pages/Volunteer-Donor/DonationSummary.js
 export default function DonationSummary() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -22,6 +23,9 @@ export default function DonationSummary() {
       }
     });
   }, []);
+=======
+export default function Summary() {
+>>>>>>> 39a5b9312058a20355846eaa261d255c941d4fcb:cause-connect/client/src/pages/Volunteer-Donor/Summary.js
   const [totalHours, setTotalHours] = useState(0);
   const [userData, setUserData] = useState(null);
   const [goalProgress, setGoalProgress] = useState(0);

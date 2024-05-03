@@ -40,8 +40,8 @@ const NPsidebar = () => {
             <a href="/np/welcome">
               <div>Welcome</div>
             </a>
-            <a href="/np/donationSummary">
-              <div>Summary</div>
+            <a href="/np/dashboard">
+              <div>Dashboard</div>
             </a>
             <a href="/np/dashboard">
               <div>Dashboard</div>
