@@ -40,7 +40,7 @@ const VDsidebar = () => {
             <a href="/vd/welcome">
               <div>Welcome</div>
             </a>
-            <a href="/vd/donationSummary">
+            <a href="/vd/summary">
               <div>Summary</div>
             </a>
             <a href="/vd/donor">

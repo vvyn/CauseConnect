@@ -5,7 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 
 
-export default function DonationSummary() {
+export default function Summary() {
   const [totalHours, setTotalHours] = useState(0);
   const [userData, setUserData] = useState(null);
   const [goalProgress, setGoalProgress] = useState(0);
