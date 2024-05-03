@@ -24,46 +24,51 @@ export default function Signup_NP() {
   const [registerCause, setRegisterCause] = useState("");
   const storage = getStorage();
   const signup = async () => {
-    try {
-      const createUser = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      const user = {
-        name: registerOrganizationName,
-        email: registerEmail,
-        phone: registerPhoneNumber,
-        website: registerWebsite,
-        status: registerNonProfitStatus,
-        state: registerState,
-        city: registerCity,
-        zipcode: registerZip,
-        category: registerCause,
-      };
-      const docRef = await addDoc(collection(db, "nonprofits"), user);
-      alert("Successfully signed up!");
-      console.log("Document Written with ID: ", docRef.id);
-      const fileElement = document.getElementById("file-upload");
-      if (fileElement.files.length > 0) {
-        const file = fileElement.files[0];
-        const storageRef = ref(storage, 'status/' + docRef.id + '/' + file.name);
-        const uploadTask = await uploadBytes(storageRef, file);
+    if(!(registerOrganizationName && registerEmail && registerPhoneNumber && registerNonProfitStatus && registerState && registerCity && registerZip && registerCause)) {
+      alert("Please fill out all required fields")
+    } else {
+      try {
 
-        const downloadURL = await getDownloadURL(uploadTask.ref);
-        console.log('File available at', downloadURL);
-        await updateDoc(doc(db, "nonprofits", docRef.id), {
-          status: downloadURL
-        });
+        const createUser = await createUserWithEmailAndPassword(
+          auth,
+          registerEmail,
+          registerPassword
+        );
+        const user = {
+          name: registerOrganizationName,
+          email: registerEmail,
+          phone: registerPhoneNumber,
+          website: registerWebsite,
+          status: registerNonProfitStatus,
+          state: registerState,
+          city: registerCity,
+          zipcode: registerZip,
+          category: registerCause
+          };
+          const docRef = await addDoc(collection(db, "nonprofits"), user);
+          alert("Successfully signed up!");
+          console.log("Document Written with ID: ", docRef.id);
+          const fileElement = document.getElementById("file-upload");
+        if (fileElement.files.length > 0) {
+          const file = fileElement.files[0];
+          const storageRef = ref(storage, 'status/' + docRef.id + '/' + file.name);
+          const uploadTask = await uploadBytes(storageRef, file);
+
+          const downloadURL = await getDownloadURL(uploadTask.ref);
+          console.log('File available at', downloadURL);
+          await updateDoc(doc(db, "nonprofits", docRef.id), {
+            status: downloadURL
+          });
+        }
+        console.log(createUser);
+        window.location = "/np/welcome";
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert(registerEmail + " already in use. Please login in.");
+          window.location = "/np/login";
+        }
+        console.log(error.message);
       }
-      console.log(createUser);
-      window.location = "/np/welcome";
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert(registerEmail + " already in use. Please login in.");
-        window.location = "/np/login";
-      }
-      console.log(error.message);
     }
   };
   function fileName(fileData) {
@@ -76,15 +81,63 @@ export default function Signup_NP() {
     } catch (error) {
     }
   }
-  function ValidateEmail(event) {
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (event.target.value.match(validRegex)) {
-      setRegisterEmail(event.target.value);
-    } else {
-      document.getElementById('email').style.borderColor = "red";
-      return false;
-    }
+  
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return re.test(String(email).toLowerCase());
   }
+
+  const validateNumber = (number) => {
+    const re = new RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$');
+    return !!re.test(String(number));
+  }
+
+  const validateURL = (url) => {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-zA-Z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-zA-Z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(url);
+  }
+
+  const email = document.querySelector("input[name='email']");
+  if(email) {
+    email.addEventListener("blur", (event) => {
+      if(!validateEmail(event.target.value)) {
+        event.target.style.background = "pink";
+        alert("Please enter a valid email.");
+      } else {
+        event.target.style.background = "";
+      }
+    });
+  }
+  const number = document.querySelector("input[name='phone']");
+  if(number) {
+    number.addEventListener("blur", (event) => {
+      if(!validateNumber(event.target.value)) {
+        event.target.style.background = "pink";
+        alert("Please enter a valid phone number.");
+      } else {
+        event.target.style.background = "";
+      }
+    });
+  }
+  const website = document.querySelector("input[name='website']");
+  if(website) {
+    website.addEventListener("blur", (event) => {
+      if(!validateURL(event.target.value)) {
+        event.target.style.background = "pink";
+        alert("Please enter a valid URL.");
+      } else {
+        event.target.style.background = "";
+      }
+    });
+  }
+
+  
+  
   return (
     <div className="pt-20 w-full">
       <Stack
@@ -126,7 +179,7 @@ export default function Signup_NP() {
             type="text"
             name="email"
             placeholder="Email"
-            onChange={(event) => {
+            onChange={ (event) => {
               setRegisterEmail(event.target.value);
             }}
             required
@@ -210,6 +263,7 @@ export default function Signup_NP() {
           <input
             id="file-upload"
             type="file"
+            name="status"
             className="opacity-0"
             placeholder="Upload Document"
             onChange={(event) => {
@@ -230,6 +284,7 @@ export default function Signup_NP() {
               <Select
                 className="h-10 bg-orange-100"
                 value={registerState}
+                name="state"
                 onChange={(event) => {
                   setRegisterState(event.target.value);
                 }}
@@ -300,6 +355,7 @@ export default function Signup_NP() {
           <input
             className="bg-orange-100 p-2 rounded-md text-black w-full"
             type="text"
+            name="city"
             placeholder="e.g. Richardson"
             onChange={(event) => {
               setRegisterCity(event.target.value);
@@ -317,6 +373,7 @@ export default function Signup_NP() {
           <input
             className="bg-orange-100 p-2 rounded-md text-black w-full"
             type="text"
+            name="zipcode"
             placeholder=""
             onChange={(event) => {
               setRegisterZip(event.target.value);
@@ -337,6 +394,7 @@ export default function Signup_NP() {
               <Select
                 className="h-10 bg-orange-100"
                 value={registerCause}
+                name="category"
                 onChange={(event) => {
                   setRegisterCause(event.target.value);
                 }}

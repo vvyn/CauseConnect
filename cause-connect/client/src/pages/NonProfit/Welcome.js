@@ -10,10 +10,10 @@ export default function Welcome() {
         <div className="py-2">Manage active volunteer or donation goals!</div>
       </div>
       <div className="pt-10 pb-52 flex items-center justify-center">
-        <a href="/np/donor">
+        <a href="/np/volunteer">
           <button className="ml-4 bg-orange-400 p-4 px-6 rounded-3xl text-white text-md">Manage Volunteers</button>
         </a>
-        <a href="/np/volunteer">
+        <a href="/np/donor">
           <button className="ml-4 bg-orange-400 p-4 px-6 rounded-3xl text-white text-md">Manage Donations</button>
         </a>
       </div>
