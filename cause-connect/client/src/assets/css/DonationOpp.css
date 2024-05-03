@@ -119,10 +119,8 @@
   .filter-panel {
     width: 280px;
     margin-left: auto;
-    height: auto;
-    padding: 15px;
-    overflow-y: auto;
-    height: 500px;
+    padding: 15px; 
+    overflow-y: auto; 
     background-color: #FFF6E9;
     border: 1px solid #C19D75;
   }
