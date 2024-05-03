@@ -236,7 +236,7 @@ const Volunteer = () => {
                 <div className="vol-wrapper">
                   <p className="vol-location">{opportunity.locationName}</p>
                   <p className="vol-city-state">
-                    {capitalizeWords(opportunity.city)}, {opportunity.state}
+                    {capitalizeWords(opportunity.city)}, {opportunity.state.toUpperCase()}
                   </p>
                 </div>
 
