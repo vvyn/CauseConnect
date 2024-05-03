@@ -22,9 +22,15 @@ export default function Signup_NP() {
   const [registerCity, setRegisterCity] = useState("");
   const [registerZip, setRegisterZip] = useState("");
   const [registerCause, setRegisterCause] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validNumber, setValidNumber] = useState(false);
+  const [validURL, setValidURL] = useState(true);
+  const [validZip, setValidZip] = useState(false);
+
   const storage = getStorage();
   const signup = async () => {
-    if(!(registerOrganizationName && registerEmail && registerPhoneNumber && registerNonProfitStatus && registerState && registerCity && registerZip && registerCause)) {
+    if(!(registerOrganizationName && validEmail && validNumber &&  validPassword && validURL && registerNonProfitStatus && registerState && registerCity && validZip && registerCause)) {
       alert("Please fill out all required fields")
     } else {
       try {
@@ -87,8 +93,13 @@ export default function Signup_NP() {
     return re.test(String(email).toLowerCase());
   }
 
+  const validatePassword = (password) => {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(password);
+  }
+
   const validateNumber = (number) => {
-    const re = new RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$');
+    const re = new RegExp('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$');
     return !!re.test(String(number));
   }
 
@@ -102,14 +113,32 @@ export default function Signup_NP() {
     return !!pattern.test(url);
   }
 
+  const validateZip = (zipcode) => {
+    return /^\d{5}(?:[-\s]\d{4})?$/.test(zipcode);
+  }
+
   const email = document.querySelector("input[name='email']");
   if(email) {
     email.addEventListener("blur", (event) => {
       if(!validateEmail(event.target.value)) {
         event.target.style.background = "pink";
-        alert("Please enter a valid email.");
+        setValidEmail(false);
       } else {
         event.target.style.background = "";
+        setValidEmail(true);
+      }
+    });
+  }
+
+  const password = document.querySelector("input[name='password']");
+  if(password) {
+    password.addEventListener("blur", (event) => {
+      if(!validatePassword(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidPassword(false);
+      } else {
+        event.target.style.background = "";
+        setValidPassword(true);
       }
     });
   }
@@ -118,7 +147,7 @@ export default function Signup_NP() {
     number.addEventListener("blur", (event) => {
       if(!validateNumber(event.target.value)) {
         event.target.style.background = "pink";
-        alert("Please enter a valid phone number.");
+        setValidNumber(false);
       } else {
         event.target.style.background = "";
       }
@@ -127,11 +156,24 @@ export default function Signup_NP() {
   const website = document.querySelector("input[name='website']");
   if(website) {
     website.addEventListener("blur", (event) => {
-      if(!validateURL(event.target.value)) {
+      if(!validateURL(event.target.value) && event.target.value !== "") {
         event.target.style.background = "pink";
-        alert("Please enter a valid URL.");
+        setValidURL(false);
       } else {
         event.target.style.background = "";
+        setValidURL(true);
+      }
+    });
+  }
+  const zipcode = document.querySelector("input[name='zipcode']");
+  if(zipcode) {
+    zipcode.addEventListener("blur", (event) => {
+      if(!validateZip(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidZip(false);
+      } else {
+        event.target.style.background = "";
+        setValidZip(true);
       }
     });
   }
@@ -147,7 +189,7 @@ export default function Signup_NP() {
         spacing={2}
       >
         <div className="w-1/3">
-          <h1 className="text-3xl justify-left">Non-Profit Sign Up</h1>
+          <h1 className="text-3xl justify-left">NonProfit Sign Up</h1>
         </div>
 
         <div className="w-1/3">
