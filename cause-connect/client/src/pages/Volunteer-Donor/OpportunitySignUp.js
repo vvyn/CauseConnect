@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { db } from "../../Firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import "../../assets/css/VolunteerOpp.css";
+import { auth } from "../../Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const OpportunitySignUp = () => {
   //const { id } = useParams();
