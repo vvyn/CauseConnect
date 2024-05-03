@@ -23,7 +23,7 @@ export default function Signup_VD() {
 
   const signup = async () => {
     if(!(registerFirstName && registerLastName && validEmail && validNumber &&  registerPassword /*validPassword*/ && registerPhotoID && validGoal)) {
-      alert("Please fill out all required fields!")
+      alert("Please fill out all required fields!\nPassword Requirements:\nMinimum 8 characters\nAt least 1 Uppercase letter\nAt least 1 Lowercase letter\nAt least 1 Number\nAt least 1 Special character (@, $, !, %, *, ?, &)");
     } else {
       try {
         const createUser = await createUserWithEmailAndPassword(
