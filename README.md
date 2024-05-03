@@ -1,37 +1,31 @@
 # CauseConnect
-Senior Design Project
+https://cause-connect.vercel.app
 
-# errors
+# Overview
+Exploring nonprofit organizations and figuring out how to get involved can be overwhelming, considering the large number of nonprofits that exist. Individuals may struggle to find nonprofits that support the causes they care about, and nonprofits can have trouble reaching a wider audience. CauseConnect responds to these challenges by offering a centralized web-based platform that brings together nonprofits and individuals wanting to make a difference, with volunteering opportunities and donation campaigns from various nonprofits available in one place.
+
+# Tech Stack
+- Frontend
+    - React + Material UI + Tailwind CSS
+- Backend
+    - Node.js
+- Database + Authentication
+    - Firebase
+
+# Features
+- Donor/Volunteer Portal​
+    - Create account, edit profile information​
+    - Register for volunteering/donation opportunities​
+    - Filter opportunities and view progress​
+
+- Non Profit Organization Portal​
+    - Create account, edit profile information​
+    - Manage volunteer/donation postings​
+    - Edit active postings and view user contributions​
+
+# Set Up
+- git clone https://github.com/vvyn/CauseConnect.git
+- cd cause-connect/client
 - npm i --force
-
-# mui errors
-- npm install @mui/material @emotion/react @emotion/styled 
-- npm install @fontsource/roboto
-- npm install @mui/icons-material
-
-# pull doesnt work to reflect changes on main
-- git pull origin main (on ur personal branch)
-
-# load app
-- cd cause-connect
-- cd client
 - npm start
-
-# pull new changes
-- cd cause-connect
-- git commit -m "save your current changes"
-- git checkout main
-- git fetch (maybe if the it doesnt work without it?)
-- git pull
-- git checkout "branch-with-your-changes"
-- git pull
-- npm install (need to reinstall in both client and server directories)
-- cd client
-- npm start
-
-# create your own branch for your code
-- cd cause-connect
-- cd client (for frontend)
-- git branch "your-name-changes-or-whatever-you-want-to-call-it"
-- npm install (for the first time you load your code, need to reinstall in both client and server directories)
-- npm start
+​

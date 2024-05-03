@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="pb-20">
       <div className="pt-20 flex items-center justify-center">
         <img className="" src="CauseConnect-logo.png" />
       </div>
@@ -70,18 +70,6 @@ export default function Home() {
           your time to amplifying the impact of your donations, together we can create a
           better tomorrow. Join us today and let's build a brighter future, one connection
           at a time.
-
-            <div className="flex-col justify-end ml-4 py-5">
-            <TextField
-              id="outlined-basic"
-              label="Email address"
-              variant="outlined"
-              style={{ width: '300px' }}
-            />
-            <button className="bg-orange-400 ml-4 p-4 px-6 rounded-3xl text-white text-sm">
-              Sign Up
-            </button>
-          </div>
           </p>
         </div>
         <div className="w-1/2 flex justify-center items-center">
