@@ -13,6 +13,7 @@ export default function Signup_VD() {
   const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerPhotoID, setRegisterPhotoID] = useState("");
+  const [registerGoal, setRegisterGoal] = useState("");
   const storage = getStorage();
 
 
@@ -29,6 +30,7 @@ export default function Signup_VD() {
         lastName: registerLastName,
         password: registerPassword,
         phoneNumber: registerPhoneNumber,
+        volunteerGoal: registerGoal,
         role: "vd",
       };
       const docRef = await addDoc(collection(db, "users"), user);
@@ -196,8 +198,26 @@ export default function Signup_VD() {
           />
         </div>
 
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
+            Volunteering Goal <font color="red">*</font>
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-black w-full"
+            type="number"
+            name="goal"
+            placeholder="0"
+            onChange={(event) => {
+              setRegisterGoal(event.target.value);
+            }}
+            required
+          />
+        </div>
+
         <button
-          className="bg-orange-400 pt-2 rounded-3xl text-white w-1/3 hover:bg-orange-500"
+          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3 hover:bg-orange-500"
           onClick={signup}
         >
           {" "}
