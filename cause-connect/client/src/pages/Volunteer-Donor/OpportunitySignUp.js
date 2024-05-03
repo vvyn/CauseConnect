@@ -42,6 +42,7 @@ const OpportunitySignUp = () => {
                         {opportunity.locationAddr}, {opportunity.city}, {opportunity.state}, {opportunity.zipcode}<br></br><br></br>
                         <b>Date:</b><br></br>{opportunity.date}<br></br><br></br>
                         <b>Time:</b><br></br>{opportunity.startTime} - {opportunity.endTime}<br></br><br></br>
+                        <b>Hours:</b><br></br>{opportunity.hours}<br></br><br></br>
                         <b>Description:</b><br></br>{opportunity.description}<br></br><br></br>
                         <b>Availability: </b>{opportunity.availableSlots} out of {opportunity.totalSpots} open spots</p>
                     
