@@ -43,7 +43,8 @@ export default function Signup_NP() {
           state: registerState,
           city: registerCity,
           zipcode: registerZip,
-          category: registerCause
+          category: registerCause,
+          role: "np",
           };
           const docRef = await addDoc(collection(db, "nonprofits"), user);
           alert("Successfully signed up!");

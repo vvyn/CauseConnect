@@ -43,6 +43,9 @@ const NPsidebar = () => {
             <a href="/np/donationSummary">
               <div>Summary</div>
             </a>
+            <a href="/np/dashboard">
+              <div>Dashboard</div>
+            </a>
             <a href="/np/donor">
               <div>Donate</div>
             </a>

@@ -37,11 +37,23 @@ const Sidebar = () => {
             <a href="/">
               <div>Home</div>
             </a>
+
+            <br/>
+
             <a href="/vd/login">
-              <div>VD Login</div>
+              <div>User Login</div>
             </a>
+            <a href="/vd/signup">
+              <div>User Sign Up</div>
+            </a>
+
+            <br/>
+            
             <a href="/np/login">
-              <div>NP Login</div>
+              <div>Org Login</div>
+            </a>
+            <a href="/np/signup">
+              <div>Org Sign Up</div>
             </a>
           </h1>
         </div>
