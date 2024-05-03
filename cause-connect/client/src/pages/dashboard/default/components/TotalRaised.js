@@ -28,7 +28,7 @@ export default function TotalRaised(props) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = useColorModeValue("secondaryGray.600", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  const iconColor = useColorModeValue("brand.500", "white");
+  const iconColor = useColorModeValue("orange", "white");
   const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const bgHover = useColorModeValue(
     { bg: "secondaryGray.400" },
@@ -90,7 +90,7 @@ export default function TotalRaised(props) {
             fontWeight="700"
             lineHeight="100%"
           >
-            $37.5K
+            $935.00
           </Text>
           <Flex align="center" mb="20px">
             <Text
@@ -103,7 +103,7 @@ export default function TotalRaised(props) {
               Total Donations Collected
             </Text>
             <Flex align="center">
-              <Icon as={RiArrowUpSFill} color="green.500" me="2px" mt="2px" />
+              <Icon as={RiArrowUpSFill} color="orange" me="2px" mt="2px" />
               <Text color="green.500" fontSize="sm" fontWeight="700">
                 +2.45%
               </Text>
