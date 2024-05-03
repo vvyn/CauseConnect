@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
@@ -6,14 +7,8 @@ import {
 } from "@paypal/react-paypal-js";
 import { auth } from "../../Firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
 
 const style = { layout: "vertical" };
-
-// Custom component to wrap the PayPalButtons and show loading spinner
-const ButtonWrapper = ({ showSpinner }) => {
-  const [{ isPending }] = usePayPalScriptReducer();
-};
 
 function paypalDonate() {
   window.location.href =
@@ -21,6 +16,7 @@ function paypalDonate() {
 }
 
 export default function DonationDetails() {
+
   useEffect(() => {
     onAuthStateChanged(
       auth,
@@ -34,45 +30,68 @@ export default function DonationDetails() {
       },
       []
     );
-  });
+
   return (
     <div className="App flex flex-col justify-center items-center min-h-screen">
-      <PayPalScriptProvider
-        options={{
-          clientId:
-            "Adr_2Smsx_jambx2RBQGnTXuqUmCSQXDgOOIESjkkeeybJ-9dDDlyLJm_JsRIU5MOvdk9OtBfmDohPKE",
-          currency: "USD",
-          intent: "capture",
-        }}
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      <div
+        id="myDIV"
+        style={{ minHeight: minHeight }} // Set the minHeight style dynamically
+        className="container mx-auto flex flex-col justify-center items-center"
       >
-        <div style={{ position: "relative", top: "100px"  }}/>
-          <PayPalButtons
-            fundingSource={FUNDING.PAYPAL}
-            style={{
-              layout: "vertical",
-              label: "donate",
-              shape: "pill",
-              tagline: false,
-              paddingLeft: "500rem",
-            }}
-            onCancel={paypalDonate}
+        <h1 className="text-3xl justify-left mb-4">Donations</h1>
+        <div className="mb-4">
+          <label className="text-sm justify-left block mb-2">
+            Enter donation amount *
+          </label>
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="number"
+            value={donationAmount}
+            onChange={(e) => setDonationAmount(e.target.value)}
+            placeholder="Enter donation amount"
+            style={{ color: "black" }}
           />
-
-        <PayPalButtons
-          fundingSource={FUNDING.CARD}
-          style={{
-            layout: "vertical",
-            label: "donate",
-            shape: "pill",
-            tagline: false,
-            paddingLeft: "500rem"
+        </div>
+        <div className="mb-8"></div> {/* Additional space */}
+        <PayPalScriptProvider
+          options={{
+            clientId:
+              "Adr_2Smsx_jambx2RBQGnTXuqUmCSQXDgOOIESjkkeeybJ-9dDDlyLJm_JsRIU5MOvdk9OtBfmDohPKE",
+            currency: "USD",
+            intent: "capture",
           }}
-        />
-      </PayPalScriptProvider>
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ position: "relative", top: "100px" }}>
+            <PayPalButtons
+              fundingSource={FUNDING.PAYPAL}
+              style={{
+                layout: "vertical",
+                label: "donate",
+                shape: "pill",
+                tagline: false,
+                paddingLeft: "500rem",
+              }}
+              onCancel={paypalDonate}
+            />
+
+            <PayPalButtons
+              fundingSource={FUNDING.CARD}
+              style={{
+                layout: "vertical",
+                label: "donate",
+                shape: "pill",
+                tagline: false,
+                paddingLeft: "500rem"
+              }}
+            />
+          </div>
+        </PayPalScriptProvider>
+        <div style={{ marginBottom: "40px" }}></div> {/* Additional space */}
+      </div>
     </div>
   );
 }
