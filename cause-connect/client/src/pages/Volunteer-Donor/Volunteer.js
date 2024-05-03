@@ -159,7 +159,6 @@ const Volunteer = () => {
     fetchOpportunities(filters);
   };
 
-
   const resetFilters = () => {
     fetchOpportunities();
   };
