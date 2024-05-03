@@ -6,6 +6,7 @@ import {
 import { auth, db } from "../../Firebase";
 import { collection, getDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 import "../../styles/Login.css";
 import "@fontsource/roboto/300.css";
@@ -13,14 +14,19 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     window.location.href = "/vd/welcome"; // Redirect to welcome page if signed in
+//   } else {
+//     // User is not signed in, continue with page functionality
+//     console.log("User is not logged in");
+//   }
+// });
+
 export default function VDLogin() {
   const [email, setLoginEmail] = useState("");
   const [password, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
-
-  //   onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //   });
 
   const login = async () => {
     try {
@@ -34,7 +40,6 @@ export default function VDLogin() {
       // const userData = userDoc.data();
       //console.log(userData);
       // const userDoc = await getDoc(userRef);
-
       // if (userDoc.exists()) {
       //   const userData = userDoc.data();
       //   setUser({ user: userCredential.user, role: userData.role });
