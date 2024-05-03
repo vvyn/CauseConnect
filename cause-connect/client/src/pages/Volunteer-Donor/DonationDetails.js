@@ -44,17 +44,23 @@ export default function DonationDetails() {
           currency: "USD",
           intent: "capture",
         }}
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <PayPalButtons
-          fundingSource={FUNDING.PAYPAL}
-          style={{
-            layout: "vertical",
-            label: "donate",
-            shape: "pill",
-            tagline: false,
-          }}
-          onCancel={paypalDonate}
-        />
+        <div style={{ position: "relative", top: "100px"  }}/>
+          <PayPalButtons
+            fundingSource={FUNDING.PAYPAL}
+            style={{
+              layout: "vertical",
+              label: "donate",
+              shape: "pill",
+              tagline: false,
+              paddingLeft: "500rem",
+            }}
+            onCancel={paypalDonate}
+          />
 
         <PayPalButtons
           fundingSource={FUNDING.CARD}
@@ -63,6 +69,7 @@ export default function DonationDetails() {
             label: "donate",
             shape: "pill",
             tagline: false,
+            paddingLeft: "500rem"
           }}
         />
       </PayPalScriptProvider>

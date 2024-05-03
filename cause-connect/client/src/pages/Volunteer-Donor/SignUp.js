@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../Firebase";
 import Stack from "@mui/material/Stack";
-import { addDoc, collection} from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, doc} from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 
 export default function Signup_VD() {
@@ -13,40 +13,49 @@ export default function Signup_VD() {
   const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerPhotoID, setRegisterPhotoID] = useState("");
+  const [registerGoal, setRegisterGoal] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validNumber, setValidNumber] = useState(false);
+  const [validGoal, setValidGoal] = useState(false);
   const storage = getStorage();
 
 
   const signup = async () => {
-    try {
-      const createUser = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      const user = {
-        email: registerEmail,
-        firstName: registerFirstName,
-        lastName: registerLastName,
-        password: registerPassword,
-        phoneNumber: registerPhoneNumber,
-        role: "vd",
-      };
-      const docRef = await addDoc(collection(db, "users"), user);
-      const fileElement = document.getElementById("upload");
-      if (fileElement.files.length > 0) {
-        const file = fileElement.files[0];
-        const storageRef = ref(storage, 'id/' + docRef.id + '/' + file.name);
-        const uploadTask = await uploadBytes(storageRef, file);
+    if(!(registerFirstName && registerLastName && validEmail && validNumber &&  registerPassword /*validPassword*/ && registerPhotoID && validGoal)) {
+      alert("Please fill out all required fields!")
+    } else {
+      try {
+        const createUser = await createUserWithEmailAndPassword(
+          auth,
+          registerEmail,
+          registerPassword
+        );
+        const user = {
+          firstName: registerFirstName,
+          lastName: registerLastName,
+          email: registerEmail,
+          phoneNumber: registerPhoneNumber,
+          volunteerGoal: registerGoal,
+          role: "vd",
+        };
+        const docRef = await addDoc(collection(db, "users"), user);
+        const fileElement = document.getElementById("upload");
+        if (fileElement.files.length > 0) {
+          const file = fileElement.files[0];
+          const storageRef = ref(storage, 'id/' + docRef.id + '/' + file.name);
+          const uploadTask = await uploadBytes(storageRef, file);
+        }
+        alert("Successfully signed up!");
+        console.log(createUser);
+        window.location.href = "/vd/welcome";
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert(registerEmail + " already in use. Please login.");
+          window.location.href = "/vd/login";
+        }
+        console.log(error.message);
       }
-      alert("Successfully signed up!");
-      console.log(createUser);
-      window.location.href = "/vd/welcome";
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert(registerEmail + " already in use. Please login.");
-        window.location.href = "/vd/login";
-      }
-      console.log(error.message);
     }
   };
   function fileName(fileData) {
@@ -58,6 +67,72 @@ export default function Signup_VD() {
       }
     } catch (error) {
     }
+  }
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  const validatePassword = (password) => {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(password);
+  }
+
+  const validateNumber = (number) => {
+    const re = new RegExp('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$');
+    return !!re.test(String(number));
+  }
+
+  const email = document.querySelector("input[name='email']");
+  if(email) {
+    email.addEventListener("blur", (event) => {
+      if(!validateEmail(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidEmail(false);
+      } else {
+        event.target.style.background = "";
+        setValidEmail(true);
+      }
+    });
+  }
+
+  // const password = document.querySelector("input[name='password']");
+  // if(password) {
+  //   password.addEventListener("blur", (event) => {
+  //     if(!validatePassword(event.target.value)) {
+  //       event.target.style.background = "pink";
+  //       setValidPassword(false);
+  //     } else {
+  //       event.target.style.background = "";
+  //       setValidPassword(true);
+  //     }
+  //   });
+  // }
+
+  const number = document.querySelector("input[name='phone']");
+  if(number) {
+    number.addEventListener("blur", (event) => {
+      if(!validateNumber(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidNumber(false);
+      } else {
+        event.target.style.background = "";
+        setValidNumber(true);
+      }
+    });
+  }
+
+  const goal = document.querySelector("input[name='goal']");
+  if(goal) {
+    goal.addEventListener("blur", (event) => {
+      if(event.target.value < 0) {
+        event.target.style.background = "pink";
+        setValidGoal(false);
+      } else {
+        event.target.style.background = "";
+        setValidGoal(true);
+      }
+    });
   }
   return (
     <div className="pt-20 w-full">
@@ -127,24 +202,6 @@ export default function Signup_VD() {
 
         <div className="w-1/3">
           <label className="text-sm justify-left">
-            Phone Number <font color="red">*</font>
-          </label>
-        </div>
-        <div className="w-1/3">
-          <input
-            className="bg-orange-100 p-2 rounded-md text-black w-full"
-            type="text"
-            name="phone"
-            placeholder="Phone Number"
-            onChange={(event) => {
-              setRegisterPhoneNumber(event.target.value);
-            }}
-            required
-          />
-        </div>
-
-        <div className="w-1/3">
-          <label className="text-sm justify-left">
             Password <font color="red">*</font>
           </label>
         </div>
@@ -163,9 +220,30 @@ export default function Signup_VD() {
 
         <div className="w-1/3">
           <label className="text-sm justify-left">
+            Phone Number <font color="red">*</font>
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-black w-full"
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            onChange={(event) => {
+              setRegisterPhoneNumber(event.target.value);
+            }}
+            required
+          />
+        </div>
+
+        
+
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
             Photo ID <font color="red">*</font>
           </label>
         </div>
+
         <div className="relative w-1/3">
           <label
             for="upload"
@@ -179,7 +257,7 @@ export default function Signup_VD() {
             value={fileName(document.getElementById("upload"))}
           />
           <label
-            for="file-upload"
+            for="upload"
             className="z-20 pt-2 absolute bg-orange-200 w-1/3 text-center text-gray-500 rounded-md h-10 right-0 hover:bg-orange-300"
           >
             Browse Files
@@ -196,8 +274,26 @@ export default function Signup_VD() {
           />
         </div>
 
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
+            Volunteering Goal <font color="red">*</font>
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-black w-full"
+            type="number"
+            name="goal"
+            placeholder="0"
+            onChange={(event) => {
+              setRegisterGoal(event.target.value);
+            }}
+            required
+          />
+        </div>
+
         <button
-          className="bg-orange-400 pt-2 rounded-3xl text-white w-1/3 hover:bg-orange-500"
+          className="bg-orange-400 p-2 rounded-3xl text-white w-1/3 hover:bg-orange-500"
           onClick={signup}
         >
           {" "}

@@ -51,8 +51,8 @@ export default function ColumnsTable(props) {
   } = tableInstance;
   initialState.pageSize = 5;
 
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+  const textColor = useColorModeValue("orange", "white");
+  const borderColor = useColorModeValue("orange", "whiteAlpha.100");
   return (
     <Card
       direction='column'
@@ -69,7 +69,7 @@ export default function ColumnsTable(props) {
         </Text>
         <Menu />
       </Flex>
-      <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
+      <Table {...getTableProps()} variant='simple' color='orange' mb='24px'>
         <Thead>
           {headerGroups.map((headerGroup, index) => (
             <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -83,7 +83,7 @@ export default function ColumnsTable(props) {
                     justify='space-between'
                     align='center'
                     fontSize={{ sm: "10px", lg: "12px" }}
-                    color='gray.400'>
+                    color='orange'>
                     {column.render("Header")}
                   </Flex>
                 </Th>
@@ -113,9 +113,9 @@ export default function ColumnsTable(props) {
                           me='5px'
                           color={
                             cell.value === "Approved"
-                              ? "green.500"
+                              ? "orange"
                               : cell.value === "Disable"
-                              ? "red.500"
+                              ? "orange"
                               : cell.value === "Error"
                               ? "orange.500"
                               : null

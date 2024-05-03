@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { db, auth } from "../../Firebase";
+import { db } from "../../Firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import "../../assets/css/VolunteerOpp.css";
-import { onAuthStateChanged } from "firebase/auth";
 
 const OpportunitySignUp = () => {
   //const { id } = useParams();
@@ -34,14 +33,16 @@ const OpportunitySignUp = () => {
     }
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "/vd/login"; // Redirect to login page if not signed in
-    } else {
-      // User is signed in, continue with page functionality
-      console.log("User is logged in:", user);
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/vd/login"; // Redirect to login page if not signed in
+      } else {
+        // User is signed in, continue with page functionality
+        console.log("User is logged in:", user);
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -65,6 +66,11 @@ const OpportunitySignUp = () => {
             <b>Time:</b>
             <br></br>
             {opportunity.startTime} - {opportunity.endTime}
+            <br></br>
+            <br></br>
+            <b>Hours:</b>
+            <br></br>
+            {opportunity.hours}
             <br></br>
             <br></br>
             <b>Description:</b>

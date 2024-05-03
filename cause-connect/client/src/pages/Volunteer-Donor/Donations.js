@@ -103,139 +103,139 @@ const Donations = () => {
         console.log("User is logged in:", user);
       }
     });
-    return (
-      <div className="pt-20">
-        <Stack
-          className="relative"
-          direction="column"
-          alignItems="center"
-          spacing={2}
-        >
-          <div className="w-1/3">
-            <h1 className="text-3xl justify-left">Donations</h1>
-          </div>
+  }, []);
+  return (
+    <div className="pt-20">
+      <Stack
+        className="relative"
+        direction="column"
+        alignItems="center"
+        spacing={2}
+      >
+        <div className="w-1/3">
+          <h1 className="text-3xl justify-left">Donations</h1>
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">
-              Enter donation amount *
-            </label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="number"
-              value={donationAmount}
-              onChange={(e) => setDonationAmount(e.target.value)}
-              placeholder="Enter donation amount"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
+            Enter donation amount *
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="number"
+            value={donationAmount}
+            onChange={(e) => setDonationAmount(e.target.value)}
+            placeholder="Enter donation amount"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">Country / Region *</label>
-          </div>
-          <div className="w-1/3">
-            <select
-              className="bg-orange-100 p-2 rounded-md text-black w-full"
-              value={country}
-              onChange={handleCountryChange}
-            >
-              <option value="">Select a country</option>
-              <option value="USA">United States</option>
-              <option value="CAN">Canada</option>
-              <option value="MEX">Mexico</option>
-            </select>
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">Country / Region *</label>
+        </div>
+        <div className="w-1/3">
+          <select
+            className="bg-orange-100 p-2 rounded-md text-black w-full"
+            value={country}
+            onChange={handleCountryChange}
+          >
+            <option value="">Select a country</option>
+            <option value="USA">United States</option>
+            <option value="CAN">Canada</option>
+            <option value="MEX">Mexico</option>
+          </select>
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">Zip Code</label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="text"
-              value={zipCode}
-              onChange={handleZipCodeChange}
-              maxLength={5} // Set maximum length to 5 characters
-              placeholder="Enter Zip Code"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">Zip Code</label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="text"
+            value={zipCode}
+            onChange={handleZipCodeChange}
+            maxLength={5} // Set maximum length to 5 characters
+            placeholder="Enter Zip Code"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">Cardholder Name *</label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="text"
-              value={cardholderName}
-              onChange={(e) => setCardholderName(e.target.value)}
-              placeholder="Enter cardholder name"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">Cardholder Name *</label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="text"
+            value={cardholderName}
+            onChange={(e) => setCardholderName(e.target.value)}
+            placeholder="Enter cardholder name"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">
-              Enter Credit Card number *
-            </label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="text"
-              value={creditCardNumber}
-              onChange={handleCreditCardNumberChange}
-              maxLength={19} // Set maximum length to 19 characters (including spaces)
-              placeholder="xxxx xxxx xxxx xxxx"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">
+            Enter Credit Card number *
+          </label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="text"
+            value={creditCardNumber}
+            onChange={handleCreditCardNumberChange}
+            maxLength={19} // Set maximum length to 19 characters (including spaces)
+            placeholder="xxxx xxxx xxxx xxxx"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">Expire date *</label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="text"
-              value={expiryDate}
-              onChange={handleExpiryDateChange}
-              maxLength={5} // Set maximum length to 5 characters (MM/YY format)
-              pattern="(0[1-9]|1[0-2])\/(2[2-9]|[3-9][0-9])" // Pattern for MM/YY format validation
-              placeholder="MM/YY"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">Expire date *</label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="text"
+            value={expiryDate}
+            onChange={handleExpiryDateChange}
+            maxLength={5} // Set maximum length to 5 characters (MM/YY format)
+            pattern="(0[1-9]|1[0-2])\/(2[2-9]|[3-9][0-9])" // Pattern for MM/YY format validation
+            placeholder="MM/YY"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          <div className="w-1/3">
-            <label className="text-sm justify-left">CVV / CVC *</label>
-          </div>
-          <div className="w-1/3">
-            <input
-              className="bg-orange-100 p-2 rounded-md text-white w-full"
-              type="text"
-              value={cvv}
-              onChange={handleCVVChange}
-              maxLength={3}
-              pattern="[0-9]*" // Only allow numerical characters
-              placeholder="Enter CVV/CVC"
-              style={{ color: "black" }}
-            />
-          </div>
+        <div className="w-1/3">
+          <label className="text-sm justify-left">CVV / CVC *</label>
+        </div>
+        <div className="w-1/3">
+          <input
+            className="bg-orange-100 p-2 rounded-md text-white w-full"
+            type="text"
+            value={cvv}
+            onChange={handleCVVChange}
+            maxLength={3}
+            pattern="[0-9]*" // Only allow numerical characters
+            placeholder="Enter CVV/CVC"
+            style={{ color: "black" }}
+          />
+        </div>
 
-          {/* <button
+        {/* <button
           className="bg-orange-400 p-2 rounded-3xl text-white w-1/3"
           onClick={paypalDonation}
           style={{ marginBottom: "100px" }}
         >
           Make Payment
         </button> */}
-        </Stack>
-      </div>
-    );
-  }, []);
+      </Stack>
+    </div>
+  );
 };
 
 export default Donations;

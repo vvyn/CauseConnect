@@ -18,7 +18,7 @@ export default function Volunteers(props) {
   const { ...rest } = props;
 
   // Chakra Color Mode
-  const textColor = useColorModeValue("secondaryGray.900", "white");
+  const textColor = useColorModeValue("orange", "white");
   return (
     <Card align="center" direction="column" w="100%" {...rest}>
       <Flex justify="space-between" align="start" px="10px" pt="5px">
