@@ -63,7 +63,7 @@ export default function Dashbaord() {
   const brandColor = useColorModeValue("orange", "white");
   const boxBg = useColorModeValue("orange", "orange");
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center p-10">
       <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
         <SimpleGrid
           columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
