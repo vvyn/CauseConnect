@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
-import { collection, query, where, getDocs, doc, updateDoc} from "firebase/firestore";
-import {db, auth} from "../../Firebase";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db, auth } from "../../Firebase";
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
@@ -12,7 +19,10 @@ export default function Profile() {
         const userEmail = user.email;
         const getUserData = async () => {
           try {
-            const q = query(collection(db, "users"), where("email", "==", userEmail));
+            const q = query(
+              collection(db, "users"),
+              where("email", "==", userEmail)
+            );
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
               const userDoc = querySnapshot.docs[0];
@@ -37,41 +47,41 @@ export default function Profile() {
     const userDoc = doc(db, "users", userData.id);
     const newValue = prompt(`Enter new first name:`);
     if (newValue) {
-      await updateDoc(userDoc, { "firstName": newValue });
-      setUserData({...userData, firstName: newValue});
+      await updateDoc(userDoc, { firstName: newValue });
+      setUserData({ ...userData, firstName: newValue });
     }
-  }
+  };
 
   const updateLastName = async () => {
     if (!userData) return;
     const userDoc = doc(db, "users", userData.id);
     const newValue = prompt(`Enter new last name:`);
     if (newValue) {
-      await updateDoc(userDoc, { "lastName": newValue });
-      setUserData({...userData, lastName: newValue});
+      await updateDoc(userDoc, { lastName: newValue });
+      setUserData({ ...userData, lastName: newValue });
     }
-  }
+  };
 
   const updateEmail = async () => {
     if (!userData) return;
     const userDoc = doc(db, "users", userData.id);
     const newValue = prompt(`Enter new email:`);
     if (newValue) {
-      await updateDoc(userDoc, { "email": newValue });
-      setUserData({...userData, email: newValue});
+      await updateDoc(userDoc, { email: newValue });
+      setUserData({ ...userData, email: newValue });
     }
-  }
+  };
 
   const updatePhoneNumber = async () => {
     if (!userData) return;
     const userDoc = doc(db, "users", userData.id);
     const newValue = prompt(`Enter new phone number:`);
     if (newValue) {
-      await updateDoc(userDoc, { "phoneNumber": newValue });
-      setUserData({...userData, phoneNumber: newValue});
+      await updateDoc(userDoc, { phoneNumber: newValue });
+      setUserData({ ...userData, phoneNumber: newValue });
     }
-  }
-  
+  };
+
   const resetPassword = async () => {
     await sendPasswordResetEmail(auth, userData.email)
       .then(() => {
@@ -89,48 +99,56 @@ export default function Profile() {
       <div className="flex">
         <div className="mr-40">
           <div className="py-2 font-bold flex">
-            First Name: 
-            <p className='font-normal pl-2'>
+            First Name:
+            <p className="font-normal pl-2">
               {userData ? userData.firstName : null}
             </p>
           </div>
           <div className="py-2 font-bold flex">
-            Last Name: 
-            <p className='font-normal pl-2'>
+            Last Name:
+            <p className="font-normal pl-2">
               {userData ? userData.lastName : null}
             </p>
           </div>
           <div className="py-2 font-bold flex">
-            Email: 
-            <p className='font-normal pl-2'>
+            Email:
+            <p className="font-normal pl-2">
               {userData ? userData.email : null}
             </p>
           </div>
           <div className="py-2 font-bold flex">
-            Phone Number: 
-            <p className='font-normal pl-2'>
+            Phone Number:
+            <p className="font-normal pl-2">
               {userData ? userData.phoneNumber : null}
             </p>
           </div>
-          <div className="py-2 font-bold">
-            Password: 
-          </div>
+          <div className="py-2 font-bold">Password:</div>
         </div>
         <div>
           <div className="py-2 font-bold" onClick={updateFirstName}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change First Name</button>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">
+              Change First Name
+            </button>
           </div>
           <div className="py-2 font-bold" onClick={updateLastName}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Last Name</button>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">
+              Change Last Name
+            </button>
           </div>
           <div className="py-2 font-bold" onClick={updateEmail}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Email</button>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">
+              Change Email
+            </button>
           </div>
           <div className="py-2 font-bold" onClick={updatePhoneNumber}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Phone Number</button>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">
+              Change Phone Number
+            </button>
           </div>
           <div className="py-2 font-bold" onClick={resetPassword}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Password</button>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">
+              Change Password
+            </button>
           </div>
         </div>
       </div>

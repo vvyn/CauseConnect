@@ -4,6 +4,9 @@ import {
   usePayPalScriptReducer,
   FUNDING,
 } from "@paypal/react-paypal-js";
+import { auth } from "../../Firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 
 const style = { layout: "vertical" };
 
@@ -18,6 +21,20 @@ function paypalDonate() {
 }
 
 export default function DonationDetails() {
+  useEffect(() => {
+    onAuthStateChanged(
+      auth,
+      (user) => {
+        if (!user) {
+          window.location.href = "/vd/login"; // Redirect to login page if not signed in
+        } else {
+          // User is signed in, continue with page functionality
+          console.log("User is logged in:", user);
+        }
+      },
+      []
+    );
+  });
   return (
     <div className="App flex flex-col justify-center items-center min-h-screen">
       <PayPalScriptProvider

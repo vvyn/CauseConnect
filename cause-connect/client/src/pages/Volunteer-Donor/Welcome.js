@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { auth } from "../../Firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Welcome() {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/vd/login"; // Redirect to login page if not signed in
+      } else {
+        // User is signed in, continue with page functionality
+        console.log("User is logged in:", user);
+      }
+    });
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen ml-auto mr-auto">
       <div className="">
