@@ -8,21 +8,29 @@ import {
 import { auth } from "../../Firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
+// Define default style
 const style = { layout: "vertical" };
 
+// Function to handle PayPal donation
 function paypalDonate() {
   window.location.href =
     "https://www.sandbox.paypal.com/donate/?hosted_button_id=3FQKL4X289YBW";
 }
 
+// DonationDetails component
 export default function DonationDetails() {
+  // State variables
+  const [donationAmount, setDonationAmount] = useState(0);
+  const [minHeight, setMinHeight] = useState("auto");
 
+  // Check authentication status
   useEffect(() => {
     onAuthStateChanged(
       auth,
       (user) => {
         if (!user) {
-          window.location.href = "/vd/login"; // Redirect to login page if not signed in
+          // Redirect to login page if not signed in
+          window.location.href = "/vd/login"; 
         } else {
           // User is signed in, continue with page functionality
           console.log("User is logged in:", user);
@@ -30,15 +38,25 @@ export default function DonationDetails() {
       },
       []
     );
+  }, []);
+
+  // Set minimum height dynamically
+  useEffect(() => {
+    setMinHeight("10000px");
+  }, []);
 
   return (
     <div className="App flex flex-col justify-center items-center min-h-screen">
+      {/* Donation container */}
       <div
         id="myDIV"
-        style={{ minHeight: minHeight }} // Set the minHeight style dynamically
+        style={{ minHeight: minHeight }}
         className="container mx-auto flex flex-col justify-center items-center"
       >
+        {/* Donation title */}
         <h1 className="text-3xl justify-left mb-4">Donations</h1>
+        
+        {/* Donation form */}
         <div className="mb-4">
           <label className="text-sm justify-left block mb-2">
             Enter donation amount *
@@ -52,7 +70,11 @@ export default function DonationDetails() {
             style={{ color: "black" }}
           />
         </div>
-        <div className="mb-8"></div> {/* Additional space */}
+        
+        {/* Space */}
+        <div className="mb-8"></div>
+        
+        {/* PayPal donation buttons */}
         <PayPalScriptProvider
           options={{
             clientId:
@@ -63,6 +85,7 @@ export default function DonationDetails() {
           style={{
             justifyContent: "center",
             alignItems: "center",
+            marginBottom: "50px", // Add some extra space below the PayPal buttons
           }}
         >
           <div style={{ position: "relative", top: "100px" }}>
@@ -77,7 +100,6 @@ export default function DonationDetails() {
               }}
               onCancel={paypalDonate}
             />
-
             <PayPalButtons
               fundingSource={FUNDING.CARD}
               style={{
@@ -90,7 +112,9 @@ export default function DonationDetails() {
             />
           </div>
         </PayPalScriptProvider>
-        <div style={{ marginBottom: "40px" }}></div> {/* Additional space */}
+        
+        {/* Additional space */}
+        <div style={{ marginBottom: "40px" }}></div>
       </div>
     </div>
   );
