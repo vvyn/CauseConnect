@@ -60,10 +60,10 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 
 export default function Dashbaord() {
   // Chakra Color Mode
-  const brandColor = useColorModeValue("brand.500", "white");
-  const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+  const brandColor = useColorModeValue("orange", "white");
+  const boxBg = useColorModeValue("orange", "orange");
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center p-10">
       <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
         <SimpleGrid
           columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
@@ -82,8 +82,8 @@ export default function Dashbaord() {
               />
               <div className="flex flex-col">
                 <p className="text-lg font-semibold ml-2">Total Donations</p>
-                <p className="text-lg font-semibold ml-2">$1000.00</p>
-              </div>
+                <p className="text-lg font-semibold ml-2">$1830.00</p>
+              </div> 
 
               {/* $ Sign for donations */}
               <Icon
@@ -97,7 +97,7 @@ export default function Dashbaord() {
                 <p className="text-lg font-semibold ml-2">
                   Donations Raised This Week
                 </p>
-                <p className="text-lg font-semibold ml-2">$1000.00</p>
+                <p className="text-lg font-semibold ml-2">$500.00</p>
               </div>
 
               {/* Volunteers*/}

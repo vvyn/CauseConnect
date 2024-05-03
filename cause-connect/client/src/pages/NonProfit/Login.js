@@ -27,18 +27,18 @@ export default function NPLogin() {
         email,
         password
       );
-      const user = userCredential.user;
+      //const user = userCredential.user;
 
-      const userRef = collection(db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
+      //const userRef = collection(db, "users", user.uid);
+      //const userDoc = await getDoc(userRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setUser({ user: userCredential.user, role: userData.role });
+      //if (userDoc.exists()) {
+        //const userData = userDoc.data();
+        //setUser({ user: userCredential.user, role: userData.role });
         alert(user.email + " Successfully logged In");
         console.log(user);
         window.location = "/np/welcome";
-      }
+      //}
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

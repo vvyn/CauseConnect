@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { db, auth } from "../../Firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
+export default function Summary() {
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/vd/login";
+      } else {
+        console.log("User is logged in:", user);
+      }
+    });
+  }, []);
 
-export default function DonationSummary() {
   const [totalHours, setTotalHours] = useState(0);
   const [userData, setUserData] = useState(null);
   const [goalProgress, setGoalProgress] = useState(0);
@@ -19,7 +35,10 @@ export default function DonationSummary() {
         const userEmail = user.email;
         const getUserData = async () => {
           try {
-            const q = query(collection(db, "users"), where("email", "==", userEmail));
+            const q = query(
+              collection(db, "users"),
+              where("email", "==", userEmail)
+            );
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
               const userDoc = querySnapshot.docs[0];
@@ -37,9 +56,7 @@ export default function DonationSummary() {
         getUserData();
       }
     });
-  }, []); 
-
-
+  }, []);
   useEffect(() => {
     async function getHours() {
       if (userData) {
@@ -48,7 +65,7 @@ export default function DonationSummary() {
         for (const oppId of volunteerOpportunities) {
           const volOppRef = doc(db, "volunteerPosting", oppId);
           const volOppDoc = await getDoc(volOppRef);
-          if(volOppDoc.exists()){
+          if (volOppDoc.exists()) {
             sumHours += volOppDoc.data().hours;
           }
         }
@@ -65,7 +82,7 @@ export default function DonationSummary() {
         let progressPercentage = (totalHours / goal) * 100;
         setGoalProgress(progressPercentage);
 
-        if(progressPercentage === 100){
+        if (progressPercentage === 100) {
           setDisplayMessage("Congratulations! You've met your goal!");
         } else if (progressPercentage > 0){
           setDisplayMessage("Hooray! You've made progress towards your goal of " + curGoal + " hours!");
@@ -98,9 +115,6 @@ export default function DonationSummary() {
     userDonationSummary();
   }, [userData])
 
-
-
-
   return (
     <div>
       <div className="p-10">
@@ -122,7 +136,6 @@ export default function DonationSummary() {
         </div>
 
       </div>
-      
     </div>
   );
 }

@@ -4,6 +4,16 @@ https://cause-connect.vercel.app
 # Overview
 Exploring nonprofit organizations and figuring out how to get involved can be overwhelming, considering the large number of nonprofits that exist. Individuals may struggle to find nonprofits that support the causes they care about, and nonprofits can have trouble reaching a wider audience. CauseConnect responds to these challenges by offering a centralized web-based platform that brings together nonprofits and individuals wanting to make a difference, with volunteering opportunities and donation campaigns from various nonprofits available in one place.
 
+# Set Up
+- install nodeJS globally (https://nodejs.org/en)
+- open terminal
+-     git clone https://github.com/vvyn/CauseConnect.git
+-     cd cause-connect/client
+-     npm i --force
+-     npm start
+- open http://localhost:3000/ to see the web app
+​
+
 # Tech Stack
 - Frontend
     - React + Material UI + Tailwind CSS
@@ -22,10 +32,3 @@ Exploring nonprofit organizations and figuring out how to get involved can be ov
     - Create account, edit profile information​
     - Manage volunteer/donation postings​
     - Edit active postings and view user contributions​
-
-# Set Up
-- git clone https://github.com/vvyn/CauseConnect.git
-- cd cause-connect/client
-- npm i --force
-- npm start
-​

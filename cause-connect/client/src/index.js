@@ -29,40 +29,41 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+import { AuthProvider } from "./Firebase";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="vd/signup" element={<VDSignUp />} />
-          <Route path="vd/login" element={<VDLogin />} />
-          <Route path="vd/welcome" element={<VDWelcome />} />
-          <Route path="vd/profile" element={<VDProfile />} />
-          <Route path="vd/donor" element={<VDDonor />} />
-          <Route
-            path="vd/donor/donationDetails/:id"
-            element={<VDDonationDetails />}
-          />
-          <Route path="vd/donations" element={<VDDonations />} />
-          <Route path="vd/summary" element={<VDSummary />} />
-          <Route path="vd/volunteer" element={<VDVolunteer />} />
-          <Route
-            path="vd/volunteer/opportunitySignUp/:id"
-            element={<VDOpportunitySignUp />}
-          />
-          <Route path="np/signup" element={<NPSignUp />} />
-          <Route path="np/login" element={<NPLogin />} />
-          <Route path="np/welcome" element={<NPWelcome />} />
-          <Route path="np/profile" element={<NPProfile />} />
-          <Route path="np/donor" element={<NPDonor />} />
-          <Route path="np/volunteer" element={<NPVolunteer />} />
-          <Route path="np/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
-          <Route path="dontopen" element={<Dontopen />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+
+            <Route path="vd/signup" element={<VDSignUp />} />
+            <Route path="vd/login" element={<VDLogin />} />
+            <Route path="vd/welcome" element={<VDWelcome />} />
+            <Route path="vd/profile" element={<VDProfile />} />
+            <Route path="vd/donor" element={<VDDonor />} />
+            <Route path="vd/donor/donationDetails/:id" element={<VDDonationDetails />} />
+            <Route path="vd/donations" element={<VDDonations />} />
+            <Route path="vd/summary" element={<VDSummary />} />
+            <Route path="vd/volunteer" element={<VDVolunteer />} />
+            <Route path="vd/volunteer/opportunitySignUp/:id" element={<VDOpportunitySignUp />} />
+
+            <Route path="np/signup" element={<NPSignUp />} />
+            <Route path="np/login" element={<NPLogin />} />
+            <Route path="np/welcome" element={<NPWelcome />} />
+            <Route path="np/profile" element={<NPProfile />} />
+            <Route path="np/donor" element={<NPDonor />} />
+            <Route path="np/volunteer" element={<NPVolunteer />} />
+            <Route path="np/dashboard" element={<Dashboard />} />
+            
+            <Route path="*" element={<Error />} />
+            <Route path="dontopen" element={<Dontopen />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );

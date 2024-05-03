@@ -3,7 +3,7 @@
 export const barChartDataDailyTraffic = [
   {
     name: "Daily Traffic",
-    data: [20, 30, 40, 20, 45, 50, 30],
+    data: [10, 7, 3, 4, 6, 20, 7],
   },
 ];
 
@@ -32,7 +32,7 @@ export const barChartOptionsDailyTraffic = {
     labels: {
       show: true,
       style: {
-        colors: "#A3AED0",
+        colors: "orange",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -46,11 +46,11 @@ export const barChartOptionsDailyTraffic = {
   },
   yaxis: {
     show: false,
-    color: "black",
+    color: "orange",
     labels: {
       show: true,
       style: {
-        colors: "#CBD5E0",
+        colors: "orange",
         fontSize: "14px",
       },
     },
@@ -80,12 +80,12 @@ export const barChartOptionsDailyTraffic = {
         [
           {
             offset: 0,
-            color: "#4318FF",
+            color: "orange",
             opacity: 1,
           },
           {
             offset: 100,
-            color: "rgba(67, 24, 255, 1)",
+            color: "orange",
             opacity: 0.28,
           },
         ],
@@ -146,7 +146,7 @@ export const barChartOptionsConsumption = {
     labels: {
       show: true,
       style: {
-        colors: "#A3AED0",
+        colors: "orange",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -160,11 +160,11 @@ export const barChartOptionsConsumption = {
   },
   yaxis: {
     show: false,
-    color: "black",
+    color: "orange",
     labels: {
       show: false,
       style: {
-        colors: "#A3AED0",
+        colors: "orange",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -172,7 +172,7 @@ export const barChartOptionsConsumption = {
   },
 
   grid: {
-    borderColor: "rgba(163, 174, 208, 0.3)",
+    borderColor: "orange",
     show: true,
     yaxis: {
       lines: {
@@ -191,12 +191,12 @@ export const barChartOptionsConsumption = {
   },
   fill: {
     type: "solid",
-    colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+    colors: ["orange", "orange", "orange"],
   },
   legend: {
     show: false,
   },
-  colors: ["#5E37FF", "#6AD2FF", "#E1E9F8"],
+  colors: ["orange", "orange", "orange"],
   dataLabels: {
     enabled: false,
   },
@@ -210,7 +210,7 @@ export const barChartOptionsConsumption = {
 
 export const pieChartOptions = {
   labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+  colors: ["orange", "orange", "orange"],
   chart: {
     width: "50px",
   },
@@ -239,7 +239,7 @@ export const pieChartOptions = {
     },
   },
   fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+    colors: ["orange", "orange", "orange"],
   },
   tooltip: {
     enabled: true,
@@ -273,14 +273,14 @@ export const lineChartOptionsTotalSpent = {
       left: 0,
       blur: 10,
       opacity: 0.1,
-      color: "#4318FF",
+      color: "orange",
     },
   },
-  colors: ["#4318FF", "#39B8FF"],
+  colors: ["orange", "orange"],
   markers: {
     size: 0,
-    colors: "white",
-    strokeColors: "#7551FF",
+    colors: "orange",
+    strokeColors: "orange",
     strokeWidth: 3,
     strokeOpacity: 0.9,
     strokeDashArray: 0,
@@ -307,7 +307,7 @@ export const lineChartOptionsTotalSpent = {
     categories: ["SEP", "OCT", "NOV", "DEC", "JAN", "FEB"],
     labels: {
       style: {
-        colors: "#A3AED0",
+        colors: "orange",
         fontSize: "12px",
         fontWeight: "500",
       },
@@ -328,9 +328,9 @@ export const lineChartOptionsTotalSpent = {
   grid: {
     show: false,
     column: {
-      color: ["#7551FF", "#39B8FF"],
+      color: ["orange", "orange"],
       opacity: 0.5,
     },
   },
-  color: ["#7551FF", "#39B8FF"],
+  color: ["orange", "orange"],
 };
