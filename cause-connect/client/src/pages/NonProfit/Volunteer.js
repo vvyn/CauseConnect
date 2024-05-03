@@ -268,7 +268,7 @@ const VolunteerPostings = () => {
       let docRef;
       const formattedStartTime = formatTime24to12(selectedPosting.time);
       const formattedEndTime = formatTime24to12(selectedPosting.endTime);
-
+      
       if (selectedPosting && selectedPosting.id) {
         docRef =doc(db, "volunteerPosting", selectedPosting.id);
         await updateDoc(docRef, {
@@ -302,7 +302,7 @@ const VolunteerPostings = () => {
           startTime: formattedStartTime,
           endTime: formattedEndTime,
           totalSpots: selectedPosting.totalSpots, 
-          availableSlots: selectedPosting.spots,
+          availableSlots: selectedPosting.totalSpots,
         });
       }
 
@@ -367,7 +367,7 @@ const VolunteerPostings = () => {
             <TextField required label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="End Time" type="time" value={selectedPosting ? selectedPosting.endTime : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'endTime')} InputLabelProps={{ shrink: true,}}/>
-            <TextField required label="Hours" value={selectedPosting ? selectedPosting.hours : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'hours')} />
+            <TextField required label="Hour(s)" value={selectedPosting ? selectedPosting.hours : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'hours')} />
             <TextField required label="Description" value={selectedPosting ? selectedPosting.description : ''} style={{ width: '500px', display: 'block' }} margin="normal" multiline rows={4} onChange={e => handleChange(e, 'description')} />
             <TextField required label="# of Volunteers Required" type="number" value={selectedPosting ? selectedPosting.totalSpots : ''} style={{ width: '700px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'totalSpots')} />
             <Button variant="contained" style={{ marginRight: '20px', marginTop: '10px', marginBottom: '10px' }} color="primary" onClick={handleSave} disabled={!isValidForm()}>Save</Button>
@@ -382,7 +382,7 @@ const VolunteerPostings = () => {
           <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? selectedPosting.city + ', ' : ''}${selectedPosting.state ? selectedPosting.state + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
           <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
           <Typography variant="body1"><strong>Time:</strong> {selectedPosting.time} - {selectedPosting.endTime}</Typography>
-          <Typography variant="body1"><strong>Hours:</strong> {selectedPosting.hours}</Typography>
+          <Typography variant="body1"><strong>Hour(s):</strong> {selectedPosting.hours}</Typography>
           <Typography variant="body1"><strong>Description:</strong> {selectedPosting.description}</Typography>
           <Typography variant="body1"><strong>Spots Open:</strong> {selectedPosting.spots} of {selectedPosting.totalSpots}</Typography>
           <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white', marginTop: '20px', marginBottom: '20px' }} onClick={handleEdit}>
