@@ -18,8 +18,7 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
       setDonations([...donations, event.target.value]);
     } else {
       setDonations(
-        donations.filter((donation) => donation !== event.target.value)
-      );
+        donations.filter((donation) => donation !== event.target.value));
     }
   };
 
@@ -108,16 +107,16 @@ const Donor = () => {
     try{
       let fetchedData = donationOpportunities;
 
-        if(filters.causes && filters.causes.length > 0){
-          fetchedData = query(query(fetchedData, where("causeType", "in", filters.causes)));
+        if(filters.donations && filters.donations.length > 0){
+          fetchedData = query(fetchedData, where("donaType", "in", filters.donations));
         }
 
         if(filters.city){
-          fetchedData = query(query(fetchedData, where("city", "==", filters.city)));
+          fetchedData = query(fetchedData, where("city", "==", filters.city));
         }
 
         if(filters.zipcode){
-          fetchedData = query(query(fetchedData, where("zipcode", "==", filters.zipcode)));
+          fetchedData = query(fetchedData, where("zipcode", "==", filters.zipcode));
         }
 
       const queryResult = await getDocs(fetchedData);
@@ -139,7 +138,6 @@ const Donor = () => {
   const filterOpportunities = (filters) => {
     fetchOpportunities(filters);
   };
-
 
   const resetFilters = () => {
     fetchOpportunities();
