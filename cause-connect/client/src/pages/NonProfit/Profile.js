@@ -57,8 +57,8 @@ export default function Profile() {
     const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
     const newValue = prompt(`Enter new phone number:`);
     if (newValue) {
-      await updateDoc(nonProfitDoc, { "phoneNumber": newValue });
-      setNonProfitData({...nonProfitData, phoneNumber: newValue});
+      await updateDoc(nonProfitDoc, { "phone": newValue });
+      setNonProfitData({...nonProfitData, phone: newValue});
     }
   }
 
@@ -72,23 +72,43 @@ export default function Profile() {
     }
   }
 
-  const updateNonProfitStatus = async () => {
-    if (!nonProfitData) return;
-    const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
-    const newValue = prompt(`Enter new phone number:`);
-    if (newValue) {
-      await updateDoc(nonProfitDoc, { "nonProfitStatus": newValue });
-      setNonProfitData({...nonProfitData, nonProfitStatus: newValue});
-    }
-  }
-
   const updateCauseCategory = async () => {
     if (!nonProfitData) return;
     const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
     const newValue = prompt(`Enter new phone number:`);
     if (newValue) {
-      await updateDoc(nonProfitDoc, { "causeCategory": newValue });
-      setNonProfitData({...nonProfitData, causeCategory: newValue});
+      await updateDoc(nonProfitDoc, { "category": newValue });
+      setNonProfitData({...nonProfitData, category: newValue});
+    }
+  }
+
+  const updateState = async () => {
+    if (!nonProfitData) return;
+    const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
+    const newValue = prompt(`Enter new phone number:`);
+    if (newValue) {
+      await updateDoc(nonProfitDoc, { "state": newValue });
+      setNonProfitData({...nonProfitData, state: newValue});
+    }
+  }
+
+  const updateCity = async () => {
+    if (!nonProfitData) return;
+    const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
+    const newValue = prompt(`Enter new phone number:`);
+    if (newValue) {
+      await updateDoc(nonProfitDoc, { "city": newValue });
+      setNonProfitData({...nonProfitData, city: newValue});
+    }
+  }
+
+  const updateZipcode = async () => {
+    if (!nonProfitData) return;
+    const nonProfitDoc = doc(db, "nonprofits", nonProfitData.id);
+    const newValue = prompt(`Enter new phone number:`);
+    if (newValue) {
+      await updateDoc(nonProfitDoc, { "zipcode": newValue });
+      setNonProfitData({...nonProfitData, zipcode: newValue});
     }
   }
   
@@ -123,7 +143,7 @@ export default function Profile() {
           <div className="py-2 font-bold flex">
             Phone Number: 
             <p className='font-normal pl-2'>
-              {nonProfitData ? nonProfitData.phoneNumber : null}
+              {nonProfitData ? nonProfitData.phone : null}
             </p>
           </div>
           <div className="py-2 font-bold flex">
@@ -133,15 +153,27 @@ export default function Profile() {
             </p>
           </div>
           <div className="py-2 font-bold flex">
-            Non Profit Status: 
+            Cause Category: 
             <p className='font-normal pl-2'>
-              {nonProfitData ? nonProfitData.nonProfitStatus : null}
+              {nonProfitData ? nonProfitData.category : null}
             </p>
           </div>
           <div className="py-2 font-bold flex">
-            Cause Category: 
+            State: 
             <p className='font-normal pl-2'>
-              {nonProfitData ? nonProfitData.causeCategory : null}
+              {nonProfitData ? nonProfitData.state : null}
+            </p>
+          </div>
+          <div className="py-2 font-bold flex">
+            City: 
+            <p className='font-normal pl-2'>
+              {nonProfitData ? nonProfitData.city : null}
+            </p>
+          </div>
+          <div className="py-2 font-bold flex">
+            Zipcode: 
+            <p className='font-normal pl-2'>
+              {nonProfitData ? nonProfitData.zipcode : null}
             </p>
           </div>
           <div className="py-2 font-bold">
@@ -161,11 +193,17 @@ export default function Profile() {
           <div className="py-2 font-bold" onClick={updateWebsite}>
             <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Website</button>
           </div>
-          <div className="py-2 font-bold" onClick={updateNonProfitStatus}>
-            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Non Profit Status</button>
-          </div>
           <div className="py-2 font-bold" onClick={updateCauseCategory}>
             <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Cause Category</button>
+          </div>
+          <div className="py-2 font-bold" onClick={updateState}>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change State</button>
+          </div>
+          <div className="py-2 font-bold" onClick={updateCity}>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change City</button>
+          </div>
+          <div className="py-2 font-bold" onClick={updateZipcode}>
+            <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Zipcode</button>
           </div>
           <div className="py-2 font-bold" onClick={updatePassword}>
             <button className="mx-2 bg-orange-300 rounded-xl text-xs py-1 text-white px-2">Change Password</button>

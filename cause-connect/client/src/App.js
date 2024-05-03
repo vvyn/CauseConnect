@@ -11,9 +11,9 @@ import Sidebar from "./components/Sidebar";
 export default function App() {
   const SelectSidebar = () => {
     const location = useLocation();
-    if (location.pathname.startsWith('/np')) {
+    if (location.pathname.startsWith('/np') && !location.pathname.startsWith('/np/login') && !location.pathname.startsWith('/np/signup')){
       return <NPsidebar />;
-    } else if (location.pathname.startsWith('/vd')) {
+    } else if (location.pathname.startsWith('/vd') && !location.pathname.startsWith('/vd/login') && !location.pathname.startsWith('/vd/signup')){
       return <VDsidebar />;
     } else {
       return <Sidebar />;
