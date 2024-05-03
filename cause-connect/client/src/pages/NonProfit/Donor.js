@@ -85,7 +85,7 @@ const DonationPostingCard = ({ title, donaType, location, city, state, goal, des
       <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{location}</Typography>
       <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{city}, {state}</Typography>
       <Typography variant="body1" style={{ marginTop: '20px', fontWeight: 'bold' }}>Goal: ${goal}</Typography>
-      <Typography variant="body2" style={{ marginTop: '20px' }}>{description}</Typography>
+      <Typography variant="body2" style={{ marginTop: '20px', marginBottom: '20px'}}>{description}</Typography>
       <CustomButton onClick={onViewEdit}>Edit</CustomButton>
     </CardContent>
   </CustomCard>
