@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useLocation } from "react-router-dom";
-import { db } from "../../Firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { db, auth} from "../../Firebase";
 import '../../assets/css/VolunteerOpp.css';
+import { onAuthStateChanged } from "firebase/auth";
+import { arrayUnion, collection, query, where, getDocs, doc, updateDoc} from "firebase/firestore";
 
 const OpportunitySignUp = () => {
     //const { id } = useParams();
@@ -11,6 +12,30 @@ const OpportunitySignUp = () => {
 
     const [signUpStatus, setSignUpStatus] = useState('');
     const [availableSpots, setAvailableSpots] = useState(opportunity.availableSlots);
+    const [userDocs, setUserDocs] = useState(null);
+  
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const userEmail = user.email;
+          const getUserData = async () => {
+            try {
+              const q = query(collection(db, "users"), where("email", "==", userEmail));
+              const querySnapshot = await getDocs(q);
+              if (!querySnapshot.empty) {
+                const userDoc = querySnapshot.docs[0];
+                setUserDocs(userDoc);
+              } else {
+                console.log("No user found");
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          getUserData();
+        }
+      });
+    }, []);
 
     const updateSignUpStatus = () => {
         if (availableSpots > 0){
@@ -18,9 +43,11 @@ const OpportunitySignUp = () => {
             setAvailableSpots(updatedSpots);
 
             const opportunityRef = doc(db, "volunteerPosting", opportunity.id);
+            const userRef = doc(db, "users", userDocs.id);
 
             try{
                 updateDoc(opportunityRef, {availableSlots: updatedSpots});
+                updateDoc(userRef, {volunteerSummary: arrayUnion(opportunity.id)});
                 setSignUpStatus('Successfully signed up!');
             } catch (error) {
                 console.error("Error updating available slots:", error);
