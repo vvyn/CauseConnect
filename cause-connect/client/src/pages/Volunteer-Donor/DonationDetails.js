@@ -16,8 +16,6 @@ function paypalDonate() {
 }
 
 export default function DonationDetails() {
-  const [donationAmount, setDonationAmount] = useState(0);
-  const [minHeight, setMinHeight] = useState("auto");
 
   useEffect(() => {
     onAuthStateChanged(
@@ -32,12 +30,6 @@ export default function DonationDetails() {
       },
       []
     );
-  }, []);
-
-  useEffect(() => {
-    // Set the minimum height to 100px
-    setMinHeight("2000px");
-  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   return (
     <div className="App flex flex-col justify-center items-center min-h-screen">

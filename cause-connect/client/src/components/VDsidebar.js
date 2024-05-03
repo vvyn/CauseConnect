@@ -2,7 +2,7 @@ import { useState } from "react";
 import { auth } from "../Firebase";
 import { signOut } from "firebase/auth";
 
-const Sidebar = () => {
+const VDsidebar = () => {
   const [open, setOpen] = useState(false);
 
   const signOutUser = () => {
@@ -37,24 +37,26 @@ const Sidebar = () => {
             <a href="/">
               <div>Home</div>
             </a>
-
-            <br/>
-
-            <a href="/vd/login">
-              <div>User Login</div>
+            <a href="/vd/welcome">
+              <div>Welcome</div>
             </a>
-            <a href="/vd/signup">
-              <div>User Sign Up</div>
+            <a href="/vd/summary">
+              <div>Summary</div>
             </a>
-
-            <br/>
-            
-            <a href="/np/login">
-              <div>Org Login</div>
+            <a href="/vd/donor">
+              <div>Donate</div>
             </a>
-            <a href="/np/signup">
-              <div>Org Sign Up</div>
+            <a href="/vd/volunteer">
+              <div>Volunteer</div>
             </a>
+            <a href="/vd/profile">
+              <div>Profile</div>
+            </a>
+            <button onClick={signOutUser}>
+              <a href="/">
+                <div>Sign Out</div>
+              </a>
+            </button>
           </h1>
         </div>
         <ul className="pt-6">
@@ -67,5 +69,5 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default VDsidebar;
 
