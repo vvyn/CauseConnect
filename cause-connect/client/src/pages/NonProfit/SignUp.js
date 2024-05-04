@@ -444,7 +444,7 @@ export default function Signup_NP() {
                 }}
                 IconComponent={ExpandMoreSharpIcon}
               >
-                <MenuItem value={"Women's Issues"}>Food</MenuItem>
+                <MenuItem value={"Food"}>Food</MenuItem>
                 <MenuItem value={"Healthcare"}>Healthcare</MenuItem>
                 <MenuItem value={"Environment"}>Environment</MenuItem>
                 <MenuItem value={"Humanitarian Aid"}>Humanitarian Aid</MenuItem>
