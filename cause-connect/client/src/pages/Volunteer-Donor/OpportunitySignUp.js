@@ -11,6 +11,7 @@ import {
   getDocs,
   doc,
   updateDoc,
+  getDoc
 } from "firebase/firestore";
 
 const OpportunitySignUp = () => {
@@ -50,26 +51,51 @@ const OpportunitySignUp = () => {
     });
   }, []);
 
+  
+
   const updateSignUpStatus = () => {
-    if (availableSpots > 0) {
-      const updatedSpots = availableSpots - 1;
-      setAvailableSpots(updatedSpots);
 
-      const opportunityRef = doc(db, "volunteerPosting", opportunity.id);
-      const userRef = doc(db, "users", userDocs.id);
+    const opportunityRef = doc(db, "volunteerPosting", opportunity.id);
+    const userRef = doc(db, "users", userDocs.id);
 
-      try {
-        updateDoc(opportunityRef, { availableSlots: updatedSpots });
-        updateDoc(userRef, { volunteerSummary: arrayUnion(opportunity.id) });
-        setSignUpStatus("Successfully signed up!");
-      } catch (error) {
-        console.error("Error updating available slots:", error);
-        setSignUpStatus("Failed to sign up. Please try again.");
+    async function checkSignUps(){
+      console.log("in check");
+      console.log("user id:" + userDocs.id);
+      const volunteerPost = await getDoc(opportunityRef);
+      if (volunteerPost.exists()) {
+        let signUpsArr = volunteerPost.data().signups;
+        console.log("sign ups:" + signUpsArr);
+        if(signUpsArr && signUpsArr.includes(userDocs.id)){
+          console.log("user signed up");
+          return false;
+        } else {
+          console.log("user not signed up");
+          return true;
+        }
       }
+    }
+
+    if(checkSignUps() === true){
+      if(availableSpots > 0){
+        const updatedSpots = availableSpots - 1;
+        setAvailableSpots(updatedSpots);
+        try {
+          updateDoc(opportunityRef, { availableSlots: updatedSpots, signups: arrayUnion(userDocs.id)});
+          updateDoc(userRef, { volunteerSummary: arrayUnion(opportunity.id) });
+          setSignUpStatus("Successfully signed up!");
+        } catch (error) {
+          console.error("Error updating available slots:", error);
+          setSignUpStatus("Failed to sign up. Please try again.");
+        }
+      } else {
+        setSignUpStatus("Sorry, there are no spots available.");
+      }
+      
     } else {
-      setSignUpStatus("Sorry, there are no spots available.");
+      setSignUpStatus("You've already signed up!");
     }
   };
+  
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
