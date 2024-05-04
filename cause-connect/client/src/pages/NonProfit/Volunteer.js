@@ -221,7 +221,7 @@ const VolunteerPostings = () => {
       hours: '', 
       description: '', 
       spots: '', 
-      totalSpots: '' 
+      totalSpots: '', 
     });
     setEditMode(true);
   };  
@@ -310,7 +310,7 @@ const VolunteerPostings = () => {
           endTime: formattedEndTime,
           totalSpots: selectedPosting.totalSpots, 
           availableSlots: selectedPosting.totalSpots,
-          signups: [""]
+          signups: []
         });
       }
 

@@ -24,6 +24,7 @@ const OpportunitySignUp = () => {
     opportunity.availableSlots
   );
   const [userDocs, setUserDocs] = useState(null);
+  const [checkVal, setCheckVal] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -62,20 +63,25 @@ const OpportunitySignUp = () => {
       const volunteerPost = await getDoc(opportunityRef);
       if (volunteerPost.exists()) {
         let signUpsArr = volunteerPost.data().signups;
-        if(signUpsArr && signUpsArr.includes(userDocs.id)){
-          return false;
+        if(signUpsArr.includes(userDocs.id) && signUpsArr.length !== 0){
+          console.log("sign up arr:" + signUpsArr);
+          setCheckVal(false);
         } else {
-          return true;
+          console.log("new user");
+          console.log("userid:" + userDocs.id);
+          setCheckVal(true);
         }
       }
     }
-
-    if(checkSignUps() === true){
+    checkSignUps();
+    if(checkVal){
+      console.log("new user2");
       if(availableSpots > 0){
+        console.log("new user3");
         const updatedSpots = availableSpots - 1;
         setAvailableSpots(updatedSpots);
         try {
-          updateDoc(opportunityRef, { availableSlots: availableSpots, signups: arrayUnion(userDocs.id)});
+          updateDoc(opportunityRef, { availableSlots: updatedSpots, signups: arrayUnion(userDocs.id)});
           updateDoc(userRef, { volunteerSummary: arrayUnion(opportunity.id) });
           setSignUpStatus("Successfully signed up!");
         } catch (error) {
