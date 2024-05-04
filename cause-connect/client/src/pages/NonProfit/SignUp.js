@@ -30,7 +30,7 @@ export default function Signup_NP() {
 
   const storage = getStorage();
   const signup = async () => {
-    if(!(registerOrganizationName && validEmail && validNumber &&  registerPassword /*validPassword*/ && validURL && registerNonProfitStatus && registerState && registerCity && validZip && registerCause)) {
+    if(!(registerOrganizationName && validEmail && validNumber &&  validPassword && validURL && registerNonProfitStatus && registerState && registerCity && validZip && registerCause)) {
       alert("Please fill out all required fields!\nPassword Requirements:\nMinimum 8 characters\nAt least 1 Uppercase letter\nAt least 1 Lowercase letter\nAt least 1 Number\nAt least 1 Special character (@, $, !, %, *, ?, &)");
     } else {
       try {
@@ -131,18 +131,18 @@ export default function Signup_NP() {
     });
   }
 
-  // const password = document.querySelector("input[name='password']");
-  // if(password) {
-  //   password.addEventListener("blur", (event) => {
-  //     if(!validatePassword(event.target.value)) {
-  //       event.target.style.background = "pink";
-  //       setValidPassword(false);
-  //     } else {
-  //       event.target.style.background = "";
-  //       setValidPassword(true);
-  //     }
-  //   });
-  // }
+  const password = document.querySelector("input[name='password']");
+  if(password) {
+    password.addEventListener("blur", (event) => {
+      if(!validatePassword(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidPassword(false);
+      } else {
+        event.target.style.background = "";
+        setValidPassword(true);
+      }
+    });
+  }
   const number = document.querySelector("input[name='phone']");
   if(number) {
     number.addEventListener("blur", (event) => {
