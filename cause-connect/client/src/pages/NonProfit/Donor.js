@@ -198,7 +198,7 @@ const DonationPostings = () => {
           <form>
             <TextField required label="Title" value={selectedPosting ? selectedPosting.title : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'title')} />
             <FormControl required style={{ width: '210px'}} margin="normal">
-              <InputLabel id="donaType">donaType</InputLabel>
+              <InputLabel id="donaType">Cause Type</InputLabel>
               <Select
                 labelId="donaType"
                 value={selectedPosting ? selectedPosting.donaType : ''}
@@ -221,17 +221,6 @@ const DonationPostings = () => {
         </div>
       ) : selectedPosting ? (
         <div style ={{ paddingLeft: '23px' }}>
-          <PageTitle style={{ paddingLeft: '0px' }}>Volunteer Activity Details</PageTitle>
-          <Typography variant="h5"><strong>{selectedPosting.title}</strong></Typography>
-          <Typography variant="subtitle1"><strong>Location:</strong> {selectedPosting.location}</Typography>
-          <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
-          <Typography variant="body1"><strong>Description:</strong> {selectedPosting.description}</Typography>
-          <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white', marginTop: '20px', marginBottom: '20px' }} onClick={handleEdit}>
-            Edit Info
-          </Button>
-          <Button variant="outlined" style={{ marginTop: '20px' }} onClick={() => setSelectedPosting(null)}>
-            Go Back
-          </Button>
         </div>
         ) : (
           <>

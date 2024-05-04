@@ -310,6 +310,7 @@ const VolunteerPostings = () => {
           endTime: formattedEndTime,
           totalSpots: selectedPosting.totalSpots, 
           availableSlots: selectedPosting.totalSpots,
+          signups: []
         });
       }
 
@@ -343,8 +344,6 @@ const VolunteerPostings = () => {
     console.log("User removed from signups and posting removed from volunteerSummary: ", userId);
   };
   
-  
-
   return (
     <PageLayout>
     <div>
