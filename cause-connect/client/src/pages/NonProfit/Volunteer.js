@@ -221,7 +221,7 @@ const VolunteerPostings = () => {
       hours: '', 
       description: '', 
       spots: '', 
-      totalSpots: '' 
+      totalSpots: '', 
     });
     setEditMode(true);
   };  
