@@ -59,17 +59,12 @@ const OpportunitySignUp = () => {
     const userRef = doc(db, "users", userDocs.id);
 
     async function checkSignUps(){
-      console.log("in check");
-      console.log("user id:" + userDocs.id);
       const volunteerPost = await getDoc(opportunityRef);
       if (volunteerPost.exists()) {
         let signUpsArr = volunteerPost.data().signups;
-        console.log("sign ups:" + signUpsArr);
         if(signUpsArr && signUpsArr.includes(userDocs.id)){
-          console.log("user signed up");
           return false;
         } else {
-          console.log("user not signed up");
           return true;
         }
       }
