@@ -250,14 +250,10 @@ const Volunteer = () => {
                 </p>
                 <p>{opportunity.description}</p>
                 <p className="vol-spots">
-                  {opportunity.availableSlots} out of {opportunity.totalSpots}{" "}
-                  spots open
+                  {opportunity.availableSlots} out of {opportunity.totalSpots}{" "}spots open
                 </p>
               </div>
-              <Link
-                to={`opportunitySignUp/${opportunity.id}`}
-                state={{ opportunity: opportunity }}
-              >
+              <Link to={`opportunitySignUp/${opportunity.id}`} state={{ opportunity: opportunity }}>
                 <button className="vol-signup-button">Sign up</button>
               </Link>
             </div>
