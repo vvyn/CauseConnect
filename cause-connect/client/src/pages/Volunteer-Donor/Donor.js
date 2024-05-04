@@ -37,16 +37,16 @@ const FilterPanel = ({ onApplyFilter, onResetFilters }) => {
   };
 
   const donaTypes = [
-    "food",
-    "healthcare",
-    "environment",
-    "humanitarian aid",
-    "animals",
-    "education",
-    "religious",
-    "library",
-    "youth",
-    "other",
+    "Food",
+    "Healthcare",
+    "Environment",
+    "Humanitarian aid",
+    "Animals",
+    "Education",
+    "Religious",
+    "Library",
+    "Youth",
+    "Other",
   ];
 
   return (
