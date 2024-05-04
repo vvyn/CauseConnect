@@ -75,7 +75,7 @@ const OpportunitySignUp = () => {
         const updatedSpots = availableSpots - 1;
         setAvailableSpots(updatedSpots);
         try {
-          updateDoc(opportunityRef, { availableSlots: updatedSpots, signups: arrayUnion(userDocs.id)});
+          updateDoc(opportunityRef, { availableSlots: availableSpots, signups: arrayUnion(userDocs.id)});
           updateDoc(userRef, { volunteerSummary: arrayUnion(opportunity.id) });
           setSignUpStatus("Successfully signed up!");
         } catch (error) {
