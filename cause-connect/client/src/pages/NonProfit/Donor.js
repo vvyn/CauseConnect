@@ -198,7 +198,7 @@ const DonationPostings = () => {
           <form>
             <TextField required label="Title" value={selectedPosting ? selectedPosting.title : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'title')} />
             <FormControl required style={{ width: '210px'}} margin="normal">
-              <InputLabel id="donaType">donaType</InputLabel>
+              <InputLabel id="donaType">Cause Type</InputLabel>
               <Select
                 labelId="donaType"
                 value={selectedPosting ? selectedPosting.donaType : ''}
