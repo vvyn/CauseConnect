@@ -22,7 +22,7 @@ export default function Signup_VD() {
 
 
   const signup = async () => {
-    if(!(registerFirstName && registerLastName && validEmail && validNumber &&  registerPassword /*validPassword*/ && registerPhotoID && validGoal)) {
+    if(!(registerFirstName && registerLastName && validEmail && validNumber &&  validPassword && registerPhotoID && validGoal)) {
       alert("Please fill out all required fields!\nPassword Requirements:\nMinimum 8 characters\nAt least 1 Uppercase letter\nAt least 1 Lowercase letter\nAt least 1 Number\nAt least 1 Special character (@, $, !, %, *, ?, &)");
     } else {
       try {
@@ -37,6 +37,8 @@ export default function Signup_VD() {
           email: registerEmail,
           phoneNumber: registerPhoneNumber,
           volunteerGoal: registerGoal,
+          volunteerSummary: [],
+          donationSummary: [],
           role: "vd",
         };
         const docRef = await addDoc(collection(db, "users"), user);
@@ -96,18 +98,18 @@ export default function Signup_VD() {
     });
   }
 
-  // const password = document.querySelector("input[name='password']");
-  // if(password) {
-  //   password.addEventListener("blur", (event) => {
-  //     if(!validatePassword(event.target.value)) {
-  //       event.target.style.background = "pink";
-  //       setValidPassword(false);
-  //     } else {
-  //       event.target.style.background = "";
-  //       setValidPassword(true);
-  //     }
-  //   });
-  // }
+  const password = document.querySelector("input[name='password']");
+  if(password) {
+    password.addEventListener("blur", (event) => {
+      if(!validatePassword(event.target.value)) {
+        event.target.style.background = "pink";
+        setValidPassword(false);
+      } else {
+        event.target.style.background = "";
+        setValidPassword(true);
+      }
+    });
+  }
 
   const number = document.querySelector("input[name='phone']");
   if(number) {
