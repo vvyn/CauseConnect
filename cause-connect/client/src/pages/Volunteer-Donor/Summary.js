@@ -82,7 +82,9 @@ export default function Summary() {
         let progressPercentage = (totalHours / goal) * 100;
         setGoalProgress(progressPercentage);
 
-        if (progressPercentage === 100) {
+        if (progressPercentage >= 100) {
+          progressPercentage = 100;
+          setGoalProgress(progressPercentage);
           setDisplayMessage("Congratulations! You've met your goal!");
         } else if (progressPercentage > 0){
           setDisplayMessage("Hooray! You've made progress towards your goal of " + curGoal + " hours!");

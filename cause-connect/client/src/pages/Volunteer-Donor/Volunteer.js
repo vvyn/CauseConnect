@@ -236,7 +236,7 @@ const Volunteer = () => {
                 <div className="vol-wrapper">
                   <p className="vol-location">{opportunity.locationName}</p>
                   <p className="vol-city-state">
-                    {capitalizeWords(opportunity.city)}, {opportunity.state}
+                    {capitalizeWords(opportunity.city)}, {opportunity.state.toUpperCase()}
                   </p>
                 </div>
 
@@ -250,14 +250,10 @@ const Volunteer = () => {
                 </p>
                 <p>{opportunity.description}</p>
                 <p className="vol-spots">
-                  {opportunity.availableSlots} out of {opportunity.totalSpots}{" "}
-                  spots open
+                  {opportunity.availableSlots} out of {opportunity.totalSpots}{" "}spots open
                 </p>
               </div>
-              <Link
-                to={`opportunitySignUp/${opportunity.id}`}
-                state={{ opportunity: opportunity }}
-              >
+              <Link to={`opportunitySignUp/${opportunity.id}`} state={{ opportunity: opportunity }}>
                 <button className="vol-signup-button">Sign up</button>
               </Link>
             </div>

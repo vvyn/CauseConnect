@@ -100,12 +100,19 @@ const RemoveButton = styled(Button)({
   },
 });
 
+function capitalizeWords(input) {
+  return input
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
 const VolunteerPostingCard = ({ title, location, city, state, date, time, endTime, description, spots, totalSpots, onViewEdit }) => (
   <CustomCard>
     <CardContent>
       <Typography variant="h5" component="div" style={{ color: '#ffa600'}}>{title}</Typography>
       <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{location}</Typography>
-      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{city}, {state}</Typography>
+      <Typography variant="subtitle1" component="div" style={{ color: '#ffa600' }}>{capitalizeWords(city)}, {state.toUpperCase()}</Typography>
       <Typography variant="body1" style={{ marginTop: '20px' }}><span style={{ fontWeight: 'bold' }}>Date:</span> {date}</Typography>
       <Typography variant="body1" style={{ marginTop: '20px' }}><span style={{ fontWeight: 'bold' }}>Time:</span> {time} - {endTime}</Typography>
       <Typography variant="body2" style={{ marginTop: '20px' }}>{description}</Typography>
@@ -276,7 +283,7 @@ const VolunteerPostings = () => {
           causeType: selectedPosting.causeType,
           locationAddr: selectedPosting.address,
           locationName: selectedPosting.location,
-          city: selectedPosting.city,
+          city: capitalizeWords(selectedPosting.city),
           state: selectedPosting.state,
           zipcode: selectedPosting.zipCode,
           date: selectedPosting.date,
@@ -293,7 +300,7 @@ const VolunteerPostings = () => {
           causeType: selectedPosting.causeType,
           locationAddr: selectedPosting.address,
           locationName: selectedPosting.location,
-          city: selectedPosting.city,
+          city: capitalizeWords(selectedPosting.city),
           state: selectedPosting.state,
           zipcode: selectedPosting.zipCode,
           date: selectedPosting.date,
@@ -361,8 +368,8 @@ const VolunteerPostings = () => {
             </FormControl>
             <TextField required label="Location" value={selectedPosting ? selectedPosting.location : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'location')} />
             <TextField required label="Address" value={selectedPosting ? selectedPosting.address : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'address')} />
-            <TextField required label="City" value={selectedPosting ? selectedPosting.city : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
-            <TextField required label="State (Abbreviation only)" value={selectedPosting ? selectedPosting.state : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
+            <TextField required label="City" value={selectedPosting ? capitalizeWords(selectedPosting.city) : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'city')} />
+            <TextField required label="State (Abbreviation only)" value={selectedPosting ? selectedPosting.state.toUpperCase() : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'state')} />
             <TextField required label="Zip Code" value={selectedPosting ? selectedPosting.zipCode : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'zipCode')} />
             <TextField required label="Date" type="date" value={selectedPosting ? selectedPosting.date : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'date')} InputLabelProps={{ shrink: true,}}/>
             <TextField required label="Start Time" type="time" value={selectedPosting ? selectedPosting.time : ''} style={{ width: '500px', display: 'block' }} margin="normal" onChange={e => handleChange(e, 'time')} InputLabelProps={{ shrink: true,}}/>
@@ -379,7 +386,7 @@ const VolunteerPostings = () => {
           <PageTitle style={{ paddingLeft: '0px' }}>Volunteer Activity Details</PageTitle>
           <Typography variant="h5"><strong>{selectedPosting.title}</strong></Typography>
           <Typography variant="subtitle1"><strong>Location:</strong> {selectedPosting.location}</Typography>
-          <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? selectedPosting.city + ', ' : ''}${selectedPosting.state ? selectedPosting.state + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
+          <Typography variant="body1"><strong>Address:</strong> {`${selectedPosting.address ? selectedPosting.address + ', ' : ''}${selectedPosting.city ? capitalizeWords(selectedPosting.city) + ', ' : ''}${selectedPosting.state ? selectedPosting.state.toUpperCase() + ', ' : ''}${selectedPosting.zipCode ? selectedPosting.zipCode : ''}`}</Typography>
           <Typography variant="body1"><strong>Date:</strong> {selectedPosting.date}</Typography>
           <Typography variant="body1"><strong>Time:</strong> {selectedPosting.time} - {selectedPosting.endTime}</Typography>
           <Typography variant="body1"><strong>Hour(s):</strong> {selectedPosting.hours}</Typography>
