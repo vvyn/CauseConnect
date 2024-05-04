@@ -38,6 +38,8 @@ export default function Signup_VD() {
           phoneNumber: registerPhoneNumber,
           volunteerGoal: registerGoal,
           role: "vd",
+          volunteerSummary: [],
+          donationSummary: [],
         };
         const docRef = await addDoc(collection(db, "users"), user);
         const fileElement = document.getElementById("upload");
