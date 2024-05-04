@@ -189,7 +189,7 @@ const Donor = () => {
                 to={`donationDetails/${opportunity.id}`}
                 state={{ opportunity: opportunity }}
               >
-                <button className="donate-button" onClick={updateDonors}>Donate here</button>
+                <button className="donate-button">Donate here</button>
               </Link>
             </div>
           ))}
