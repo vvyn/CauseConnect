@@ -337,8 +337,6 @@ const VolunteerPostings = () => {
     console.log("User removed from signups and posting removed from volunteerSummary: ", userId);
   };
   
-  
-
   return (
     <PageLayout>
     <div>
